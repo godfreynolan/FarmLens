@@ -6,7 +6,6 @@ DerivedData/
 xcuserdata/
 
 Pods/
-Podfile.lock
 
 *.hmap
 *.ipa
