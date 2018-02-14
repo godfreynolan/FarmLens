@@ -1,2 +1,14 @@
-Pods
+.DS_Store
+
+build/
+DerivedData/
+
+xcuserdata/
+
+Pods/
 Podfile.lock
+
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
