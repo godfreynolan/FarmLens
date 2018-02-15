@@ -1,9 +1,5 @@
 //
 //  StartupViewController.swift
-//  DJISDKSwiftDemo
-//
-//  Created by DJI on 11/13/15.
-//  Copyright © 2015 DJI. All rights reserved.
 //
 
 import UIKit
@@ -25,7 +21,7 @@ class StartupViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard let connectedKey = DJIProductKey(param: DJIParamConnection) else {
-            NSLog("Error creating the connectedKey")
+            print("Error creating the connectedKey")
             return;
         }
         
@@ -59,6 +55,9 @@ class StartupViewController: UIViewController {
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.present(segue.destination, animated: true, completion: nil)
+    }
     
     func resetUI() {
         self.title = "FarmLens"
@@ -80,7 +79,7 @@ class StartupViewController: UIViewController {
     
     func productConnected() {
         guard let newProduct = DJISDKManager.product() else {
-            NSLog("Product is connected but DJISDKManager.product is nil -> something is wrong")
+            print("Product is connected but DJISDKManager.product is nil -> something is wrong")
             return;
         }
 
@@ -96,7 +95,7 @@ class StartupViewController: UIViewController {
         
         self.imgDrone.image = UIImage(named: "DroneConnected")
         
-        NSLog("Product Connected")
+        print("Product Connected")
     }
     
     func productDisconnected() {
@@ -106,6 +105,6 @@ class StartupViewController: UIViewController {
         self.openComponents.alpha = 0.8;
         
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
-        NSLog("Product Disconnected")
+        print("Product Disconnected")
     }
 }
