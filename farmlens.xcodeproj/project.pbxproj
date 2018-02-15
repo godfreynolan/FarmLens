@@ -55,7 +55,7 @@
 		1898158F2034ABA800EDD95E /* farmlensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = farmlensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		189815932034ABA800EDD95E /* farmlensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = farmlensUITests.swift; sourceTree = "<group>"; };
 		189815952034ABA800EDD95E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		189815C22034BC1F00EDD95E /* farmlens-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "farmlens-Bridging-Header.h"; sourceTree = "<group>"; };
+		189815C22034BC1F00EDD95E /* farmlens-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "farmlens-Bridging-Header.h"; sourceTree = "<group>"; };
 		189815C32034BC1F00EDD95E /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stitching.cpp; sourceTree = "<group>"; };
 		189815C42034BC1F00EDD95E /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		189815C52034BC1F00EDD95E /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stitching.h; sourceTree = "<group>"; };
