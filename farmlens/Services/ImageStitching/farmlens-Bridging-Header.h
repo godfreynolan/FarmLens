@@ -5,8 +5,8 @@
 #ifndef CVOpenTemplate_Header_h
 #define CVOpenTemplate_Header_h
 
-#include <opencv2/opencv.hpp>
+//#include <opencv2/opencv.hpp>
 
-cv::Mat stitch (std::vector <cv::Mat> & images);
+//cv::Mat stitch (std::vector <cv::Mat> & images);
 
 #endif

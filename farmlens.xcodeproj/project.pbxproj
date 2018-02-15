@@ -704,7 +704,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYG5XF554D;
-				INFOPLIST_FILE = farmlens/Info.plist;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/farmlens/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -723,7 +724,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DYG5XF554D;
-				INFOPLIST_FILE = farmlens/Info.plist;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/farmlens/App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
 				PRODUCT_NAME = "$(TARGET_NAME)";

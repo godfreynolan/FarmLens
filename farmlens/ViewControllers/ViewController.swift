@@ -27,7 +27,6 @@ class ViewController: UIViewController, DJISDKManagerDelegate {
         let okAction = UIAlertAction.init(title:"OK", style: UIAlertActionStyle.default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
-        
     }
     
     func appRegisteredWithError(_ error: Error?) {
