@@ -6,6 +6,7 @@ DerivedData/
 xcuserdata/
 
 Pods/
+/FarmLens/Pods/
 
 *.hmap
 *.ipa

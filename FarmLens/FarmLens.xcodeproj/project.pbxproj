@@ -1,0 +1,613 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */; };
+		18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A22036133D00D2DE38 /* CVWrapper.mm */; };
+		18C178A82036133D00D2DE38 /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A32036133D00D2DE38 /* stitching.cpp */; };
+		18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A42036133D00D2DE38 /* UIImage+Rotate.m */; };
+		A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; };
+		A435F2181E8BD6CA00D58045 /* VideoPreviewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
+		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
+		A4DB95A31FEAAD4500F405CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */; };
+		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
+		A4DB95A61FEAAD4500F405CA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95961FEAAD4500F405CA /* Info.plist */; };
+		A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */; };
+		A4DB95A81FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959A1FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift */; };
+		A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */; };
+		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
+		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
+		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
+		B06EA971D6515087DA6C15DE /* libPods-DJISDKSwiftDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A435F2151E8BD6BF00D58045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02A543FD1C3C51CB0083C11B;
+			remoteInfo = VideoPreviewer;
+		};
+		A435F2191E8BD6CA00D58045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02A543FC1C3C51CB0083C11B;
+			remoteInfo = VideoPreviewer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		86985DA41E8356C600577EC7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A435F2181E8BD6CA00D58045 /* VideoPreviewer.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJISDKSwiftDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
+		18C1789D2036133C00D2DE38 /* FarmLens-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FarmLens-Bridging-Header.h"; sourceTree = "<group>"; };
+		18C1789E2036133D00D2DE38 /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stitching.h; sourceTree = "<group>"; };
+		18C1789F2036133D00D2DE38 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		18C178A12036133D00D2DE38 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
+		18C178A22036133D00D2DE38 /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
+		18C178A32036133D00D2DE38 /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stitching.cpp; sourceTree = "<group>"; };
+		18C178A42036133D00D2DE38 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
+		18C178A52036133D00D2DE38 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
+		4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJISDKSwiftDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		86985CC91E834EC200577EC7 /* DJISDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJISDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
+		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A4DB95921FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A4DB95941FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A4DB95961FEAAD4500F405CA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedInterfaceViewController.swift; sourceTree = "<group>"; };
+		A4DB959A1FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineElementCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineMissionViewController.swift; sourceTree = "<group>"; };
+		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
+		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
+		BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJISDKSwiftDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		86985CC61E834EC200577EC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */,
+				B06EA971D6515087DA6C15DE /* libPods-DJISDKSwiftDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B6F263FBC093B7B6FB6EF51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */,
+				BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		18BDBCF820360FA700CD1D59 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		18BDBCF920360FAE00CD1D59 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */,
+				A4DB95931FEAAD4500F405CA /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18BDBCFA20360FBC00CD1D59 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		18BDBCFB20360FD900CD1D59 /* DJI */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB95971FEAAD4500F405CA /* KeyedInterfaces */,
+				A4DB95991FEAAD4500F405CA /* Missions */,
+				A4DB959C1FEAAD4500F405CA /* Services */,
+				A4DB959F1FEAAD4500F405CA /* UIObjects */,
+			);
+			path = DJI;
+			sourceTree = "<group>";
+		};
+		18BDBCFC20360FE900CD1D59 /* ImageStitch */ = {
+			isa = PBXGroup;
+			children = (
+				18C178A12036133D00D2DE38 /* CVWrapper.h */,
+				18C178A22036133D00D2DE38 /* CVWrapper.mm */,
+				18C178A32036133D00D2DE38 /* stitching.cpp */,
+				18C1789E2036133D00D2DE38 /* stitching.h */,
+				18C1789F2036133D00D2DE38 /* UIImage+OpenCV.h */,
+				18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */,
+				18C178A52036133D00D2DE38 /* UIImage+Rotate.h */,
+				18C178A42036133D00D2DE38 /* UIImage+Rotate.m */,
+				18C1789D2036133C00D2DE38 /* FarmLens-Bridging-Header.h */,
+			);
+			path = ImageStitch;
+			sourceTree = "<group>";
+		};
+		86985CC01E834EC200577EC7 = {
+			isa = PBXGroup;
+			children = (
+				A4DB958E1FEAAD4500F405CA /* FarmLens */,
+				86985CCA1E834EC200577EC7 /* Products */,
+				C0C7419B2667BCEE0BB6C689 /* Pods */,
+				0B6F263FBC093B7B6FB6EF51 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		86985CCA1E834EC200577EC7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86985CC91E834EC200577EC7 /* DJISDKSwiftDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A435F2121E8BD6BF00D58045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
+			isa = PBXGroup;
+			children = (
+				18BDBCF820360FA700CD1D59 /* App */,
+				18BDBCF920360FAE00CD1D59 /* View */,
+				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
+				18BDBCFB20360FD900CD1D59 /* DJI */,
+				18BDBCFC20360FE900CD1D59 /* ImageStitch */,
+				A4DB95901FEAAD4500F405CA /* Assets.xcassets */,
+				A4DB95961FEAAD4500F405CA /* Info.plist */,
+			);
+			path = FarmLens;
+			sourceTree = "<group>";
+		};
+		A4DB95971FEAAD4500F405CA /* KeyedInterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */,
+			);
+			path = KeyedInterfaces;
+			sourceTree = "<group>";
+		};
+		A4DB95991FEAAD4500F405CA /* Missions */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB959A1FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift */,
+				A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */,
+			);
+			path = Missions;
+			sourceTree = "<group>";
+		};
+		A4DB959C1FEAAD4500F405CA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A4DB959F1FEAAD4500F405CA /* UIObjects */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */,
+			);
+			path = UIObjects;
+			sourceTree = "<group>";
+		};
+		C0C7419B2667BCEE0BB6C689 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */,
+				128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		86985CC81E834EC200577EC7 /* DJISDKSwiftDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 86985CDD1E834EC200577EC7 /* Build configuration list for PBXNativeTarget "DJISDKSwiftDemo" */;
+			buildPhases = (
+				A23089ACBCAB63BE42DAD2F1 /* [CP] Check Pods Manifest.lock */,
+				86985CC51E834EC200577EC7 /* Sources */,
+				86985CC61E834EC200577EC7 /* Frameworks */,
+				86985CC71E834EC200577EC7 /* Resources */,
+				86985DA41E8356C600577EC7 /* Embed Frameworks */,
+				8A68B323F021A127CDC7173C /* [CP] Embed Pods Frameworks */,
+				7483B5029B3A2172B51AD3FB /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A435F21A1E8BD6CA00D58045 /* PBXTargetDependency */,
+			);
+			name = DJISDKSwiftDemo;
+			productName = "SDK Swift Sample";
+			productReference = 86985CC91E834EC200577EC7 /* DJISDKSwiftDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		86985CC11E834EC200577EC7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = DJI;
+				TargetAttributes = {
+					86985CC81E834EC200577EC7 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = DYG5XF554D;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 86985CC41E834EC200577EC7 /* Build configuration list for PBXProject "FarmLens" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 86985CC01E834EC200577EC7;
+			productRefGroup = 86985CCA1E834EC200577EC7 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A435F2121E8BD6BF00D58045 /* Products */;
+					ProjectRef = A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				86985CC81E834EC200577EC7 /* DJISDKSwiftDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = VideoPreviewer.framework;
+			remoteRef = A435F2151E8BD6BF00D58045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		86985CC71E834EC200577EC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4DB95A61FEAAD4500F405CA /* Info.plist in Resources */,
+				A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */,
+				A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */,
+				A4DB95A31FEAAD4500F405CA /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7483B5029B3A2172B51AD3FB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8A68B323F021A127CDC7173C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo-frameworks.sh",
+				"${PODS_ROOT}/DJI-SDK-iOS/iOS_Mobile_SDK/DJISDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DJISDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A23089ACBCAB63BE42DAD2F1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DJISDKSwiftDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		86985CC51E834EC200577EC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */,
+				18C178A82036133D00D2DE38 /* stitching.cpp in Sources */,
+				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
+				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
+				18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */,
+				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
+				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
+				A4DB95A81FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift in Sources */,
+				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
+				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
+				A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A435F21A1E8BD6CA00D58045 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VideoPreviewer;
+			targetProxy = A435F2191E8BD6CA00D58045 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A4DB95921FEAAD4500F405CA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A4DB95931FEAAD4500F405CA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A4DB95941FEAAD4500F405CA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		86985CDB1E834EC200577EC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		86985CDC1E834EC200577EC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		86985CDE1E834EC200577EC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = DYG5XF554D;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../VideoPreviewer",
+				);
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "$(SRCROOT)/FarmLens/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FarmLens/ImageStitch/FarmLens-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		86985CDF1E834EC200577EC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = DYG5XF554D;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/../VideoPreviewer",
+				);
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "$(SRCROOT)/FarmLens/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FarmLens/ImageStitch/FarmLens-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		86985CC41E834EC200577EC7 /* Build configuration list for PBXProject "FarmLens" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86985CDB1E834EC200577EC7 /* Debug */,
+				86985CDC1E834EC200577EC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		86985CDD1E834EC200577EC7 /* Build configuration list for PBXNativeTarget "DJISDKSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86985CDE1E834EC200577EC7 /* Debug */,
+				86985CDF1E834EC200577EC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 86985CC11E834EC200577EC7 /* Project object */;
+}
