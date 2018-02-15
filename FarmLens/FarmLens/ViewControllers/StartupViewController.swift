@@ -62,7 +62,6 @@ class StartupViewController: UIViewController {
     func resetUI() {
         self.title = "FarmLens"
         self.openComponents.isEnabled = false;
-        self.productModel.isHidden = true
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
     }
     
@@ -85,7 +84,6 @@ class StartupViewController: UIViewController {
 
         //Updates the product's model
         self.productModel.text = "Model: \((newProduct.model)!)"
-        self.productModel.isHidden = false
         
         //Updates the product's connection status
         self.productConnectionStatus.text = "Status: Product Connected"
@@ -100,6 +98,8 @@ class StartupViewController: UIViewController {
     
     func productDisconnected() {
         self.productConnectionStatus.text = "Status: No Product Connected"
+        
+        self.productModel.text = "Model: Not Available"
 
         self.openComponents.isEnabled = false;
         self.openComponents.alpha = 0.8;

@@ -292,7 +292,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
             let error = DJISDKManager.missionControl()?.scheduleElement(element)
             
             if error != nil {
-                NSLog("Error scheduling element \(error)")
+                print("Error scheduling element \(String(describing: error))")
                 return;
             }
             

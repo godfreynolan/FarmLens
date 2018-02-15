@@ -68,7 +68,6 @@
 		18C178A42036133D00D2DE38 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		18C178A52036133D00D2DE38 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
 		4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJISDKSwiftDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		86985CC91E834EC200577EC7 /* DJISDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJISDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +80,7 @@
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
-		BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DJISDKSwiftDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF8F91CD203622860019EB0F /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */,
-				BA6806BA82A93F6159B12D3F /* libPods-DJISDKSwiftDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,18 +159,10 @@
 			isa = PBXGroup;
 			children = (
 				A4DB958E1FEAAD4500F405CA /* FarmLens */,
-				86985CCA1E834EC200577EC7 /* Products */,
 				C0C7419B2667BCEE0BB6C689 /* Pods */,
 				0B6F263FBC093B7B6FB6EF51 /* Frameworks */,
+				FF8F91CD203622860019EB0F /* FarmLens.app */,
 			);
-			sourceTree = "<group>";
-		};
-		86985CCA1E834EC200577EC7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				86985CC91E834EC200577EC7 /* DJISDKSwiftDemo.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		A435F2121E8BD6BF00D58045 /* Products */ = {
@@ -242,9 +232,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		86985CC81E834EC200577EC7 /* DJISDKSwiftDemo */ = {
+		86985CC81E834EC200577EC7 /* FarmLens */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 86985CDD1E834EC200577EC7 /* Build configuration list for PBXNativeTarget "DJISDKSwiftDemo" */;
+			buildConfigurationList = 86985CDD1E834EC200577EC7 /* Build configuration list for PBXNativeTarget "FarmLens" */;
 			buildPhases = (
 				A23089ACBCAB63BE42DAD2F1 /* [CP] Check Pods Manifest.lock */,
 				86985CC51E834EC200577EC7 /* Sources */,
@@ -259,9 +249,9 @@
 			dependencies = (
 				A435F21A1E8BD6CA00D58045 /* PBXTargetDependency */,
 			);
-			name = DJISDKSwiftDemo;
+			name = FarmLens;
 			productName = "SDK Swift Sample";
-			productReference = 86985CC91E834EC200577EC7 /* DJISDKSwiftDemo.app */;
+			productReference = FF8F91CD203622860019EB0F /* FarmLens.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -291,7 +281,7 @@
 				Base,
 			);
 			mainGroup = 86985CC01E834EC200577EC7;
-			productRefGroup = 86985CCA1E834EC200577EC7 /* Products */;
+			productRefGroup = 86985CC01E834EC200577EC7;
 			projectDirPath = "";
 			projectReferences = (
 				{
@@ -301,7 +291,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				86985CC81E834EC200577EC7 /* DJISDKSwiftDemo */,
+				86985CC81E834EC200577EC7 /* FarmLens */,
 			);
 		};
 /* End PBXProject section */
@@ -606,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		86985CDD1E834EC200577EC7 /* Build configuration list for PBXNativeTarget "DJISDKSwiftDemo" */ = {
+		86985CDD1E834EC200577EC7 /* Build configuration list for PBXNativeTarget "FarmLens" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				86985CDE1E834EC200577EC7 /* Debug */,
