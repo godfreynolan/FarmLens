@@ -10,12 +10,6 @@ import UIKit
 import DJISDK
 
 class ProductCommunicationManager: NSObject {
-
-    // Set this value to true to use the app with the Bridge and false to connect directly to the product
-    let enableBridgeMode = false
-    
-    // When enableBridgeMode is set to true, set this value to the IP of your bridge app.
-    let bridgeAppIP = "10.0.1.5"
     
     func registerWithSDK() {
         let appKey = Bundle.main.object(forInfoDictionaryKey: SDK_APP_KEY_INFO_PLIST_KEY) as? String
@@ -27,20 +21,13 @@ class ProductCommunicationManager: NSObject {
         
         DJISDKManager.registerApp(with: self)
     }
-    
 }
 
 extension ProductCommunicationManager : DJISDKManagerDelegate {
     func appRegisteredWithError(_ error: Error?) {
+        print("SDK Registered with error \(error?.localizedDescription ?? "")")
         
-        NSLog("SDK Registered with error \(error?.localizedDescription)")
-        
-        if enableBridgeMode {
-            DJISDKManager.enableBridgeMode(withBridgeAppIP: bridgeAppIP)
-        } else {
-            DJISDKManager.startConnectionToProduct()
-        }
-        
+        DJISDKManager.startConnectionToProduct()
     }
     
     func productConnected(_ product: DJIBaseProduct?) {

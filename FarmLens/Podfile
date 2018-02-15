@@ -1,6 +1,6 @@
 # platform :ios, '9.0'
 
-target 'DJISDKSwiftDemo' do
+target 'FarmLens' do
    pod 'DJI-SDK-iOS', '~> 4.4'
    pod 'OpenCV', '~> 3.1.0.1'
 end
