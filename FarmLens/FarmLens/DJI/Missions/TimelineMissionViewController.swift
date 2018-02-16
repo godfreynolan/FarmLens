@@ -102,7 +102,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         
         self.mapView.addAnnotations([self.aircraftAnnotation, self.homeAnnotation])
         
-        
         if let aircarftLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation)  {
             DJISDKManager.keyManager()?.startListeningForChanges(on: aircarftLocationKey, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in
                 if newValue != nil {
@@ -114,7 +113,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
                 }
             }
         }
-        
         
         if let aircraftHeadingKey = DJIFlightControllerKey(param: DJIFlightControllerParamCompassHeading) {
             DJISDKManager.keyManager()?.startListeningForChanges(on: aircraftHeadingKey, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in

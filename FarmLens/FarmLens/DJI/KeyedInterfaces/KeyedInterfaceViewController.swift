@@ -83,6 +83,7 @@ class KeyedInterfaceViewController: UIViewController {
     
     @IBOutlet weak var listeningCoordinatesButton: UIButton!
     @IBOutlet weak var listeningCoordinatesLabel: UILabel!
+    @IBOutlet weak var altitudeLabel: UILabel!
 
     var isListening = false
     
@@ -92,7 +93,8 @@ class KeyedInterfaceViewController: UIViewController {
         if isListening {
             // At anytime, you may stop listening to a key or to all key for a given listener
             DJISDKManager.keyManager()?.stopListening(on: locationKey!, ofListener: self)
-            self.listeningCoordinatesLabel.text = "Stopped";
+            self.listeningCoordinatesLabel.text = "Stopped"
+            self.altitudeLabel.text = "Alt: Stopped"
         } else {
             // Start listening is as easy as passing a block with a key.
             // Note that start listening won't do a get. Your block will be executed
@@ -103,9 +105,12 @@ class KeyedInterfaceViewController: UIViewController {
                     let aircraftCoordinates = newValue!.value! as! CLLocation
                     
                     self.listeningCoordinatesLabel.text = "Lat: \(aircraftCoordinates.coordinate.latitude) - Long: \(aircraftCoordinates.coordinate.longitude)"
+                    
+                    self.altitudeLabel.text = "Alt: \(aircraftCoordinates.altitude)"
                 }
             })
-            self.listeningCoordinatesLabel.text = "Started...";
+            self.listeningCoordinatesLabel.text = "Started..."
+            self.altitudeLabel.text = "Alt: Started..."
         }
         
         isListening = !isListening

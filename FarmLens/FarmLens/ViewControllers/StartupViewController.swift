@@ -55,23 +55,10 @@ class StartupViewController: UIViewController {
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.present(segue.destination, animated: true, completion: nil)
-    }
-    
     func resetUI() {
         self.title = "FarmLens"
         self.openComponents.isEnabled = false;
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
-    }
-    
-    func showAlert(_ msg: String?) {
-        // create the alert
-        let alert = UIAlertController(title: "", message: msg, preferredStyle: UIAlertControllerStyle.alert)
-        // add the actions (buttons)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        // show the alert
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK : Product connection UI changes
