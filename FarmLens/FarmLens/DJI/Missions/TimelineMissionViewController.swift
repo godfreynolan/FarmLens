@@ -51,6 +51,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         self.availableElements.append(contentsOf: [.takeOff, .goTo, .goHome, .gimbalAttitude, .singleShootPhoto, .continuousShootPhoto, .recordVideoDuration, .recordVideoStart, .recordVideoStop, .waypointMission, .hotpointMission, .aircraftYaw])
         
         self.mapView.delegate = self
+        self.mapView.mapType = .hybrid // Maybe change to just satellite? Need clarification
         
         if let isSimulatorActiveKey = DJIFlightControllerKey(param: DJIFlightControllerParamIsSimulatorActive) {
             DJISDKManager.keyManager()?.startListeningForChanges(on: isSimulatorActiveKey, withListener: self, andUpdate: { (oldValue: DJIKeyedValue?, newValue : DJIKeyedValue?) in
@@ -123,6 +124,35 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     override func viewDidDisappear(_ animated: Bool) {
         DJISDKManager.missionControl()?.removeListener(self)
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
+    }
+    
+    // This is not currently used, but was proven to work.
+    func takeSinglePhoto() {
+        let camera = fetchCamera()
+        
+        if (camera != nil) {
+            camera?.setShootPhotoMode(DJICameraShootPhotoMode.single, withCompletion: {
+                (error) in DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    camera?.startShootPhoto(completion: { (error) in
+                        if (error != nil) {
+                            // Do we need an error?
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    func fetchCamera() -> DJICamera? {
+        if (DJISDKManager.product() == nil) {
+            return nil;
+        }
+        
+        if (DJISDKManager.product() is DJIAircraft) {
+            return (DJISDKManager.product() as? DJIAircraft)?.camera;
+        }
+        
+        return nil;
     }
 
     // MARK: - MKMapViewDelegate
