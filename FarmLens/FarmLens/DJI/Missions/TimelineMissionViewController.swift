@@ -1,28 +1,9 @@
 //
 //  TimelineMissionViewController.swift
-//  SDK Swift Sample
-//
-//  Created by Arnaud Thiercelin on 3/22/17.
-//  Copyright © 2017 DJI. All rights reserved.
 //
 
 import UIKit
 import DJISDK
-
-enum TimelineElementKind: String {
-    case takeOff = "Take Off"
-    case goTo = "Go To"
-    case goHome = "Go Home"
-    case gimbalAttitude = "Gimbal Attitude"
-    case singleShootPhoto = "Single Photo"
-    case continuousShootPhoto = "Continuous Photo"
-    case recordVideoDuration = "Record Duration"
-    case recordVideoStart = "Start Record"
-    case recordVideoStop = "Stop Record"
-    case waypointMission = "Waypoint Mission"
-    case hotpointMission = "Hotpoint Mission"
-    case aircraftYaw = "Aircraft Yaw"
-}
 
 class TimelineMissionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate {
 
@@ -40,6 +21,10 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
+    
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var longitudeLabel: UILabel!
+    @IBOutlet weak var altitudeLabel: UILabel!
     
     @IBOutlet weak var simulatorButton: UIButton!
 
@@ -74,13 +59,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
                 }
             })
         }
-        
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +88,10 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
                     if CLLocationCoordinate2DIsValid(newLocationValue.coordinate) {
                         self.aircraftAnnotation.coordinate = newLocationValue.coordinate
                     }
+                    
+                    self.latitudeLabel.text = String(format:"Lat: %.4f", newLocationValue.coordinate.latitude)
+                    self.longitudeLabel.text = String(format:"Long: %.4f", newLocationValue.coordinate.longitude)
+                    self.altitudeLabel.text = String(format:"Alt: %.4f", newLocationValue.altitude)
                 }
             }
         }
@@ -142,16 +124,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         DJISDKManager.missionControl()?.removeListener(self)
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: - MKMapViewDelegate
     
@@ -340,7 +312,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     
-    
     func defaultGimbalAttitudeAction() -> DJIGimbalAttitudeAction? {
         let attitude = DJIGimbalAttitude(pitch: 30.0, roll: 0.0, yaw: 0.0)
         
@@ -470,5 +441,4 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     func degreesToRadians(_ degrees: Double) -> Double {
         return Double.pi / 180 * degrees
     }
-
 }

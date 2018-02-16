@@ -23,6 +23,7 @@
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
+		FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6618942037252000A4BA5A /* TimelineElementKind.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
+		FF6618942037252000A4BA5A /* TimelineElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineElementKind.swift; sourceTree = "<group>"; };
 		FF8F91CD203622860019EB0F /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,6 +178,7 @@
 		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
 			isa = PBXGroup;
 			children = (
+				FF6618932037250000A4BA5A /* Models */,
 				18BDBCF820360FA700CD1D59 /* App */,
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
@@ -229,6 +232,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FF6618932037250000A4BA5A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF6618942037252000A4BA5A /* TimelineElementKind.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -269,6 +280,11 @@
 						DevelopmentTeam = UHDP7LK8C7;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -385,6 +401,7 @@
 				18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
+				FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */,
 				A4DB95A81FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift in Sources */,
 				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
