@@ -23,7 +23,10 @@
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
+		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
 		FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6618942037252000A4BA5A /* TimelineElementKind.swift */; };
+		FF66189720375AAD00A4BA5A /* DroneImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF66189620375AAD00A4BA5A /* DroneImageDownloader.swift */; };
+		FF661899203773FA00A4BA5A /* MediaDownloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF661898203773FA00A4BA5A /* MediaDownloadData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +84,10 @@
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
+		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		FF6618942037252000A4BA5A /* TimelineElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineElementKind.swift; sourceTree = "<group>"; };
+		FF66189620375AAD00A4BA5A /* DroneImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneImageDownloader.swift; sourceTree = "<group>"; };
+		FF661898203773FA00A4BA5A /* MediaDownloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDownloadData.swift; sourceTree = "<group>"; };
 		FF8F91CD203622860019EB0F /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -126,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
+				FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -236,6 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				FF6618942037252000A4BA5A /* TimelineElementKind.swift */,
+				FF66189620375AAD00A4BA5A /* DroneImageDownloader.swift */,
+				FF661898203773FA00A4BA5A /* MediaDownloadData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -396,13 +405,16 @@
 			files = (
 				18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */,
 				18C178A82036133D00D2DE38 /* stitching.cpp in Sources */,
+				FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
 				18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
 				FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */,
+				FF661899203773FA00A4BA5A /* MediaDownloadData.swift in Sources */,
 				A4DB95A81FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift in Sources */,
+				FF66189720375AAD00A4BA5A /* DroneImageDownloader.swift in Sources */,
 				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
 				A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */,
