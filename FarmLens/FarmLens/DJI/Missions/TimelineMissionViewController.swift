@@ -209,35 +209,31 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     }
     
     @IBAction func startSimulatorButtonAction(_ sender: Any) {
-        let downloader = DroneImageDownloader.init(camera: fetchCamera()!)
-        downloader.startMediaDownload()
-        downloader.retrieveMediaFiles()
-        
-//        guard let droneLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation) else {
-//            return
-//        }
-//
-//        guard let droneLocationValue = DJISDKManager.keyManager()?.getValueFor(droneLocationKey) else {
-//            return
-//        }
-//
-//        let droneLocation = droneLocationValue.value as! CLLocation
-//        let droneCoordinates = droneLocation.coordinate
-//
-//        if let aircraft = DJISDKManager.product() as? DJIAircraft {
-//            if self.isSimulatorActive {
-//                aircraft.flightController?.simulator?.stop(completion: nil)
-//            } else {
-//                aircraft.flightController?.simulator?.start(withLocation: droneCoordinates,
-//                                                                      updateFrequency: 30,
-//                                                                      gpsSatellitesNumber: 12,
-//                                                                      withCompletion: { (error) in
-//                    if (error != nil) {
-//                        NSLog("Start Simulator Error: \(error.debugDescription)")
-//                    }
-//                })
-//            }
-//        }
+        guard let droneLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation) else {
+            return
+        }
+
+        guard let droneLocationValue = DJISDKManager.keyManager()?.getValueFor(droneLocationKey) else {
+            return
+        }
+
+        let droneLocation = droneLocationValue.value as! CLLocation
+        let droneCoordinates = droneLocation.coordinate
+
+        if let aircraft = DJISDKManager.product() as? DJIAircraft {
+            if self.isSimulatorActive {
+                aircraft.flightController?.simulator?.stop(completion: nil)
+            } else {
+                aircraft.flightController?.simulator?.start(withLocation: droneCoordinates,
+                                                                      updateFrequency: 30,
+                                                                      gpsSatellitesNumber: 12,
+                                                                      withCompletion: { (error) in
+                    if (error != nil) {
+                        NSLog("Start Simulator Error: \(error.debugDescription)")
+                    }
+                })
+            }
+        }
     }
     
     func didStart() {
