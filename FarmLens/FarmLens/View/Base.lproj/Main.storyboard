@@ -516,7 +516,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpK-jL-7OS">
                                 <rect key="frame" x="775" y="654" width="229" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Take Picture and Download"/>
+                                <state key="normal" title="Download"/>
                                 <connections>
                                     <action selector="takePictureAndDownload:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="4A1-cY-8D8"/>
                                 </connections>

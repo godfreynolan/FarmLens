@@ -12,7 +12,8 @@ import DJISDK
 class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManagerDelegate {
     var camera: DJICamera?
     var mediaManager: DJIMediaManager?
-    var step = 0
+    var mediaDownloadList: [DJIMediaFile] = []
+    var currentDownloadIndex = 0
     
     @IBOutlet var outputLabel: UILabel!
     
@@ -33,26 +34,11 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     }
     
     @IBAction func takePictureAndDownload(_ sender: UIButton) {
-        switch step {
-        case 0:
-            retrieveMediaFiles()
-        case 1:
-            do {
-                try startImageDownload()
-            } catch {
-                log(info: error.localizedDescription)
-            }
-        default:
-            log(info: "Reset the output!")
-        }
-        
-        
         retrieveMediaFiles()
     }
     
     func resetUI() {
         outputLabel.text = "Output:"
-        step = 0
     }
     
     func fetchCamera() -> DJICamera? {
@@ -67,12 +53,12 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         return nil;
     }
     
-    func startMediaDownload() {
+    private func startMediaDownload() {
         self.camera?.setMode(.mediaDownload, withCompletion: { (error) in
             if (error != nil) {
                 self.log(info: "There were errors starting the download: " + (error?.localizedDescription)!)
             } else {
-                self.log(info: "Ready to download")
+                self.log(info: "Download ready")
             }
         })
     }
@@ -88,35 +74,13 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     func retrieveMediaFiles() {
         if (self.mediaManager?.fileListState == .syncing || self.mediaManager?.fileListState == .deleting) {
             self.log(info: "Media Manager is busy.");
-            
-            switch self.mediaManager?.fileListState {
-            case .deleting?:
-                self.log(info: "System Deleting")
-            case .syncing?:
-                self.log(info: "System Syncing")
-            case .reset?:
-                self.log(info: "System Reset")
-            case .unknown?:
-                self.log(info: "System Unknown")
-            case .upToDate?:
-                self.log(info: "System up to date?")
-            case .incomplete?:
-                self.log(info: "System incomplete?")
-            default:
-                self.log(info: "System Really Really Unknown")
-            }
         } else {
-            if (mediaManager?.fileListSnapshot() != nil) {
-                self.log(info: "Already got the files")
-                self.step = 1
-                return
-            }
-            
             self.mediaManager?.refreshFileList(completion: { (error) in
                 if (error != nil) {
                     self.log(info: "Fetch media file list failed: " + (error?.localizedDescription)!)
                 } else {
-                    self.step = 1
+                    self.log(info: "Starting download")
+                    self.startImageDownload()
                 }
             })
         }
@@ -125,37 +89,20 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     private func startImageDownload() {
         if (self.mediaManager?.fileListState != .upToDate && self.mediaManager?.fileListState != .incomplete) {
             self.log(info: "System is busy")
-            
-            switch self.mediaManager?.fileListState {
-            case .deleting?:
-                self.log(info: "System Deleting")
-            case .syncing?:
-                self.log(info: "System Syncing")
-            case .reset?:
-                self.log(info: "System Reset")
-            case .unknown?:
-                self.log(info: "System Unknown")
-            case .upToDate?:
-                self.log(info: "System up to date?")
-            case .incomplete?:
-                self.log(info: "System incomplete?")
-            default:
-                self.log(info: "System Really Really Unknown")
-            }
             return
         }
         
-        let mediaFileList = self.mediaManager?.fileListSnapshot()
+        mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
+        let listCount = mediaDownloadList.count
         
-        if (mediaFileList == nil) {
-            self.log(info: "The file list is gone?")
-            return
+        self.currentDownloadIndex = 0
+        if listCount > 5 {
+            self.currentDownloadIndex = listCount - 5
         }
         
-        let lastFile = mediaFileList?.last
-        if (lastFile != nil) {
-            self.downloadImage(file: lastFile!)
-        }
+        self.log(info: "Currently downloading file number \(self.currentDownloadIndex)")
+        
+        downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
     
     private func downloadImage(file: DJIMediaFile) {
@@ -181,9 +128,14 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             
             previousOffset += (data?.count)!;
             if (previousOffset == file.fileSizeInBytes && isComplete) {
-                self.log(info: "Finished getting the data")
-                if (isPhoto) {
-                    self.saveImage(data: mutableData!)
+                self.saveImage(data: mutableData!)
+                self.currentDownloadIndex += 1
+                
+                if (self.currentDownloadIndex < self.mediaDownloadList.count) {
+                    self.log(info: "Currently downloading file number \(self.currentDownloadIndex)")
+                    self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
+                } else {
+                    self.log(info: "All downloads complete")
                 }
             }
         })
@@ -191,12 +143,7 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     
     private func saveImage(data: Data) {
         let image = UIImage.init(data: data)
-        
-        do {
-            try UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
-        } catch {
-            self.log(info: error.localizedDescription)
-        }
+        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
     func errorSaving(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {
