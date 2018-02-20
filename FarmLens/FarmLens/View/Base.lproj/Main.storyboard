@@ -518,7 +518,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Download"/>
                                 <connections>
-                                    <action selector="takePictureAndDownload:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="4A1-cY-8D8"/>
+                                    <action selector="downloadPictures:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="mE0-J1-4Fl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mL-Kt-3eg">
+                                <rect key="frame" x="20" y="654" width="175" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Take Picture"/>
+                                <connections>
+                                    <action selector="takePicture:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="Kyh-5d-7Xl"/>
                                 </connections>
                             </button>
                         </subviews>

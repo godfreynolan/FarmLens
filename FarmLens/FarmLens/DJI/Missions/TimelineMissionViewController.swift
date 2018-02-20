@@ -127,40 +127,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         DJISDKManager.missionControl()?.removeListener(self)
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
     }
-    
-    // This is not currently used, but was proven to work.
-    func takeSinglePhoto() {
-        let camera = fetchCamera()
-        
-        if (camera != nil) {
-            camera?.setShootPhotoMode(DJICameraShootPhotoMode.single, withCompletion: {
-                (error) in DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    camera?.startShootPhoto(completion: { (error) in
-                        if (error != nil) {
-                            // Do we need an error?
-                        } else {
-                            //TODO Remove when proven it works
-                            camera?.setMode(.mediaDownload, withCompletion: {
-                                (error) in print("Success")
-                            })
-                        }
-                    })
-                }
-            })
-        }
-    }
-    
-    func fetchCamera() -> DJICamera? {
-        if (DJISDKManager.product() == nil) {
-            return nil;
-        }
-        
-        if (DJISDKManager.product() is DJIAircraft) {
-            return (DJISDKManager.product() as? DJIAircraft)?.camera;
-        }
-        
-        return nil;
-    }
 
     // MARK: - MKMapViewDelegate
     

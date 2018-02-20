@@ -25,20 +25,35 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         self.camera?.delegate = self
         self.mediaManager = self.camera?.mediaManager
         self.mediaManager?.delegate = self
-        
+    }
+    
+    @IBAction func downloadPictures(_ sender: UIButton) {
+        resetUI()
         startMediaDownload()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        endMediaDownload()
-    }
-    
-    @IBAction func takePictureAndDownload(_ sender: UIButton) {
-        retrieveMediaFiles()
+    @IBAction func takePicture(_ sender: UIButton) {
+        resetUI()
+        takeSinglePhoto()
     }
     
     func resetUI() {
         outputLabel.text = "Output:"
+    }
+    
+    // This is not currently used, but was proven to work.
+    func takeSinglePhoto() {
+        camera?.setShootPhotoMode(.single, withCompletion: {
+            (error) in DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.camera?.startShootPhoto(completion: { (error) in
+                    if (error != nil) {
+                        self.log(info: (error?.localizedDescription)!)
+                    } else {
+                        self.log(info: "Took a picture")
+                    }
+                })
+            }
+        })
     }
     
     func fetchCamera() -> DJICamera? {
@@ -59,6 +74,7 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
                 self.log(info: "There were errors starting the download: " + (error?.localizedDescription)!)
             } else {
                 self.log(info: "Download ready")
+                self.retrieveMediaFiles()
             }
         })
     }
@@ -67,6 +83,8 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         self.camera?.setMode(.shootPhoto, withCompletion: { (error) in
             if (error != nil) {
                 self.log(info: "There were errors ending the download: " + (error?.localizedDescription)!)
+            } else {
+                self.log(info: "All downloads complete")
             }
         })
     }
@@ -136,6 +154,7 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.log(info: "All downloads complete")
+                    self.endMediaDownload()
                 }
             }
         })
