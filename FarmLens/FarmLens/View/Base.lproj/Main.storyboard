@@ -139,6 +139,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Actions" id="gci-d7-ewu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pbA-wL-3Je">
+                                        <rect key="frame" x="0.0" y="172" width="1024" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pbA-wL-3Je" id="rW0-cP-V38">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take and Download Pictures" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vK8-FE-Iis">
+                                                    <rect key="frame" x="28" y="11" width="956" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vK8-FE-Iis" secondAttribute="trailing" constant="20" id="TMy-Hz-ppq"/>
+                                                <constraint firstItem="vK8-FE-Iis" firstAttribute="leading" secondItem="rW0-cP-V38" secondAttribute="leadingMargin" constant="8" id="cQW-dr-m9u"/>
+                                                <constraint firstItem="vK8-FE-Iis" firstAttribute="centerY" secondItem="rW0-cP-V38" secondAttribute="centerY" id="gev-zp-vT0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="E5c-Hv-lZS" kind="show" id="gpF-Ze-cFu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="VM8-0O-LnU" id="lUa-bg-pOI"/>
@@ -464,7 +492,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PK8-oJ-5fZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3431.8359375" y="1379.6875"/>
+            <point key="canvasLocation" x="3454" y="631"/>
+        </scene>
+        <!--Pictures View Controller-->
+        <scene sceneID="OdP-8f-kAc">
+            <objects>
+                <viewController id="E5c-Hv-lZS" customClass="PicturesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jO6-Fv-Wia"/>
+                        <viewControllerLayoutGuide type="bottom" id="LmU-wQ-7Qi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y4u-E0-Lre">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZQ-Gb-5A5">
+                                <rect key="frame" x="20" y="28" width="984" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpK-jL-7OS">
+                                <rect key="frame" x="775" y="654" width="229" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Download"/>
+                                <connections>
+                                    <action selector="takePictureAndDownload:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="4A1-cY-8D8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <connections>
+                        <outlet property="outputLabel" destination="cZQ-Gb-5A5" id="REY-Lk-9wn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VQL-pP-zf7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timeline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jdP-YU-pgq">
+                    <rect key="frame" x="0.0" y="0.0" width="956" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </objects>
+            <point key="canvasLocation" x="3453.515625" y="1401.5625"/>
         </scene>
     </scenes>
     <resources>

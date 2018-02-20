@@ -5,7 +5,7 @@
 import UIKit
 import DJISDK
 
-class TimelineMissionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate {
+class TimelineMissionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate {
 
     @IBOutlet weak var availableElementsView: UICollectionView!
     var availableElements = [TimelineElementKind]()
@@ -38,6 +38,8 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
             self.simulatorButton.titleLabel?.text = _isSimulatorActive ? "Stop Simulator" : "Start Simulator"
         }
     }
+    
+    private var mediaManager: DJIMediaManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,6 +138,11 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
                     camera?.startShootPhoto(completion: { (error) in
                         if (error != nil) {
                             // Do we need an error?
+                        } else {
+                            //TODO Remove when proven it works
+                            camera?.setMode(.mediaDownload, withCompletion: {
+                                (error) in print("Success")
+                            })
                         }
                     })
                 }
@@ -205,14 +212,14 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         guard let droneLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation) else {
             return
         }
-        
+
         guard let droneLocationValue = DJISDKManager.keyManager()?.getValueFor(droneLocationKey) else {
             return
         }
-        
+
         let droneLocation = droneLocationValue.value as! CLLocation
         let droneCoordinates = droneLocation.coordinate
-    
+
         if let aircraft = DJISDKManager.product() as? DJIAircraft {
             if self.isSimulatorActive {
                 aircraft.flightController?.simulator?.stop(completion: nil)
