@@ -25,6 +25,8 @@
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
 		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
 		FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6618942037252000A4BA5A /* TimelineElementKind.swift */; };
+		FFDB436A203DCAE100E8D0F4 /* BoundingAreaPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDB4369203DCAE100E8D0F4 /* BoundingAreaPolygon.swift */; };
+		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		FF6618942037252000A4BA5A /* TimelineElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineElementKind.swift; sourceTree = "<group>"; };
 		FF8F91CD203622860019EB0F /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFDB4369203DCAE100E8D0F4 /* BoundingAreaPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingAreaPolygon.swift; sourceTree = "<group>"; };
+		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */,
 				A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +107,7 @@
 		0B6F263FBC093B7B6FB6EF51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */,
 				A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */,
 			);
 			name = Frameworks;
@@ -239,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				FF6618942037252000A4BA5A /* TimelineElementKind.swift */,
+				FFDB4369203DCAE100E8D0F4 /* BoundingAreaPolygon.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,7 +292,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -410,6 +417,7 @@
 				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
 				A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */,
+				FFDB436A203DCAE100E8D0F4 /* BoundingAreaPolygon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

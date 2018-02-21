@@ -62,5 +62,7 @@
 	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Please allow access to save photos in your photo library</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Uses location information to show current location when evaluating flight paths.</string>
 </dict>
 </plist>
