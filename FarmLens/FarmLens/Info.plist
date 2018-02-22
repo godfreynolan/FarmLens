@@ -34,6 +34,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoicmlpcyIsImEiOiJjamRkN2JydXo0YmNxMnhxcjc3Yndvbjh1In0.8y5ioPcKGOl3YeI5olXamg</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
