@@ -10,7 +10,6 @@ import MapKit
 import UIKit
 
 class FlightPlanning {
-    private let flightDelta = 40 * 90 / 3280.4 / 10000
     
     private var boundingArea: MKPolygon
     
@@ -25,25 +24,80 @@ class FlightPlanning {
         return renderer.path.contains(position)
     }
     
-    func createFlightPath(coordinateList: [CLLocationCoordinate2D]) {
-        let boundingRect = self.boundingArea.boundingMapRect
-        
-        let startPoint = boundingRect.origin
-        let endPoint = MKMapPointMake(MKMapRectGetMaxX(boundingRect), MKMapRectGetMaxY(boundingRect))
-        
-        var flightPath: [CLLocationCoordinate2D] = []
-        
-        var currentPoint = startPoint
-        while MKMapRectContainsPoint(boundingRect, currentPoint) {
-            flightPath.append(CLLocationCoordinate2D(latitude: currentPoint.y, longitude: currentPoint.x))
-            currentPoint.y = currentPoint.y + flightDelta
-        }
+    func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
+        // SpacingFeet / 3280.4 converts feet to kilometers
+        // Kilometers / (10000/90) converts kilometers to lat/long distance
+        return (spacingFeet / 3280.4) / (10000/90)
     }
     
-    private func increaseLatitude(boundingRect: MKMapRect, flightPath: [CLLocationCoordinate2D], currentPoint: MKMapPoint) {
-        while MKMapRectContainsPoint(boundingRect, currentPoint) {
-//            flightPath.append(CLLocationCoordinate2D(latitude: currentPoint.y, longitude: currentPoint.x))
-//            currentPoint.y = currentPoint.y + flightDelta
+    
+    func calculateFlightPlan(spacingFeet:Double) -> [CLLocationCoordinate2D] {
+        
+        // Steps:
+        // 1. Get overlaying rectangle
+        // 2. Create a point at each {spacingFeet} interval
+        // 3. Remove all points outside the original polygon
+        // 4. Reorder points to scan properly.
+        
+        // Step 1. Get overlaying rectangle
+        let mapRect = self.boundingArea.boundingMapRect
+        
+        let maxX = MKMapRectGetMaxX(mapRect)
+        let maxY = MKMapRectGetMaxY(mapRect)
+        let minX = MKMapRectGetMinX(mapRect)
+        let minY = MKMapRectGetMinY(mapRect)
+        
+        var x = minX
+        var y = minY
+        let increment = convertSpacingFeetToDegrees(spacingFeet)
+        
+        // Step 2. Create a point at each {spacingFeet} interval
+        var locations:[CLLocationCoordinate2D] = []
+        
+        while x <= maxX {
+            while y <= maxY {
+                y = y + increment
+                locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
+            }
+            y = minY
+            x = x + increment
+            locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
         }
+        
+        // Step 3. Remove all points outside the original polygon
+        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(coordinate: location) == true }
+        
+        // Step 4. Reorder points to scan properly
+        var lines:[[CLLocationCoordinate2D]] = []
+        var currentLine:[CLLocationCoordinate2D] = []
+        
+        var currentLong = locationsInPolygon[0].longitude
+        
+        for loc in locationsInPolygon
+        {
+            if loc.longitude == currentLong {
+                currentLine.append(loc)
+                currentLong = loc.longitude
+            }
+            else {
+                // Flip every other line
+                if lines.count % 2 == 0 {
+                    lines.append(currentLine.reversed())
+                } else {
+                    lines.append(currentLine)
+                }
+                currentLine.removeAll()
+                currentLine.append(loc)
+                currentLong = loc.longitude
+            }
+        }
+        
+        // Add leftover line
+        lines.append(currentLine)
+        
+        let coordinates = Array(lines.joined())
+        
+        return coordinates
     }
 }
+
