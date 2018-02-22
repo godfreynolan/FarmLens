@@ -34,6 +34,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoicmlpcyIsImEiOiJjamRkN2JydXo0YmNxMnhxcjc3Yndvbjh1In0.8y5ioPcKGOl3YeI5olXamg</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -62,5 +64,7 @@
 	</array>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Please allow access to save photos in your photo library</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please allow access to location</string>
 </dict>
 </plist>

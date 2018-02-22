@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18807769203CB60C006AC0E5 /* MapboxActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* MapboxActivity.swift */; };
+		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
 		18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */; };
 		18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A22036133D00D2DE38 /* CVWrapper.mm */; };
 		18C178A82036133D00D2DE38 /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A32036133D00D2DE38 /* stitching.cpp */; };
@@ -23,6 +25,7 @@
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
+		B12D6E93C2F7FBFF30DC78C7 /* libPods-FarmLens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */; };
 		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
 		FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6618942037252000A4BA5A /* TimelineElementKind.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +62,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJISDKSwiftDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
+		18348DE1203CB11F00842DE9 /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18807768203CB60C006AC0E5 /* MapboxActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxActivity.swift; sourceTree = "<group>"; };
+		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
 		18C1789D2036133C00D2DE38 /* FarmLens-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FarmLens-Bridging-Header.h"; sourceTree = "<group>"; };
 		18C1789E2036133D00D2DE38 /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stitching.h; sourceTree = "<group>"; };
 		18C1789F2036133D00D2DE38 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
@@ -69,7 +74,8 @@
 		18C178A32036133D00D2DE38 /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stitching.cpp; sourceTree = "<group>"; };
 		18C178A42036133D00D2DE38 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		18C178A52036133D00D2DE38 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
-		4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DJISDKSwiftDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
+		A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,9 +88,9 @@
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
+		F7607896866020F85381F3C2 /* Pods-FarmLens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		FF6618942037252000A4BA5A /* TimelineElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineElementKind.swift; sourceTree = "<group>"; };
-		FF8F91CD203622860019EB0F /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */,
+				B12D6E93C2F7FBFF30DC78C7 /* libPods-FarmLens.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +110,27 @@
 			isa = PBXGroup;
 			children = (
 				A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */,
+				A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1880776E203F1450006AC0E5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1880776F203F1460006AC0E5 /* FlightPlanning */,
+				18BDBCFB20360FD900CD1D59 /* DJI */,
+				18BDBCFC20360FE900CD1D59 /* ImageStitch */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1880776F203F1460006AC0E5 /* FlightPlanning */ = {
+			isa = PBXGroup;
+			children = (
+				1880776C203F0E14006AC0E5 /* FlightPlanning.swift */,
+			);
+			path = FlightPlanning;
 			sourceTree = "<group>";
 		};
 		18BDBCF820360FA700CD1D59 /* App */ = {
@@ -118,8 +144,8 @@
 		18BDBCF920360FAE00CD1D59 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */,
 				A4DB95931FEAAD4500F405CA /* Main.storyboard */,
+				A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -129,6 +155,7 @@
 			children = (
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
 				FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */,
+				18807768203CB60C006AC0E5 /* MapboxActivity.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -166,7 +193,7 @@
 				A4DB958E1FEAAD4500F405CA /* FarmLens */,
 				C0C7419B2667BCEE0BB6C689 /* Pods */,
 				0B6F263FBC093B7B6FB6EF51 /* Frameworks */,
-				FF8F91CD203622860019EB0F /* FarmLens.app */,
+				18348DE1203CB11F00842DE9 /* FarmLens.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,12 +208,11 @@
 		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
 			isa = PBXGroup;
 			children = (
-				FF6618932037250000A4BA5A /* Models */,
 				18BDBCF820360FA700CD1D59 /* App */,
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
-				18BDBCFB20360FD900CD1D59 /* DJI */,
-				18BDBCFC20360FE900CD1D59 /* ImageStitch */,
+				1880776E203F1450006AC0E5 /* Services */,
+				FF6618932037250000A4BA5A /* Models */,
 				A4DB95901FEAAD4500F405CA /* Assets.xcassets */,
 				A4DB95961FEAAD4500F405CA /* Info.plist */,
 			);
@@ -229,8 +255,8 @@
 		C0C7419B2667BCEE0BB6C689 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */,
-				128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */,
+				F7607896866020F85381F3C2 /* Pods-FarmLens.debug.xcconfig */,
+				4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -265,7 +291,7 @@
 			);
 			name = FarmLens;
 			productName = "SDK Swift Sample";
-			productReference = FF8F91CD203622860019EB0F /* FarmLens.app */;
+			productReference = 18348DE1203CB11F00842DE9 /* FarmLens.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -280,7 +306,7 @@
 				TargetAttributes = {
 					86985CC81E834EC200577EC7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = UHDP7LK8C7;
+						DevelopmentTeam = DYG5XF554D;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -351,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8A68B323F021A127CDC7173C /* [CP] Embed Pods Frameworks */ = {
@@ -360,16 +386,20 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens-frameworks.sh",
 				"${PODS_ROOT}/DJI-SDK-iOS/iOS_Mobile_SDK/DJISDK.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DJISDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DJISDKSwiftDemo/Pods-DJISDKSwiftDemo-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A23089ACBCAB63BE42DAD2F1 /* [CP] Check Pods Manifest.lock */ = {
@@ -383,7 +413,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DJISDKSwiftDemo-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-FarmLens-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -400,9 +430,11 @@
 				18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */,
 				18C178A82036133D00D2DE38 /* stitching.cpp in Sources */,
 				FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */,
+				18807769203CB60C006AC0E5 /* MapboxActivity.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
 				18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */,
+				1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
 				FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */,
@@ -554,12 +586,12 @@
 		};
 		86985CDE1E834EC200577EC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B0C6B02B8D1383630F1B67E /* Pods-DJISDKSwiftDemo.debug.xcconfig */;
+			baseConfigurationReference = F7607896866020F85381F3C2 /* Pods-FarmLens.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = DYG5XF554D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,12 +613,12 @@
 		};
 		86985CDF1E834EC200577EC7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 128ABACC526C7880A0AB3F06 /* Pods-DJISDKSwiftDemo.release.xcconfig */;
+			baseConfigurationReference = 4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = DYG5XF554D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -57,7 +57,10 @@ class StartupViewController: UIViewController {
     
     func resetUI() {
         self.title = "FarmLens"
-        self.openComponents.isEnabled = false;
+        
+        // TODO - UNCOMMENT FOR RELEASE
+        //self.openComponents.isEnabled = false;
+        
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
     }
     

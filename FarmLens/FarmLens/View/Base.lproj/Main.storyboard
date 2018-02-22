@@ -167,6 +167,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Test" id="NGv-KM-EyI">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="R7T-NO-mJf">
+                                        <rect key="frame" x="0.0" y="244" width="1024" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R7T-NO-mJf" id="331-RW-oso">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mapbox" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwb-Dr-u1W">
+                                                    <rect key="frame" x="28" y="11" width="956" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="jwb-Dr-u1W" firstAttribute="leading" secondItem="331-RW-oso" secondAttribute="leadingMargin" constant="8" id="8Jn-Ij-IfS"/>
+                                                <constraint firstItem="jwb-Dr-u1W" firstAttribute="centerY" secondItem="331-RW-oso" secondAttribute="centerY" id="Nt1-pp-kT2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jwb-Dr-u1W" secondAttribute="trailing" constant="20" id="vvH-fH-eWn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="XMn-Jh-mYk" kind="show" id="JXN-IA-Aem"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="VM8-0O-LnU" id="lUa-bg-pOI"/>
@@ -303,7 +331,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mO-nM-I1M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3432" y="2"/>
+            <point key="canvasLocation" x="3454" y="-55"/>
         </scene>
         <!--Timeline Mission View Controller-->
         <scene sceneID="Ys6-6P-dcl">
@@ -546,6 +574,24 @@
                 </label>
             </objects>
             <point key="canvasLocation" x="3453.515625" y="1401.5625"/>
+        </scene>
+        <!--Mapbox View Controller-->
+        <scene sceneID="nqJ-00-i6j">
+            <objects>
+                <viewController id="XMn-Jh-mYk" customClass="MapboxViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="452-P2-k4p"/>
+                        <viewControllerLayoutGuide type="bottom" id="uxj-ZG-DZ3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="t1P-LS-Jvr">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gVw-wD-xf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3454" y="2217"/>
         </scene>
     </scenes>
     <resources>
