@@ -180,6 +180,10 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
             }
             
             self.boundaryPolygon = MKPolygon(coordinates: self.coordinateList, count: self.coordinateList.count)
+            
+            let flightPlanning = FlightPlanning(polygon: self.boundaryPolygon!)
+            flightPlanning.calculateFlightPlan(spacingFeet: 40)
+            
             self.mapView.add(self.boundaryPolygon!)
         }
     }
