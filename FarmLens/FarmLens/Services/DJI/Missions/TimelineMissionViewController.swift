@@ -5,7 +5,7 @@
 import UIKit
 import DJISDK
 
-class TimelineMissionViewController: UIViewController, UICollectionViewDelegate, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     
     var locationManager: CLLocationManager?
     var userLocation: CLLocationCoordinate2D?
@@ -100,35 +100,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
     }
     
-    private func refreshCoordinates() {
-        if self.boundaryCoordinateList.count < 3 {
-            if self.boundaryPolygon != nil {
-                self.mapView.remove(self.boundaryPolygon!)
-                self.boundaryPolygon = nil
-            }
-            
-            if self.boundaryLine != nil {
-                self.mapView.remove(self.boundaryLine!)
-            }
-            
-            self.boundaryLine = MKPolyline(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
-            self.mapView.add(self.boundaryLine!)
-        } else {
-            if self.boundaryLine != nil {
-                self.mapView.remove(self.boundaryLine!)
-                self.boundaryLine = nil
-            }
-            
-            if self.boundaryPolygon != nil {
-                self.mapView.remove(self.boundaryPolygon!)
-            }
-            
-            self.boundaryPolygon = MKPolygon(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
-            self.flightPlanning = FlightPlanning(polygon: self.boundaryPolygon!)
-            self.mapView.add(self.boundaryPolygon!)
-        }
-    }
-    
     // MARK: GestureDelegate
     func handleTap(gestureRecognizer: UILongPressGestureRecognizer) {
         if (self.mission != nil && self.boundaryPolygon != nil) {
@@ -165,87 +136,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
             self.mapView.setRegion(region, animated: true)
             self.locationManager?.stopUpdatingLocation()
         }
-    }
-
-    // MARK: - MKMapViewDelegate
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var image: UIImage?
-        let imageAnnotation: DJIImageAnnotation
-        
-        if (annotation is MKUserLocation) {
-            imageAnnotation = DJIImageAnnotation()
-            imageAnnotation.identifier = "User"
-            image = #imageLiteral(resourceName: "waypoint")
-        } else {
-            imageAnnotation = annotation as! DJIImageAnnotation
-            
-            if annotation.isEqual(self.aircraftAnnotation) {
-                image = #imageLiteral(resourceName: "aircraft")
-            } else if annotation.isEqual(self.homeAnnotation) {
-                image = #imageLiteral(resourceName: "navigation_poi_pin")
-            }
-        }
-
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: imageAnnotation.identifier)
-
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: imageAnnotation.identifier)
-        }
-
-        annotationView?.image = image
-
-        if annotation.isEqual(self.aircraftAnnotation) {
-            if annotationView != nil {
-                self.aircraftAnnotationView = annotationView!
-            }
-        }
-
-        return annotationView
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
-            let lineView = MKPolylineRenderer(overlay: overlay)
-            lineView.strokeColor = .red
-            lineView.lineWidth = 3
-            return lineView
-        }
-        
-        if overlay is MKPolygon {
-            let polygonView = MKPolygonRenderer(overlay: overlay)
-            polygonView.strokeColor = .green
-            polygonView.lineWidth = 3
-            return polygonView
-        }
-        
-        return MKOverlayRenderer()
-    }
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if view.annotation is MKUserLocation {
-            return
-        }
-        
-        if (view.annotation?.isEqual(self.aircraftAnnotation))! || (view.annotation?.isEqual(self.homeAnnotation))! {
-            return
-        }
-        
-        let coordinate = view.annotation?.coordinate
-        let latitude = (coordinate?.latitude)!
-        let longitude = (coordinate?.longitude)!
-        
-        let alert = UIAlertController.init(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
-            self.boundaryCoordinateList = self.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
-                coordinate?.latitude != listCoordinate.latitude || coordinate?.longitude != listCoordinate.longitude
-            })
-            
-            mapView.removeAnnotation(view.annotation!)
-            self.refreshCoordinates()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
     }
     
     // MARK: - Button actions
@@ -321,8 +211,118 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
             }
         })
     }
+
+    // MARK: - MKMapViewDelegate
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var image: UIImage?
+        let imageAnnotation: DJIImageAnnotation
+        
+        if (annotation is MKUserLocation) {
+            imageAnnotation = DJIImageAnnotation()
+            imageAnnotation.identifier = "User"
+            image = #imageLiteral(resourceName: "waypoint")
+        } else {
+            imageAnnotation = annotation as! DJIImageAnnotation
+            
+            if annotation.isEqual(self.aircraftAnnotation) {
+                image = #imageLiteral(resourceName: "aircraft")
+            } else if annotation.isEqual(self.homeAnnotation) {
+                image = #imageLiteral(resourceName: "navigation_poi_pin")
+            }
+        }
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: imageAnnotation.identifier)
+
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: imageAnnotation.identifier)
+        }
+
+        annotationView?.image = image
+
+        if annotation.isEqual(self.aircraftAnnotation) {
+            if annotationView != nil {
+                self.aircraftAnnotationView = annotationView!
+            }
+        }
+
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let lineView = MKPolylineRenderer(overlay: overlay)
+            lineView.strokeColor = .red
+            lineView.lineWidth = 6
+            return lineView
+        }
+        
+        if overlay is MKPolygon {
+            let polygonView = MKPolygonRenderer(overlay: overlay)
+            polygonView.strokeColor = .green
+            polygonView.lineWidth = 6
+            return polygonView
+        }
+        
+        return MKOverlayRenderer()
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.annotation is MKUserLocation {
+            return
+        }
+        
+        if (view.annotation?.isEqual(self.aircraftAnnotation))! || (view.annotation?.isEqual(self.homeAnnotation))! {
+            return
+        }
+        
+        let coordinate = view.annotation?.coordinate
+        let latitude = (coordinate?.latitude)!
+        let longitude = (coordinate?.longitude)!
+        
+        let alert = UIAlertController.init(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
+            self.boundaryCoordinateList = self.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
+                coordinate?.latitude != listCoordinate.latitude || coordinate?.longitude != listCoordinate.longitude
+            })
+            
+            mapView.removeAnnotation(view.annotation!)
+            self.refreshCoordinates()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
     
     // MARK: - Convenience
+    
+    private func refreshCoordinates() {
+        if self.boundaryCoordinateList.count < 3 {
+            if self.boundaryPolygon != nil {
+                self.mapView.remove(self.boundaryPolygon!)
+                self.boundaryPolygon = nil
+            }
+            
+            if self.boundaryLine != nil {
+                self.mapView.remove(self.boundaryLine!)
+            }
+            
+            self.boundaryLine = MKPolyline(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
+            self.mapView.add(self.boundaryLine!)
+        } else {
+            if self.boundaryLine != nil {
+                self.mapView.remove(self.boundaryLine!)
+                self.boundaryLine = nil
+            }
+            
+            if self.boundaryPolygon != nil {
+                self.mapView.remove(self.boundaryPolygon!)
+            }
+            
+            self.boundaryPolygon = MKPolygon(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
+            self.flightPlanning = FlightPlanning(polygon: self.boundaryPolygon!)
+            self.mapView.add(self.boundaryPolygon!)
+        }
+    }
     
     func degreesToRadians(_ degrees: Double) -> Double {
         return Double.pi / 180 * degrees
