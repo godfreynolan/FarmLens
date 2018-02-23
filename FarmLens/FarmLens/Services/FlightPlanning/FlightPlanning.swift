@@ -51,18 +51,9 @@ class FlightPlanning {
             let coordinate = MKCoordinateForMapPoint(mapPoints[i])
             
             minX = minX > coordinate.longitude ? coordinate.longitude : minX
-            
-            if minY > coordinate.latitude {
-                minY = coordinate.latitude
-            }
-            
-            if maxX < coordinate.longitude {
-                maxX = coordinate.longitude
-            }
-            
-            if maxY < coordinate.latitude {
-                maxY = coordinate.latitude
-            }
+            minY = minY > coordinate.latitude ? coordinate.latitude : minY
+            maxX = maxX < coordinate.longitude ? coordinate.longitude : maxX
+            maxY = maxY < coordinate.latitude ? coordinate.latitude : maxY
         }
         
         var x = minX
