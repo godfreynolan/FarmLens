@@ -18,7 +18,7 @@ class FlightPlanning {
     
     func isCoordinateInBoundingArea(coordinate: CLLocationCoordinate2D) -> Bool {
         let renderer = MKPolygonRenderer(polygon: self.boundingArea)
-        let position = renderer.point(for: MKMapPoint(x: coordinate.longitude, y: coordinate.latitude))
+        let position = renderer.point(for: MKMapPointForCoordinate(coordinate))
         
         return renderer.path.contains(position)
     }
@@ -38,12 +38,30 @@ class FlightPlanning {
         // 4. Reorder points to scan properly.
         
         // Step 1. Get overlaying rectangle
-        let mapRect = self.boundingArea.boundingMapRect
+        let mapPoints = self.boundingArea.points()
         
-        let maxX = MKMapRectGetMaxX(mapRect)
-        let maxY = MKMapRectGetMaxY(mapRect)
-        let minX = MKMapRectGetMinX(mapRect)
-        let minY = MKMapRectGetMinY(mapRect)
+        var minX = MKCoordinateForMapPoint(mapPoints[0]).longitude
+        var minY = MKCoordinateForMapPoint(mapPoints[0]).latitude
+        var maxX = MKCoordinateForMapPoint(mapPoints[0]).longitude
+        var maxY = MKCoordinateForMapPoint(mapPoints[0]).latitude
+        
+        for i in 0...(self.boundingArea.pointCount - 1) {
+            let coordinate = MKCoordinateForMapPoint(mapPoints[i])
+            
+            minX = minX > coordinate.longitude ? coordinate.longitude : minX
+            
+            if minY > coordinate.latitude {
+                minY = coordinate.latitude
+            }
+            
+            if maxX < coordinate.longitude {
+                maxX = coordinate.longitude
+            }
+            
+            if maxY < coordinate.latitude {
+                maxY = coordinate.latitude
+            }
+        }
         
         var x = minX
         var y = minY
@@ -54,8 +72,8 @@ class FlightPlanning {
         
         while x <= maxX {
             while y <= maxY {
-                y = y + increment
                 locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
+                y = y + increment
             }
             y = minY
             x = x + increment
@@ -63,7 +81,7 @@ class FlightPlanning {
         }
         
         // Step 3. Remove all points outside the original polygon
-        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(coordinate: location) == true }
+        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(coordinate: location) }
         
         // Step 4. Reorder points to scan properly
         var lines:[[CLLocationCoordinate2D]] = []
