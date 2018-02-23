@@ -360,6 +360,9 @@
                                 <rect key="frame" x="5" y="573" width="123" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Prepare Flight"/>
+                                <connections>
+                                    <action selector="assembleFlightPath:" destination="oJj-Fc-UDf" eventType="touchUpInside" id="8qU-BB-fX8"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lat: 0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfy-vf-bD7">
                                 <rect key="frame" x="278" y="582" width="151" height="36"/>

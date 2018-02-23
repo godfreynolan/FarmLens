@@ -20,14 +20,12 @@
 		A4DB95A31FEAAD4500F405CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */; };
 		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
 		A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */; };
-		A4DB95A81FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959A1FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift */; };
 		A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */; };
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
 		B12D6E93C2F7FBFF30DC78C7 /* libPods-FarmLens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */; };
 		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
-		FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6618942037252000A4BA5A /* TimelineElementKind.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,14 +82,12 @@
 		A4DB95941FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4DB95961FEAAD4500F405CA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedInterfaceViewController.swift; sourceTree = "<group>"; };
-		A4DB959A1FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineElementCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineMissionViewController.swift; sourceTree = "<group>"; };
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
 		F7607896866020F85381F3C2 /* Pods-FarmLens.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
-		FF6618942037252000A4BA5A /* TimelineElementKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineElementKind.swift; sourceTree = "<group>"; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -234,7 +230,6 @@
 		A4DB95991FEAAD4500F405CA /* Missions */ = {
 			isa = PBXGroup;
 			children = (
-				A4DB959A1FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift */,
 				A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */,
 			);
 			path = Missions;
@@ -268,7 +263,6 @@
 		FF6618932037250000A4BA5A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FF6618942037252000A4BA5A /* TimelineElementKind.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -441,8 +435,6 @@
 				1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
-				FF6618952037252000A4BA5A /* TimelineElementKind.swift in Sources */,
-				A4DB95A81FEAAD4500F405CA /* TimelineElementCollectionViewCell.swift in Sources */,
 				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
 				A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */,

@@ -11,17 +11,15 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     var userLocation: CLLocationCoordinate2D?
     var boundaryPolygon: MKPolygon?
     var boundaryLine: MKPolyline?
-    var coordinateList: [CLLocationCoordinate2D] = []
-
-    var availableElements = [TimelineElementKind]()
+    var boundaryCoordinateList: [CLLocationCoordinate2D] = []
+    var mission: DJIWaypointMission? = nil
+    var flightPlanning: FlightPlanning? = nil
     
     @IBOutlet weak var mapView: MKMapView!
     
     var homeAnnotation = DJIImageAnnotation(identifier: "homeAnnotation")
     var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     var aircraftAnnotationView: MKAnnotationView!
-    
-    var scheduledElements = [TimelineElementKind]()
     
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -30,9 +28,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     @IBOutlet weak var simulatorButton: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
-//        DJISDKManager.missionControl()?.addListener(self, toTimelineProgressWith: { (event: DJIMissionControlTimelineEvent, element: DJIMissionControlTimelineElement?, error: Error?, info: Any?) in
-//        })
-
         self.mapView.addAnnotations([self.aircraftAnnotation, self.homeAnnotation])
 
         if let aircraftLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation)  {
@@ -91,10 +86,8 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         
         self.userLocation = kCLLocationCoordinate2DInvalid;
         
-        self.availableElements.append(contentsOf: [.takeOff, .goTo, .goHome, .gimbalAttitude, .singleShootPhoto, .continuousShootPhoto, .recordVideoDuration, .recordVideoStart, .recordVideoStop, .waypointMission, .hotpointMission, .aircraftYaw])
-        
         self.mapView.delegate = self
-        self.mapView.mapType = .hybrid // Maybe change to just satellite? Need clarification
+        self.mapView.mapType = .hybrid
         self.mapView.showsUserLocation = true
         
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
@@ -108,7 +101,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     }
     
     private func refreshCoordinates() {
-        if self.coordinateList.count < 3 {
+        if self.boundaryCoordinateList.count < 3 {
             if self.boundaryPolygon != nil {
                 self.mapView.remove(self.boundaryPolygon!)
                 self.boundaryPolygon = nil
@@ -118,7 +111,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
                 self.mapView.remove(self.boundaryLine!)
             }
             
-            self.boundaryLine = MKPolyline(coordinates: self.coordinateList, count: self.coordinateList.count)
+            self.boundaryLine = MKPolyline(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
             self.mapView.add(self.boundaryLine!)
         } else {
             if self.boundaryLine != nil {
@@ -130,22 +123,18 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
                 self.mapView.remove(self.boundaryPolygon!)
             }
             
-            for coordinate in self.coordinateList {
-                print("Lat/Long: \(coordinate.latitude)/\(coordinate.longitude)")
-            }
-            
-            self.boundaryPolygon = MKPolygon(coordinates: self.coordinateList, count: self.coordinateList.count)
+            self.boundaryPolygon = MKPolygon(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
+            self.flightPlanning = FlightPlanning(polygon: self.boundaryPolygon!)
             self.mapView.add(self.boundaryPolygon!)
         }
     }
     
     // MARK: GestureDelegate
     func handleTap(gestureRecognizer: UILongPressGestureRecognizer) {
-        print("Handled the tap: \(gestureRecognizer.state.rawValue)")
         if gestureRecognizer.state == .ended {
             let touchPoint: CGPoint = gestureRecognizer.location(in: mapView)
             let newCoordinate: CLLocationCoordinate2D = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-            self.coordinateList.append(newCoordinate)
+            self.boundaryCoordinateList.append(newCoordinate)
             
             addAnnotationOnLocation(pointedCoordinate: newCoordinate)
             self.refreshCoordinates()
@@ -155,8 +144,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     private func addAnnotationOnLocation(pointedCoordinate: CLLocationCoordinate2D) {
         let annotation = DJIImageAnnotation()
         annotation.coordinate = pointedCoordinate
-        annotation.title = "Loading..."
-        annotation.subtitle = "Loading..."
         
         mapView.addAnnotation(annotation)
     }
@@ -217,13 +204,15 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         if overlay is MKPolyline {
             let lineView = MKPolylineRenderer(overlay: overlay)
             lineView.strokeColor = .red
+            lineView.lineWidth = 3
             return lineView
         }
         
         if overlay is MKPolygon {
-            let lineView = MKPolygonRenderer(overlay: overlay)
-            lineView.strokeColor = .green
-            return lineView
+            let polygonView = MKPolygonRenderer(overlay: overlay)
+            polygonView.strokeColor = .green
+            polygonView.lineWidth = 3
+            return polygonView
         }
         
         return MKOverlayRenderer()
@@ -244,7 +233,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         
         let alert = UIAlertController.init(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
-            self.coordinateList = self.coordinateList.filter({ (listCoordinate) -> Bool in
+            self.boundaryCoordinateList = self.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
                 coordinate?.latitude != listCoordinate.latitude || coordinate?.longitude != listCoordinate.longitude
             })
             
@@ -257,70 +246,79 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
     
     // End Map View delegate methods
     
-    @IBAction func startSimulatorButtonAction(_ sender: Any) {
-//        guard let droneLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation) else {
-//            return
-//        }
-//
-//        guard let droneLocationValue = DJISDKManager.keyManager()?.getValueFor(droneLocationKey) else {
-//            return
-//        }
-//
-//        let droneLocation = droneLocationValue.value as! CLLocation
-//        let droneCoordinates = droneLocation.coordinate
-//
-//        if let aircraft = DJISDKManager.product() as? DJIAircraft {
-//            if self.isSimulatorActive {
-//                aircraft.flightController?.simulator?.stop(completion: nil)
-//            } else {
-//                aircraft.flightController?.simulator?.start(withLocation: droneCoordinates,
-//                                                                      updateFrequency: 30,
-//                                                                      gpsSatellitesNumber: 12,
-//                                                                      withCompletion: { (error) in
-//                    if (error != nil) {
-//                        NSLog("Start Simulator Error: \(error.debugDescription)")
-//                    }
-//                })
-//            }
-//        }
+    @IBAction func assembleFlightPath(_ sender: Any) {
+        if (self.boundaryPolygon == nil) {
+            let alert = UIAlertController.init(title: "Flight Path Error", message: "Please draw a proper bounding area before preparing a flight.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
+        let flightCoordinateList = self.flightPlanning?.calculateFlightPlan(spacingFeet: 40)
+        
+        let mission = DJIMutableWaypointMission()
+        mission.maxFlightSpeed = 15
+        mission.autoFlightSpeed = 8
+        mission.finishedAction = .goHome
+        mission.headingMode = .auto
+        mission.flightPathMode = .normal
+        mission.rotateGimbalPitch = true
+        mission.exitMissionOnRCSignalLost = true
+        mission.gotoFirstWaypointMode = .pointToPoint // Might need to be changed to safely
+        mission.repeatTimes = 1
+        
+        for coordinate in flightCoordinateList! {
+            let waypoint = DJIWaypoint(coordinate: coordinate)
+            waypoint.altitude = 50
+            waypoint.heading = 0
+            waypoint.actionRepeatTimes = 1
+            waypoint.actionTimeoutInSeconds = 6
+            waypoint.turnMode = .clockwise
+            waypoint.add(DJIWaypointAction(actionType: DJIWaypointActionType.shootPhoto, param: 0))
+            waypoint.gimbalPitch = -90
+            
+            mission.add(waypoint)
+        }
+        
+        self.mission = DJIWaypointMission(mission: mission)
     }
     
-    // MARK : Timeline Element 
-
-    func timelineElementForKind(kind: TimelineElementKind) -> DJIMissionControlTimelineElement? {
-        switch kind {
-            case .takeOff:
-                return DJITakeOffAction()
-            case .goTo:
-                return DJIGoToAction(altitude: 50)
-            case .goHome:
-                return DJIGoHomeAction()
-            case .gimbalAttitude:
-                return self.defaultGimbalAttitudeAction()
-            case .singleShootPhoto:
-                return DJIShootPhotoAction(singleShootPhoto: ())
-            case .continuousShootPhoto:
-                return DJIShootPhotoAction(photoCount: 10, timeInterval: 3.0)
-            case .recordVideoDuration:
-                return DJIRecordVideoAction(duration: 10)
-            case .recordVideoStart:
-                return DJIRecordVideoAction(startRecordVideo: ())
-            case .recordVideoStop:
-                return DJIRecordVideoAction(stopRecordVideo: ())
-            case .waypointMission:
-                return self.defaultWaypointMission()
-            case .hotpointMission:
-                return self.defaultHotPointAction()
-            case .aircraftYaw:
-                return DJIAircraftYawAction(relativeAngle: 36, andAngularVelocity: 30)
+    @IBAction func startSimulatorButtonAction(_ sender: Any) {
+        if (self.mission == nil) {
+            let alert = UIAlertController.init(title: "Flight Path Error", message: "Please prepare a flight before attempting to fly.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
         }
+        
+        DJISDKManager.missionControl()?.waypointMissionOperator().load(self.mission!)
+        
+        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
+            if error != nil {
+                let alert = UIAlertController.init(title: "Mission Error", message: "Failed to finish mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                let alert = UIAlertController.init(title: "Mission Finished", message: "Mission Finished.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            }
+        })
+        
+        DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
+            if error != nil {
+                let alert = UIAlertController.init(title: "Mission Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                let alert = UIAlertController.init(title: "Mission Success", message: "Mission uploaded.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            }
+        })
     }
-
-    func defaultGimbalAttitudeAction() -> DJIGimbalAttitudeAction? {
-        let attitude = DJIGimbalAttitude(pitch: 30.0, roll: 0.0, yaw: 0.0)
-
-        return DJIGimbalAttitudeAction(attitude: attitude)
-    }
+    
+    // MARK : Timeline Element
 
     func defaultWaypointMission() -> DJIWaypointMission? {
         let mission = DJIMutableWaypointMission()
@@ -329,7 +327,7 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         mission.finishedAction = .goHome
         mission.headingMode = .auto
         mission.flightPathMode = .normal
-        mission.rotateGimbalPitch = false
+        mission.rotateGimbalPitch = true
         mission.exitMissionOnRCSignalLost = true
         mission.gotoFirstWaypointMode = .pointToPoint // Might need to be changed to safely
         mission.repeatTimes = 1
@@ -357,9 +355,10 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         waypoint1.altitude = 50
         waypoint1.heading = 0
         waypoint1.actionRepeatTimes = 1
-        waypoint1.actionTimeoutInSeconds = 60
+        waypoint1.actionTimeoutInSeconds = 6
         waypoint1.turnMode = .clockwise
-        waypoint1.gimbalPitch = 0
+        waypoint1.add(DJIWaypointAction(actionType: DJIWaypointActionType.shootPhoto, param: 0))
+        waypoint1.gimbalPitch = -90
 
         let loc2 = CLLocationCoordinate2DMake(droneCoordinates.latitude, droneCoordinates.longitude + offset)
         let waypoint2 = DJIWaypoint(coordinate: loc2)
@@ -407,36 +406,6 @@ class TimelineMissionViewController: UIViewController, UICollectionViewDelegate,
         mission.add(waypoint5)
         
         return DJIWaypointMission(mission: mission)
-    }
-
-    func defaultHotPointAction() -> DJIHotpointAction? {
-        let mission = DJIHotpointMission()
-
-        guard let droneLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation) else {
-            return nil
-        }
-
-        guard let droneLocationValue = DJISDKManager.keyManager()?.getValueFor(droneLocationKey) else {
-            return nil
-        }
-
-        let droneLocation = droneLocationValue.value as! CLLocation
-        let droneCoordinates = droneLocation.coordinate
-
-        if !CLLocationCoordinate2DIsValid(droneCoordinates) {
-            return nil
-        }
-
-        let offset = 0.0000899322
-
-        mission.hotpoint = CLLocationCoordinate2DMake(droneCoordinates.latitude + offset, droneCoordinates.longitude)
-        mission.altitude = 15
-        mission.radius = 15
-        mission.angularVelocity = DJIHotpointMissionOperator.maxAngularVelocity(forRadius: mission.radius) * (arc4random() % 2 == 0 ? -1 : 1)
-        mission.startPoint = .nearest
-        mission.heading = .alongCircleLookingForward
-
-        return DJIHotpointAction(mission: mission, surroundingAngle: 180)
     }
     
     // MARK: - Convenience
