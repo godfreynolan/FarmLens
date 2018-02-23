@@ -100,7 +100,11 @@ class FlightPlanning {
         }
         
         // Add leftover line
-        lines.append(currentLine)
+        if lines.count % 2 == 0 {
+            lines.append(currentLine.reversed())
+        } else {
+            lines.append(currentLine)
+        }
         
         let coordinates = Array(lines.joined())
         

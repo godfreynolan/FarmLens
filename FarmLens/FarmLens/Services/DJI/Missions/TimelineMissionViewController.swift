@@ -11,6 +11,7 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
     var userLocation: CLLocationCoordinate2D?
     var boundaryPolygon: MKPolygon?
     var boundaryLine: MKPolyline?
+    var flightPathLine: MKPolyline?
     var boundaryCoordinateList: [CLLocationCoordinate2D] = []
     var mission: DJIWaypointMission? = nil
     var flightPlanning: FlightPlanning? = nil
@@ -150,9 +151,12 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         
         let flightCoordinateList = self.flightPlanning?.calculateFlightPlan(spacingFeet: 40)
         
+        self.flightPathLine = MKPolyline(coordinates: flightCoordinateList!, count: (flightCoordinateList?.count)!)
+        self.mapView.add(self.flightPathLine!)
+        
         let mission = DJIMutableWaypointMission()
-        mission.maxFlightSpeed = 15
-        mission.autoFlightSpeed = 8
+        mission.maxFlightSpeed = 8
+        mission.autoFlightSpeed = 4
         mission.finishedAction = .goHome
         mission.headingMode = .auto
         mission.flightPathMode = .normal
@@ -187,6 +191,28 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         
         DJISDKManager.missionControl()?.waypointMissionOperator().load(self.mission!)
         
+        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
+            if event.error != nil {
+                let alert = UIAlertController.init(title: "Mission Error", message: "Failed to finish mission: \(event.error?.localizedDescription)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                if event.currentState == .readyToExecute {
+                    DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
+                        if error != nil {
+                            let alert = UIAlertController.init(title: "Mission Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                            self.present(alert, animated: true)
+                        } else {
+                            let alert = UIAlertController.init(title: "Mission Success", message: "Mission started.", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                            self.present(alert, animated: true)
+                        }
+                    })
+                }
+            }
+        })
+        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
             if error != nil {
                 let alert = UIAlertController.init(title: "Mission Error", message: "Failed to finish mission: \(error?.localizedDescription)", preferredStyle: .alert)
@@ -202,10 +228,6 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
             if error != nil {
                 let alert = UIAlertController.init(title: "Mission Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-            } else {
-                let alert = UIAlertController.init(title: "Mission Success", message: "Mission uploaded.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }
