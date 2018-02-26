@@ -7,7 +7,6 @@
 //
 
 import MapKit
-import UIKit
 
 class FlightPlanning {
     
@@ -29,7 +28,6 @@ class FlightPlanning {
         // Kilometers / (10000/90) converts kilometers to lat/long distance
         return (spacingFeet / 3280.4) / (10000/90)
     }
-    
     
     func calculateFlightPlan(spacingFeet:Double) -> [CLLocationCoordinate2D] {
         
@@ -102,7 +100,11 @@ class FlightPlanning {
         }
         
         // Add leftover line
-        lines.append(currentLine)
+        if lines.count % 2 == 0 {
+            lines.append(currentLine.reversed())
+        } else {
+            lines.append(currentLine)
+        }
         
         let coordinates = Array(lines.joined())
         

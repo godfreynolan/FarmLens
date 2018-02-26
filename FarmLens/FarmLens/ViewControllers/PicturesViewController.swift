@@ -114,8 +114,8 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         let listCount = mediaDownloadList.count
         
         self.currentDownloadIndex = 0
-        if listCount > 5 {
-            self.currentDownloadIndex = listCount - 5
+        if listCount > 17 {
+            self.currentDownloadIndex = listCount - 17
         }
         
         self.log(info: "Currently downloading file number \(self.currentDownloadIndex)")
