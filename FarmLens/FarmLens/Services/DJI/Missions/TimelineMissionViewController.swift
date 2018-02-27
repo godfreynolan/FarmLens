@@ -158,11 +158,11 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         mission.maxFlightSpeed = 8
         mission.autoFlightSpeed = 4
         mission.finishedAction = .goHome
-        mission.headingMode = .auto
+        mission.headingMode = .usingWaypointHeading
         mission.flightPathMode = .normal
         mission.rotateGimbalPitch = true
         mission.exitMissionOnRCSignalLost = true
-        mission.gotoFirstWaypointMode = .pointToPoint // Might need to be changed to safely
+        mission.gotoFirstWaypointMode = .safely
         mission.repeatTimes = 1
         
         for coordinate in flightCoordinateList! {
@@ -170,9 +170,10 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
             waypoint.altitude = 50
             waypoint.heading = 0
             waypoint.actionRepeatTimes = 1
-            waypoint.actionTimeoutInSeconds = 6
+            waypoint.actionTimeoutInSeconds = 15
             waypoint.turnMode = .clockwise
-            waypoint.add(DJIWaypointAction(actionType: DJIWaypointActionType.shootPhoto, param: 0))
+            waypoint.add(DJIWaypointAction(actionType: .rotateGimbalPitch, param: -90))
+            waypoint.add(DJIWaypointAction(actionType: .shootPhoto, param: 0))
             waypoint.gimbalPitch = -90
             
             mission.add(waypoint)
