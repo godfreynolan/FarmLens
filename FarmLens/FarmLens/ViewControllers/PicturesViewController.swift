@@ -8,14 +8,17 @@
 
 import UIKit
 import DJISDK
+import Photos
 
 class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManagerDelegate {
     var camera: DJICamera?
     var mediaManager: DJIMediaManager?
     var mediaDownloadList: [DJIMediaFile] = []
     var currentDownloadIndex = 0
+    var downloadedPictures: [UIImage] = []
     
     @IBOutlet var outputLabel: UILabel!
+    @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,10 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         self.camera?.delegate = self
         self.mediaManager = self.camera?.mediaManager
         self.mediaManager?.delegate = self
+        
+        PHPhotoLibrary.requestAuthorization { (status) in
+            
+        }
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
@@ -32,28 +39,44 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         startMediaDownload()
     }
     
-    @IBAction func takePicture(_ sender: UIButton) {
-        resetUI()
-        takeSinglePhoto()
+    @IBAction func stitchPictures(_ sender: UIButton) {
+        let imageManager = PHImageManager.default()
+        let options = PHFetchOptions()
+        options.sortDescriptors = [
+            NSSortDescriptor(key:"creationDate", ascending: false)
+        ]
+        options.includeAssetSourceTypes = .typeUserLibrary
+        options.fetchLimit = 17
+        options.includeAllBurstAssets = false
+        options.includeHiddenAssets = false
+        
+        let results = PHAsset.fetchAssets(with: .image, options: options)
+        
+        if results.count > 0 {
+            let imageOptions = PHImageRequestOptions()
+            imageOptions.isSynchronous = true
+            
+            for index in 0...results.count - 1 {
+                let result = results[index]
+                imageManager.requestImage(for: result, targetSize: CGSize(width: 480.0, height: 360.0), contentMode: .aspectFit, options: imageOptions, resultHandler: { (uiImage, info) in
+                    self.downloadedPictures.append(uiImage!)
+                })
+            }
+            
+            DispatchQueue.global().async {
+                let stitchedImage = CVWrapper.process(with: self.downloadedPictures)
+                
+                DispatchQueue.main.async {
+                    self.imageView.image = stitchedImage
+                    UIImageWriteToSavedPhotosAlbum(stitchedImage, self, #selector(self.errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
+            }
+
+        }
     }
     
     func resetUI() {
         outputLabel.text = "Output:"
-    }
-    
-    // This is not currently used, but was proven to work.
-    func takeSinglePhoto() {
-        camera?.setShootPhotoMode(.single, withCompletion: {
-            (error) in DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.camera?.startShootPhoto(completion: { (error) in
-                    if (error != nil) {
-                        self.log(info: (error?.localizedDescription)!)
-                    } else {
-                        self.log(info: "Took a picture")
-                    }
-                })
-            }
-        })
     }
     
     func fetchCamera() -> DJICamera? {
@@ -118,8 +141,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             self.currentDownloadIndex = listCount - 17
         }
         
-        self.log(info: "Currently downloading file number \(self.currentDownloadIndex)")
-        
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
     
@@ -150,7 +171,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
                 self.currentDownloadIndex += 1
                 
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
-                    self.log(info: "Currently downloading file number \(self.currentDownloadIndex)")
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.log(info: "All downloads complete")
@@ -161,7 +181,7 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     }
     
     private func saveImage(data: Data) {
-        let image = UIImage.init(data: data)
+        let image = UIImage(data: data)
         UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
@@ -170,10 +190,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         if (error != nil)
         {
             message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
-        }
-        else
-        {
-            message = "Saved to Photo Album";
         }
         
         self.log(info: message)

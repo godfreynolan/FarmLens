@@ -234,7 +234,6 @@
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
 				1880776E203F1450006AC0E5 /* Services */,
-				FF6618932037250000A4BA5A /* Models */,
 				A4DB95901FEAAD4500F405CA /* Assets.xcassets */,
 				A4DB95961FEAAD4500F405CA /* Info.plist */,
 			);
@@ -290,13 +289,6 @@
 				FF015AA2204087170093EA05 /* Info.plist */,
 			);
 			path = FarmLensTests;
-			sourceTree = "<group>";
-		};
-		FF6618932037250000A4BA5A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

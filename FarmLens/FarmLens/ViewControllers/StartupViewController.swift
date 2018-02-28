@@ -57,7 +57,7 @@ class StartupViewController: UIViewController {
     
     func resetUI() {
         self.title = "FarmLens"
-        self.openComponents.isEnabled = false;
+//        self.openComponents.isEnabled = false;
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
     }
     
@@ -88,7 +88,7 @@ class StartupViewController: UIViewController {
         
         self.productModel.text = "Model: Not Available"
 
-        self.openComponents.isEnabled = false;
+//        self.openComponents.isEnabled = false;
         self.openComponents.alpha = 0.8;
         
         self.imgDrone.image = UIImage(named: "DroneNotConnected")

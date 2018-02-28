@@ -417,7 +417,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZQ-Gb-5A5">
-                                <rect key="frame" x="20" y="28" width="984" height="618"/>
+                                <rect key="frame" x="20" y="28" width="984" height="194"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -431,18 +431,23 @@
                                     <action selector="downloadPictures:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="mE0-J1-4Fl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mL-Kt-3eg">
-                                <rect key="frame" x="20" y="654" width="175" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llI-br-nf0">
+                                <rect key="frame" x="20" y="230" width="984" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Take Picture"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQu-ic-gy9">
+                                <rect key="frame" x="20" y="654" width="125" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stitch"/>
                                 <connections>
-                                    <action selector="takePicture:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="Kyh-5d-7Xl"/>
+                                    <action selector="stitchPictures:" destination="E5c-Hv-lZS" eventType="touchUpInside" id="ptW-D3-hUx"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="llI-br-nf0" id="S2Z-QO-J8v"/>
                         <outlet property="outputLabel" destination="cZQ-Gb-5A5" id="REY-Lk-9wn"/>
                     </connections>
                 </viewController>
