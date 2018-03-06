@@ -16,13 +16,17 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     var mediaDownloadList: [DJIMediaFile] = []
     var currentDownloadIndex = 0
     var downloadedPictures: [UIImage] = []
+    var progressView: ProgressView!
+    var statusIndex = 1
     
     @IBOutlet var outputLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
+        UIApplication.shared.isIdleTimerDisabled = true
         super.viewDidLoad()
         self.resetUI()
+        self.progressView = ProgressView()
         
         self.camera = fetchCamera()
         self.camera?.delegate = self
@@ -46,32 +50,37 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             NSSortDescriptor(key:"creationDate", ascending: false)
         ]
         options.includeAssetSourceTypes = .typeUserLibrary
-        options.fetchLimit = 17
+        options.fetchLimit = 65
         options.includeAllBurstAssets = false
         options.includeHiddenAssets = false
         
         let results = PHAsset.fetchAssets(with: .image, options: options)
         
-        if results.count > 0 {
-            let imageOptions = PHImageRequestOptions()
-            imageOptions.isSynchronous = true
+        if results.count == 0 {
+            return
+        }
+        
+        let imageOptions = PHImageRequestOptions()
+        imageOptions.isSynchronous = true
+        
+        for index in 0...results.count - 1 {
+            let result = results[index]
+            imageManager.requestImage(for: result, targetSize: CGSize(width: 480.0, height: 360.0), contentMode: .aspectFit, options: imageOptions, resultHandler: { (uiImage, info) in
+                self.downloadedPictures.append(uiImage!)
+            })
+        }
+        
+        let alert = UIAlertController.init(title: "Stitching", message: "", preferredStyle: .alert)
+        self.present(alert, animated: true)
+        
+        DispatchQueue.global().async {
+            let stitchedImage = CVWrapper.process(with: self.downloadedPictures)
             
-            for index in 0...results.count - 1 {
-                let result = results[index]
-                imageManager.requestImage(for: result, targetSize: CGSize(width: 480.0, height: 360.0), contentMode: .aspectFit, options: imageOptions, resultHandler: { (uiImage, info) in
-                    self.downloadedPictures.append(uiImage!)
-                })
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+                self.imageView.image = stitchedImage
+                UIImageWriteToSavedPhotosAlbum(stitchedImage, self, #selector(self.errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
             }
-            
-            DispatchQueue.global().async {
-                let stitchedImage = CVWrapper.process(with: self.downloadedPictures)
-                
-                DispatchQueue.main.async {
-                    self.imageView.image = stitchedImage
-                    UIImageWriteToSavedPhotosAlbum(stitchedImage, self, #selector(self.errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
-                }
-            }
-
         }
     }
     
@@ -81,14 +90,14 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     
     func fetchCamera() -> DJICamera? {
         if (DJISDKManager.product() == nil) {
-            return nil;
+            return nil
         }
         
         if (DJISDKManager.product() is DJIAircraft) {
-            return (DJISDKManager.product() as? DJIAircraft)?.camera;
+            return (DJISDKManager.product() as? DJIAircraft)?.camera
         }
         
-        return nil;
+        return nil
     }
     
     private func startMediaDownload() {
@@ -96,12 +105,11 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             if (error != nil) {
                 self.log(info: "There were errors starting the download: " + (error?.localizedDescription)!)
             } else {
-                self.log(info: "Download ready")
                 self.retrieveMediaFiles()
             }
         })
     }
-    
+
     func endMediaDownload() {
         self.camera?.setMode(.shootPhoto, withCompletion: { (error) in
             if (error != nil) {
@@ -111,7 +119,7 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             }
         })
     }
-    
+
     func retrieveMediaFiles() {
         if (self.mediaManager?.fileListState == .syncing || self.mediaManager?.fileListState == .deleting) {
             self.log(info: "Media Manager is busy.");
@@ -126,55 +134,61 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             })
         }
     }
-    
+
     private func startImageDownload() {
         if (self.mediaManager?.fileListState != .upToDate && self.mediaManager?.fileListState != .incomplete) {
             self.log(info: "System is busy")
             return
         }
-        
+
         mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
         let listCount = mediaDownloadList.count
-        
+
         self.currentDownloadIndex = 0
-        if listCount > 17 {
-            self.currentDownloadIndex = listCount - 17
+        self.statusIndex = 1
+        if listCount > 66 {
+            self.currentDownloadIndex = listCount - 66
         }
-        
+
+        self.progressView.showAlertWithMessage(viewController: self, message: "Downloading file \(self.statusIndex)")
+
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
-    
+
     private func downloadImage(file: DJIMediaFile) {
         let isPhoto = file.mediaType == .JPEG || file.mediaType == .TIFF;
         if (!isPhoto) {
             return
         }
-        
+
         var mutableData: Data? = nil
         var previousOffset = 0
-        
+
         file.fetchData(withOffset: UInt(previousOffset), update: DispatchQueue.main, update: { (data, isComplete, error) in
             if (error != nil) {
                 self.log(info: "Download failed: " + (error?.localizedDescription)!)
                 return
             }
-            
+
             if (mutableData == nil) {
                 mutableData = data
             } else {
                 mutableData?.append(data!)
             }
-            
+
             previousOffset += (data?.count)!;
             if (previousOffset == file.fileSizeInBytes && isComplete) {
                 self.saveImage(data: mutableData!)
+                self.statusIndex += 1
+                self.progressView.updateMessage(message: "Downloading file \(self.statusIndex)")
                 self.currentDownloadIndex += 1
-                
+
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.log(info: "All downloads complete")
                     self.endMediaDownload()
+                    self.progressView.dismissAlert()
                 }
             }
         })

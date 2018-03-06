@@ -7,14 +7,13 @@ import DJISDK
 
 class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     
-    var locationManager: CLLocationManager?
-    var userLocation: CLLocationCoordinate2D?
+    var locationManager: CLLocationManager!
     var boundaryPolygon: MKPolygon?
     var boundaryLine: MKPolyline?
     var flightPathLine: MKPolyline?
     var boundaryCoordinateList: [CLLocationCoordinate2D] = []
     var mission: DJIWaypointMission? = nil
-    var flightPlanning: FlightPlanning? = nil
+    private var flightPlanning: FlightPlanning!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -29,6 +28,7 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
     @IBOutlet weak var simulatorButton: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
+        self.flightPlanning = FlightPlanning()
         self.mapView.addAnnotations([self.aircraftAnnotation, self.homeAnnotation])
 
         if let aircraftLocationKey = DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation)  {
@@ -80,12 +80,10 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
             locationManager?.requestWhenInUseAuthorization()
             locationManager?.startUpdatingLocation()
         } else {
-            let alert = UIAlertController.init(title: "Location Services", message: "Location Services are not enabled.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Location Services", message: "Location Services are not enabled.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
-        
-        self.userLocation = kCLLocationCoordinate2DInvalid;
         
         self.mapView.delegate = self
         self.mapView.mapType = .hybrid
@@ -126,11 +124,9 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
     
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.userLocation = locations.last?.coordinate
-        
-        if (CLLocationCoordinate2DIsValid(self.userLocation!)) {
+        if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
             var region: MKCoordinateRegion = MKCoordinateRegion()
-            region.center = self.userLocation!
+            region.center = (locations.last?.coordinate)!
             region.span.latitudeDelta = 0.001
             region.span.longitudeDelta = 0.001
             
@@ -143,49 +139,24 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
     
     @IBAction func assembleFlightPath(_ sender: Any) {
         if (self.boundaryPolygon == nil) {
-            let alert = UIAlertController.init(title: "Flight Path Error", message: "Please draw a proper bounding area before preparing a flight.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Flight Path Error", message: "Please draw a proper bounding area before preparing a flight.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true)
             return
         }
         
-        let flightCoordinateList = self.flightPlanning?.calculateFlightPlan(spacingFeet: 40)
+        let flightCoordinateList = self.flightPlanning?.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 40)
         
         self.flightPathLine = MKPolyline(coordinates: flightCoordinateList!, count: (flightCoordinateList?.count)!)
         self.mapView.add(self.flightPathLine!)
         
-        let mission = DJIMutableWaypointMission()
-        mission.maxFlightSpeed = 8
-        mission.autoFlightSpeed = 4
-        mission.finishedAction = .goHome
-        mission.headingMode = .usingWaypointHeading
-        mission.flightPathMode = .normal
-        mission.rotateGimbalPitch = true
-        mission.exitMissionOnRCSignalLost = true
-        mission.gotoFirstWaypointMode = .safely
-        mission.repeatTimes = 1
-        
-        for coordinate in flightCoordinateList! {
-            let waypoint = DJIWaypoint(coordinate: coordinate)
-            waypoint.altitude = 50
-            waypoint.heading = 0
-            waypoint.actionRepeatTimes = 1
-            waypoint.actionTimeoutInSeconds = 15
-            waypoint.turnMode = .clockwise
-            waypoint.add(DJIWaypointAction(actionType: .rotateGimbalPitch, param: -90))
-            waypoint.add(DJIWaypointAction(actionType: .shootPhoto, param: 0))
-            waypoint.gimbalPitch = -90
-            
-            mission.add(waypoint)
-        }
-        
-        self.mission = DJIWaypointMission(mission: mission)
+        self.mission = self.flightPlanning?.createMission(missionCoordinates: flightCoordinateList!)
     }
     
     @IBAction func startSimulatorButtonAction(_ sender: Any) {
         if (self.mission == nil) {
-            let alert = UIAlertController.init(title: "Flight Path Error", message: "Please prepare a flight before attempting to fly.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            let alert = UIAlertController(title: "Flight Path Error", message: "Please prepare a flight before attempting to fly.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
             return
         }
@@ -194,41 +165,36 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.error != nil {
-                let alert = UIAlertController.init(title: "Mission Error", message: "Failed to finish mission: \(event.error?.localizedDescription)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: "Mission Error", message: "Failed at uploading mission: \(event.error?.localizedDescription)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
-            } else {
-                if event.currentState == .readyToExecute {
-                    DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
-                        if error != nil {
-                            let alert = UIAlertController.init(title: "Mission Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                            self.present(alert, animated: true)
-                        } else {
-                            let alert = UIAlertController.init(title: "Mission Success", message: "Mission started.", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                            self.present(alert, animated: true)
-                        }
-                    })
-                }
+            } else if event.currentState == .readyToExecute {
+                DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
+                    if error != nil {
+                        let alert = UIAlertController(title: "Mission Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                        self.present(alert, animated: true)
+                    } else {
+                        let alert = UIAlertController(title: "Mission Success", message: "Mission started.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                })
             }
         })
         
+        // We don't need to show a dialog when it finishes as the controller and drone start making noise as part of Return-to-home
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
             if error != nil {
-                let alert = UIAlertController.init(title: "Mission Error", message: "Failed to finish mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-            } else {
-                let alert = UIAlertController.init(title: "Mission Finished", message: "Mission Finished.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }
         })
         
         DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
             if error != nil {
-                let alert = UIAlertController.init(title: "Mission Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Mission Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }
@@ -237,6 +203,7 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
 
     // MARK: - MKMapViewDelegate
     
+    // Handle the placing of different annotations
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var image: UIImage?
         let imageAnnotation: DJIImageAnnotation
@@ -272,6 +239,7 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         return annotationView
     }
     
+    // Handle the drawing of the lines and shapes
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let lineView = MKPolylineRenderer(overlay: overlay)
@@ -290,6 +258,7 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         return MKOverlayRenderer()
     }
     
+    // Handle the "click" of a coordinate
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.annotation is MKUserLocation {
             return
@@ -303,7 +272,7 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
         let latitude = (coordinate?.latitude)!
         let longitude = (coordinate?.longitude)!
         
-        let alert = UIAlertController.init(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
             self.boundaryCoordinateList = self.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
                 coordinate?.latitude != listCoordinate.latitude || coordinate?.longitude != listCoordinate.longitude
@@ -342,7 +311,6 @@ class TimelineMissionViewController: UIViewController, MKMapViewDelegate, DJICam
             }
             
             self.boundaryPolygon = MKPolygon(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
-            self.flightPlanning = FlightPlanning(polygon: self.boundaryPolygon!)
             self.mapView.add(self.boundaryPolygon!)
         }
     }

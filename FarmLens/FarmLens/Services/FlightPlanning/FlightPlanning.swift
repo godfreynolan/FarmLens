@@ -7,29 +7,39 @@
 //
 
 import MapKit
+import DJISDK
 
 class FlightPlanning {
     
-    private var boundingArea: MKPolygon
-    
-    init(polygon: MKPolygon) {
-        self.boundingArea = polygon
-    }
-    
-    func isCoordinateInBoundingArea(coordinate: CLLocationCoordinate2D) -> Bool {
-        let renderer = MKPolygonRenderer(polygon: self.boundingArea)
-        let position = renderer.point(for: MKMapPointForCoordinate(coordinate))
+    func createMission(missionCoordinates: [CLLocationCoordinate2D]) -> DJIWaypointMission {
+        let mission = DJIMutableWaypointMission()
+        mission.maxFlightSpeed = 8
+        mission.autoFlightSpeed = 4
+        mission.finishedAction = .goHome
+        mission.headingMode = .usingWaypointHeading
+        mission.flightPathMode = .normal
+        mission.rotateGimbalPitch = true
+        mission.exitMissionOnRCSignalLost = true
+        mission.gotoFirstWaypointMode = .safely
         
-        return renderer.path.contains(position)
+        for coordinate in missionCoordinates {
+            let waypoint = DJIWaypoint(coordinate: coordinate)
+            waypoint.altitude = 50
+            waypoint.heading = 0
+            waypoint.actionRepeatTimes = 1
+            waypoint.actionTimeoutInSeconds = 15
+            waypoint.turnMode = .clockwise
+            waypoint.add(DJIWaypointAction(actionType: .rotateGimbalPitch, param: -90))
+            waypoint.add(DJIWaypointAction(actionType: .shootPhoto, param: 0))
+            waypoint.gimbalPitch = -90
+            
+            mission.add(waypoint)
+        }
+        
+        return DJIWaypointMission(mission: mission)
     }
     
-    func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
-        // SpacingFeet / 3280.4 converts feet to kilometers
-        // Kilometers / (10000/90) converts kilometers to lat/long distance
-        return (spacingFeet / 3280.4) / (10000/90)
-    }
-    
-    func calculateFlightPlan(spacingFeet:Double) -> [CLLocationCoordinate2D] {
+    func calculateFlightPlan(boundingArea: MKPolygon, spacingFeet: Double) -> [CLLocationCoordinate2D] {
         
         // Steps:
         // 1. Get overlaying rectangle
@@ -37,15 +47,15 @@ class FlightPlanning {
         // 3. Remove all points outside the original polygon
         // 4. Reorder points to scan properly.
         
-        // Step 1. Get overlaying rectangle
-        let mapPoints = self.boundingArea.points()
+        // Step 1.
+        let mapPoints = boundingArea.points()
         
         var minX = MKCoordinateForMapPoint(mapPoints[0]).longitude
         var minY = MKCoordinateForMapPoint(mapPoints[0]).latitude
         var maxX = MKCoordinateForMapPoint(mapPoints[0]).longitude
         var maxY = MKCoordinateForMapPoint(mapPoints[0]).latitude
         
-        for i in 0...(self.boundingArea.pointCount - 1) {
+        for i in 0...(boundingArea.pointCount - 1) {
             let coordinate = MKCoordinateForMapPoint(mapPoints[i])
             
             minX = minX > coordinate.longitude ? coordinate.longitude : minX
@@ -56,25 +66,26 @@ class FlightPlanning {
         
         var x = minX
         var y = minY
-        let increment = convertSpacingFeetToDegrees(spacingFeet)
+        let xIncrement = convertSpacingFeetToDegrees(40)
+        let yIncrement = convertSpacingFeetToDegrees(40)
         
-        // Step 2. Create a point at each {spacingFeet} interval
+        // Step 2.
         var locations:[CLLocationCoordinate2D] = []
         
         while x <= maxX {
             while y <= maxY {
                 locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
-                y = y + increment
+                y = y + yIncrement
             }
             y = minY
-            x = x + increment
+            x = x + xIncrement
             locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
         }
         
-        // Step 3. Remove all points outside the original polygon
-        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(coordinate: location) }
+        // Step 3.
+        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(boundingArea: boundingArea, coordinate: location) }
         
-        // Step 4. Reorder points to scan properly
+        // Step 4.
         var lines:[[CLLocationCoordinate2D]] = []
         var currentLine:[CLLocationCoordinate2D] = []
         
@@ -85,8 +96,7 @@ class FlightPlanning {
             if loc.longitude == currentLong {
                 currentLine.append(loc)
                 currentLong = loc.longitude
-            }
-            else {
+            } else {
                 // Flip every other line
                 if lines.count % 2 == 0 {
                     lines.append(currentLine.reversed())
@@ -109,6 +119,19 @@ class FlightPlanning {
         let coordinates = Array(lines.joined())
         
         return coordinates
+    }
+    
+    private func isCoordinateInBoundingArea(boundingArea: MKPolygon, coordinate: CLLocationCoordinate2D) -> Bool {
+        let renderer = MKPolygonRenderer(polygon: boundingArea)
+        let position = renderer.point(for: MKMapPointForCoordinate(coordinate))
+        
+        return renderer.path.contains(position)
+    }
+    
+    private func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
+        // SpacingFeet / 3280.4 converts feet to kilometers
+        // Kilometers / (10000/90) converts kilometers to lat/long distance
+        return (spacingFeet / 3280.4) / (10000/90)
     }
 }
 

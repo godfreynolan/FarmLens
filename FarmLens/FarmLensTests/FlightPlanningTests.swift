@@ -26,7 +26,7 @@ class FlightPlanningTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        flightPlanning = FlightPlanning(polygon: MKPolygon(coordinates: points, count: points.count))
+        flightPlanning = FlightPlanning()
     }
     
     override func tearDown() {
@@ -34,17 +34,8 @@ class FlightPlanningTests: XCTestCase {
         super.tearDown()
     }
     
-    func testIsCoordinateInBoundingArea() {
-        XCTAssert(flightPlanning.isCoordinateInBoundingArea(coordinate: points[0]))
-        XCTAssert(!flightPlanning.isCoordinateInBoundingArea(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)))
-    }
-    
-    func testConvertSpacingFeetToDegrees() {
-        XCTAssert(flightPlanning.convertSpacingFeetToDegrees(40) < 0.000109742714303134, "Actual value is \(flightPlanning.convertSpacingFeetToDegrees(40))")
-    }
-    
     func testCalculateFlightPlan() {
-        let flightPath = flightPlanning.calculateFlightPlan(spacingFeet: 40)
+        let flightPath = flightPlanning.calculateFlightPlan(boundingArea: MKPolygon(coordinates: points, count: points.count), spacingFeet: 40)
         XCTAssert(flightPath.count == 17, "Actual value is \(flightPath.count)")
     }
 }
