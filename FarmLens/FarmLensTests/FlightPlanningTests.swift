@@ -38,4 +38,10 @@ class FlightPlanningTests: XCTestCase {
         let flightPath = flightPlanning.calculateFlightPlan(boundingArea: MKPolygon(coordinates: points, count: points.count), spacingFeet: 40)
         XCTAssert(flightPath.count == 17, "Actual value is \(flightPath.count)")
     }
+    
+    func testCreateMission() {
+        let flightPath = flightPlanning.calculateFlightPlan(boundingArea: MKPolygon(coordinates: points, count: points.count), spacingFeet: 40)
+        let mission = flightPlanning.createMission(missionCoordinates: flightPath)
+        XCTAssert(mission.waypointCount == 17, "Actual value is \(mission.waypointCount)")
+    }
 }
