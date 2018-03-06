@@ -24,8 +24,8 @@
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
-		B12D6E93C2F7FBFF30DC78C7 /* libPods-FarmLens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */; };
-		EE3BBEE33382A98FF560F4F0 /* libPods-FarmLensTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A821FB1E19CFBE079A08EB /* libPods-FarmLensTests.a */; };
+		CD30D554A752758047BFFF73 /* Pods_FarmLens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */; };
+		F47D0E76FA038D14FB25719A /* Pods_FarmLensTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */; };
 		FF015AA1204087170093EA05 /* FarmLensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AA0204087170093EA05 /* FarmLensTests.swift */; };
 		FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */; };
 		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
@@ -85,9 +85,9 @@
 		18C178A42036133D00D2DE38 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		18C178A52036133D00D2DE38 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
 		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
-		A0A821FB1E19CFBE079A08EB /* libPods-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			files = (
 				FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */,
 				A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */,
-				B12D6E93C2F7FBFF30DC78C7 /* libPods-FarmLens.a in Frameworks */,
+				CD30D554A752758047BFFF73 /* Pods_FarmLens.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE3BBEE33382A98FF560F4F0 /* libPods-FarmLensTests.a in Frameworks */,
+				F47D0E76FA038D14FB25719A /* Pods_FarmLensTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,9 +138,9 @@
 			children = (
 				FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */,
 				A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */,
-				A188599FA663E46DB3B3B4FC /* libPods-FarmLens.a */,
-				A0A821FB1E19CFBE079A08EB /* libPods-FarmLensTests.a */,
 				1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */,
+				38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */,
+				3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
