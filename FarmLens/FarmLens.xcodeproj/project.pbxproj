@@ -30,6 +30,7 @@
 		FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */; };
 		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
 		FF5F97C62048301C00D16E24 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5F97C52048301C00D16E24 /* ProgressView.swift */; };
+		FF8C25CE2050111E003EE619 /* FlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8C25CD2050111E003EE619 /* FlightViewController.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		FF5F97C52048301C00D16E24 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF8C25CD2050111E003EE619 /* FlightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewController.swift; sourceTree = "<group>"; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
 				FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */,
 				18807768203CB60C006AC0E5 /* MapboxActivity.swift */,
+				FF8C25CD2050111E003EE619 /* FlightViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				FF5F97C62048301C00D16E24 /* ProgressView.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
 				A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */,
+				FF8C25CE2050111E003EE619 /* FlightViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
