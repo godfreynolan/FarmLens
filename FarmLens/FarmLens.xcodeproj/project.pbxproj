@@ -17,10 +17,8 @@
 		A435F2181E8BD6CA00D58045 /* VideoPreviewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
-		A4DB95A31FEAAD4500F405CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */; };
 		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
 		A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */; };
-		A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */; };
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
@@ -29,8 +27,10 @@
 		FF015AA1204087170093EA05 /* FarmLensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AA0204087170093EA05 /* FarmLensTests.swift */; };
 		FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */; };
 		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
+		FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF162715205026FA008BB642 /* ImageDownloadViewController.swift */; };
+		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
+		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
 		FF5F97C62048301C00D16E24 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5F97C52048301C00D16E24 /* ProgressView.swift */; };
-		FF8C25CE2050111E003EE619 /* FlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8C25CD2050111E003EE619 /* FlightViewController.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -92,11 +92,9 @@
 		A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A4DB95921FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4DB95941FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4DB95961FEAAD4500F405CA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedInterfaceViewController.swift; sourceTree = "<group>"; };
-		A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineMissionViewController.swift; sourceTree = "<group>"; };
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
@@ -107,9 +105,11 @@
 		FF015AA2204087170093EA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanningTests.swift; sourceTree = "<group>"; };
 		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
+		FF162715205026FA008BB642 /* ImageDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadViewController.swift; sourceTree = "<group>"; };
+		FF16271720503CA0008BB642 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
 		FF5F97C52048301C00D16E24 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF8C25CD2050111E003EE619 /* FlightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewController.swift; sourceTree = "<group>"; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -177,7 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				A4DB95931FEAAD4500F405CA /* Main.storyboard */,
-				A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,7 +187,9 @@
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
 				FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */,
 				18807768203CB60C006AC0E5 /* MapboxActivity.swift */,
-				FF8C25CD2050111E003EE619 /* FlightViewController.swift */,
+				FF162715205026FA008BB642 /* ImageDownloadViewController.swift */,
+				FF16271920504C87008BB642 /* FlightViewDetailController.swift */,
+				FF16271720503CA0008BB642 /* MasterViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -197,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				A4DB95971FEAAD4500F405CA /* KeyedInterfaces */,
-				A4DB95991FEAAD4500F405CA /* Missions */,
 				A4DB959C1FEAAD4500F405CA /* Services */,
 				A4DB959F1FEAAD4500F405CA /* UIObjects */,
 			);
@@ -260,14 +260,6 @@
 				A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */,
 			);
 			path = KeyedInterfaces;
-			sourceTree = "<group>";
-		};
-		A4DB95991FEAAD4500F405CA /* Missions */ = {
-			isa = PBXGroup;
-			children = (
-				A4DB959B1FEAAD4500F405CA /* TimelineMissionViewController.swift */,
-			);
-			path = Missions;
 			sourceTree = "<group>";
 		};
 		A4DB959C1FEAAD4500F405CA /* Services */ = {
@@ -432,7 +424,6 @@
 			files = (
 				A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */,
 				A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */,
-				A4DB95A31FEAAD4500F405CA /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,8 +547,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
 				18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */,
 				18C178A82036133D00D2DE38 /* stitching.cpp in Sources */,
+				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
 				FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */,
 				18807769203CB60C006AC0E5 /* MapboxActivity.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
@@ -566,11 +559,10 @@
 				1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
+				FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */,
 				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
 				FF5F97C62048301C00D16E24 /* ProgressView.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
-				A4DB95A91FEAAD4500F405CA /* TimelineMissionViewController.swift in Sources */,
-				FF8C25CE2050111E003EE619 /* FlightViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,14 +591,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A4DB95911FEAAD4500F405CA /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A4DB95921FEAAD4500F405CA /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		A4DB95931FEAAD4500F405CA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

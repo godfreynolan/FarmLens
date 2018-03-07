@@ -1,5 +1,5 @@
 //
-//  FlightViewController.swift
+//  FlightViewDetailController.swift
 //  FarmLens
 //
 //  Created by Tom Kocik on 3/7/18.
@@ -9,14 +9,14 @@
 import UIKit
 import DJISDK
 
-class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     var locationManager: CLLocationManager!
     var boundaryPolygon: MKPolygon?
     var boundaryLine: MKPolyline?
     var flightPathLine: MKPolyline?
-    var boundaryCoordinateList: [CLLocationCoordinate2D] = []
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
+    private var masterViewController: MasterViewController!
     
     var homeAnnotation = DJIImageAnnotation(identifier: "homeAnnotation")
     var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
@@ -30,6 +30,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
     @IBOutlet weak var flightMapView: MKMapView!
     
     override func viewWillAppear(_ animated: Bool) {
+        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
         self.flightPlanning = FlightPlanning()
         self.flightMapView.addAnnotations([self.aircraftAnnotation, self.homeAnnotation])
         
@@ -119,7 +120,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
     }
     
     @IBAction func startFlight(_ sender: Any) {
-        if (self.boundaryCoordinateList.isEmpty) {
+        if (self.masterViewController.boundaryCoordinateList.isEmpty) {
             let alert = UIAlertController(title: "Flight Path Error", message: "Please prepare a flight before attempting to fly.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
@@ -199,7 +200,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
         if gestureRecognizer.state == .ended {
             let touchPoint: CGPoint = gestureRecognizer.location(in: self.flightMapView)
             let newCoordinate: CLLocationCoordinate2D = self.flightMapView.convert(touchPoint, toCoordinateFrom: self.flightMapView)
-            self.boundaryCoordinateList.append(newCoordinate)
+            self.masterViewController.boundaryCoordinateList.append(newCoordinate)
             
             addAnnotationOnLocation(pointedCoordinate: newCoordinate)
             self.refreshCoordinates()
@@ -278,7 +279,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
         
         let alert = UIAlertController(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
-            self.boundaryCoordinateList = self.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
+            self.masterViewController.boundaryCoordinateList = self.masterViewController.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
                 coordinate?.latitude != listCoordinate.latitude || coordinate?.longitude != listCoordinate.longitude
             })
             
@@ -299,7 +300,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
     }
     
     private func refreshCoordinates() {
-        if self.boundaryCoordinateList.count < 3 {
+        if self.masterViewController.boundaryCoordinateList.count < 3 {
             if self.boundaryPolygon != nil {
                 self.flightMapView.remove(self.boundaryPolygon!)
                 self.boundaryPolygon = nil
@@ -309,7 +310,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
                 self.flightMapView.remove(self.boundaryLine!)
             }
             
-            self.boundaryLine = MKPolyline(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
+            self.boundaryLine = MKPolyline(coordinates: self.masterViewController.boundaryCoordinateList, count: self.masterViewController.boundaryCoordinateList.count)
             self.flightMapView.add(self.boundaryLine!)
         } else {
             if self.boundaryLine != nil {
@@ -321,7 +322,7 @@ class FlightViewController: UIViewController, MKMapViewDelegate, DJICameraDelega
                 self.flightMapView.remove(self.boundaryPolygon!)
             }
             
-            self.boundaryPolygon = MKPolygon(coordinates: self.boundaryCoordinateList, count: self.boundaryCoordinateList.count)
+            self.boundaryPolygon = MKPolygon(coordinates: self.masterViewController.boundaryCoordinateList, count: self.masterViewController.boundaryCoordinateList.count)
             self.flightMapView.add(self.boundaryPolygon!)
         }
     }
