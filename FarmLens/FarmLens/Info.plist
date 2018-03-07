@@ -68,5 +68,11 @@
 	<string>Please allow access to your camera roll</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Uses location information to show current location when evaluating flight paths.</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleLightContent</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
 </dict>
 </plist>
