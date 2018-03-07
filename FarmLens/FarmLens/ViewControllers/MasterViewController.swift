@@ -19,13 +19,14 @@ class MasterViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             cell.textLabel?.text = "Flight Plan"
-            cell.detailTextLabel?.text = "Hold your finger on the map to plant a 'point'."
+            cell.detailTextLabel?.numberOfLines = 0
+            cell.detailTextLabel?.text = "Click on map to create boundaries of the field you want to map."
         case 1:
-            cell.textLabel?.text = "Download Images"
+            cell.textLabel?.text = "Image Download"
             cell.detailTextLabel?.text = ""
         case 2:
             cell.textLabel?.text = "View Images"
-            cell.detailTextLabel?.text = "Please make sure your images are downloaded."
+            cell.detailTextLabel?.text = ""
         default:
             cell.textLabel?.text = "test"
             cell.detailTextLabel?.text = "test"
