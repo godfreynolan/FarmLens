@@ -18,7 +18,6 @@
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
 		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
-		A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */; };
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
@@ -94,7 +93,6 @@
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4DB95941FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4DB95961FEAAD4500F405CA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedInterfaceViewController.swift; sourceTree = "<group>"; };
 		A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCommunicationManager.swift; sourceTree = "<group>"; };
 		A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotation.swift; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 		18BDBCFB20360FD900CD1D59 /* DJI */ = {
 			isa = PBXGroup;
 			children = (
-				A4DB95971FEAAD4500F405CA /* KeyedInterfaces */,
 				A4DB959C1FEAAD4500F405CA /* Services */,
 				A4DB959F1FEAAD4500F405CA /* UIObjects */,
 			);
@@ -252,14 +249,6 @@
 				A4DB95961FEAAD4500F405CA /* Info.plist */,
 			);
 			path = FarmLens;
-			sourceTree = "<group>";
-		};
-		A4DB95971FEAAD4500F405CA /* KeyedInterfaces */ = {
-			isa = PBXGroup;
-			children = (
-				A4DB95981FEAAD4500F405CA /* KeyedInterfaceViewController.swift */,
-			);
-			path = KeyedInterfaces;
 			sourceTree = "<group>";
 		};
 		A4DB959C1FEAAD4500F405CA /* Services */ = {
@@ -560,7 +549,6 @@
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
 				FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */,
-				A4DB95A71FEAAD4500F405CA /* KeyedInterfaceViewController.swift in Sources */,
 				FF5F97C62048301C00D16E24 /* ProgressView.swift in Sources */,
 				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
 			);
