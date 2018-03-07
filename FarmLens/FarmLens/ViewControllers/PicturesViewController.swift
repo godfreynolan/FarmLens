@@ -74,12 +74,12 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         self.present(alert, animated: true)
         
         DispatchQueue.global().async {
-            let stitchedImage = CVWrapper.process(with: self.downloadedPictures)
+            //let stitchedImage = CVWrapper.process(with: self.downloadedPictures)
             
             DispatchQueue.main.async {
                 alert.dismiss(animated: true, completion: nil)
-                self.imageView.image = stitchedImage
-                UIImageWriteToSavedPhotosAlbum(stitchedImage, self, #selector(self.errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
+                //self.imageView.image = stitchedImage
+                //UIImageWriteToSavedPhotosAlbum(stitchedImage, self, #selector(self.errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
     }

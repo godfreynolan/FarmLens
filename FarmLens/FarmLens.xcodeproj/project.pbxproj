@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* MapboxActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* MapboxActivity.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
-		18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */; };
-		18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A22036133D00D2DE38 /* CVWrapper.mm */; };
-		18C178A82036133D00D2DE38 /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A32036133D00D2DE38 /* stitching.cpp */; };
-		18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C178A42036133D00D2DE38 /* UIImage+Rotate.m */; };
 		A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; };
 		A435F2181E8BD6CA00D58045 /* VideoPreviewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
@@ -73,17 +70,9 @@
 
 /* Begin PBXFileReference section */
 		18348DE1203CB11F00842DE9 /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
 		18807768203CB60C006AC0E5 /* MapboxActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxActivity.swift; sourceTree = "<group>"; };
 		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
-		18C1789D2036133C00D2DE38 /* FarmLens-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FarmLens-Bridging-Header.h"; sourceTree = "<group>"; };
-		18C1789E2036133D00D2DE38 /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stitching.h; sourceTree = "<group>"; };
-		18C1789F2036133D00D2DE38 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
-		18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
-		18C178A12036133D00D2DE38 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
-		18C178A22036133D00D2DE38 /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
-		18C178A32036133D00D2DE38 /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stitching.cpp; sourceTree = "<group>"; };
-		18C178A42036133D00D2DE38 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
-		18C178A52036133D00D2DE38 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
 		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,15 +193,7 @@
 		18BDBCFC20360FE900CD1D59 /* ImageStitch */ = {
 			isa = PBXGroup;
 			children = (
-				18C178A12036133D00D2DE38 /* CVWrapper.h */,
-				18C178A22036133D00D2DE38 /* CVWrapper.mm */,
-				18C178A32036133D00D2DE38 /* stitching.cpp */,
-				18C1789E2036133D00D2DE38 /* stitching.h */,
-				18C1789F2036133D00D2DE38 /* UIImage+OpenCV.h */,
-				18C178A02036133D00D2DE38 /* UIImage+OpenCV.mm */,
-				18C178A52036133D00D2DE38 /* UIImage+Rotate.h */,
-				18C178A42036133D00D2DE38 /* UIImage+Rotate.m */,
-				18C1789D2036133C00D2DE38 /* FarmLens-Bridging-Header.h */,
+				187203042050755C00008042 /* ImageTiler.swift */,
 			);
 			path = ImageStitch;
 			sourceTree = "<group>";
@@ -240,11 +221,11 @@
 		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
 			isa = PBXGroup;
 			children = (
-				FF5F97C420482FF300D16E24 /* Models */,
 				18BDBCF820360FA700CD1D59 /* App */,
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
 				1880776E203F1450006AC0E5 /* Services */,
+				FF5F97C420482FF300D16E24 /* Models */,
 				A4DB95901FEAAD4500F405CA /* Assets.xcassets */,
 				A4DB95961FEAAD4500F405CA /* Info.plist */,
 			);
@@ -537,20 +518,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
-				18C178A62036133D00D2DE38 /* UIImage+OpenCV.mm in Sources */,
-				18C178A82036133D00D2DE38 /* stitching.cpp in Sources */,
 				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
 				FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */,
 				18807769203CB60C006AC0E5 /* MapboxActivity.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
-				18C178A72036133D00D2DE38 /* CVWrapper.mm in Sources */,
+				187203052050755C00008042 /* ImageTiler.swift in Sources */,
 				1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
 				FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */,
 				FF5F97C62048301C00D16E24 /* ProgressView.swift in Sources */,
-				18C178A92036133D00D2DE38 /* UIImage+Rotate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,7 +697,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FarmLens/Services/ImageStitch/FarmLens-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -746,7 +725,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FarmLens/Services/ImageStitch/FarmLens-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
