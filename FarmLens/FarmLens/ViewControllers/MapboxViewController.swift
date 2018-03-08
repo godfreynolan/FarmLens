@@ -13,9 +13,6 @@ import Mapbox
 
 class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
-//    @IBOutlet weak var btnTest: UIButton!
-//    @IBOutlet weak var lblTestLabel: UILabel!
-    
     let locManager = CLLocationManager()
     
     var droneMarker: MGLPointAnnotation? = nil
@@ -41,7 +38,7 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
         mapView?.tintColor = .darkGray
         
         var currentLocation: CLLocation!
-        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ) {
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse) {
             currentLocation = locManager.location
             startLat = currentLocation.coordinate.latitude
             startLong = currentLocation.coordinate.longitude
@@ -54,13 +51,10 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
         mapView?.setVisibleCoordinateBounds(bounds, animated: false)
         
         view.addSubview(mapView!)
-
-        //        self.view.bringSubview(toFront: lblTestLabel)
-        //        self.view.bringSubview(toFront: btnTest)
-        //        let drone = DroneModel(homeElevation: 0.0)
-        //        lblTestLabel.text = "Coordinates: \(drone.latitude),\(drone.longitude)"
         
-        UpdateMarker()
+        var UpdateMarkerTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(MapboxViewController.UpdateMarker), userInfo: nil, repeats: true)
+        
+        //UpdateMarker()
         
         // Set the map view‘s delegate property.
         mapView?.delegate = self
@@ -85,7 +79,6 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
         let loc_159 = CLLocationCoordinate2DMake(42.5450032416955, -83.1177755806096)
         let loc_160 = CLLocationCoordinate2DMake(42.5450032416955, -83.1176658378953)
         let loc_161 = CLLocationCoordinate2DMake(42.5448934989812, -83.1176658378953) // 161
-        
         
         let imageLocations:[CLLocationCoordinate2D] = [loc_145,loc_146,loc_147,loc_148,loc_149,
                                                        loc_150,loc_151,loc_152,loc_153,loc_154,
@@ -116,14 +109,6 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
         UpdateMarker()
     }
     
-    
-//    @IBAction func btnTestPressed(_ sender: Any) {
-//        startLat += 0.1
-//        startLong += 0.1
-//        UpdateMarker(latitude: startLat, longitude: startLong)
-//    }
-    
-    
     func UpdateMarker()
     {
         if droneMarker != nil
@@ -137,6 +122,7 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
         //pisa.title = "Leaning Tower of Pisa"
         mapView?.addAnnotation(droneMarker!)
         
+        // NOTE: Leave this code here. It will be used in phase 2
         // Set the map's bounds
 //        let bounds = MGLCoordinateBounds(
 //            sw: CLLocationCoordinate2D(latitude: (startLat - 0.0005), longitude: (startLong - 0.01)),
@@ -144,63 +130,8 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
 //        mapView?.setVisibleCoordinateBounds(bounds, animated: false)
     }
     
-//    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-//        // Try to reuse the existing ‘pisa’ annotation image, if it exists.
-//        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: "drone")
-//
-//        if annotationImage == nil {
-//            // Leaning Tower of Pisa by Stefan Spieler from the Noun Project.
-//            var image = UIImage(named: "aircraft")!
-//
-//            let size = CGSize(width: 60, height: 60)
-//            image = resizeImage(image: image, targetSize: size)
-//
-//            // The anchor point of an annotation is currently always the center. To
-//            // shift the anchor point to the bottom of the annotation, the image
-//            // asset includes transparent bottom padding equal to the original image
-//            // height.
-//            //
-//            // To make this padding non-interactive, we create another image object
-//            // with a custom alignment rect that excludes the padding.
-//            image = image.withAlignmentRectInsets(UIEdgeInsets(top: 0, left: 0, bottom: image.size.height/2, right: 0))
-//
-//            // Initialize the ‘pisa’ annotation image with the UIImage we just loaded.
-//            annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "drone")
-//        }
-//
-//        return annotationImage
-//    }
-    
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         // Always allow callouts to popup when annotations are tapped.
         return true
-    }
-    
-    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let size = image.size
-        
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        
-        if (widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-        }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage!
     }
 }
