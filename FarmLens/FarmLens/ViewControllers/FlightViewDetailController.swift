@@ -8,26 +8,27 @@
 
 import UIKit
 import DJISDK
+import Mapbox
 
-class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     var locationManager: CLLocationManager!
-    var boundaryPolygon: MKPolygon?
-    var boundaryLine: MKPolyline?
-    var flightPathLine: MKPolyline?
+    var boundaryPolygon: MGLPolygon?
+    var boundaryLine: MGLPolyline?
+    var flightPathLine: MGLPolyline?
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
     private var masterViewController: MasterViewController!
     
     var homeAnnotation = DJIImageAnnotation(identifier: "homeAnnotation")
     var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
-    var aircraftAnnotationView: MKAnnotationView!
+    var aircraftAnnotationView: MGLAnnotationView!
     
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var batteryLifeLabel: UILabel!
     
-    @IBOutlet weak var flightMapView: MKMapView!
+    @IBOutlet weak var flightMapView: MGLMapView!
     
     override func viewWillAppear(_ animated: Bool) {
         self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
@@ -89,7 +90,7 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
         }
         
         self.flightMapView.delegate = self
-        self.flightMapView.mapType = .hybrid
+        self.flightMapView.styleURL = MGLStyle.satelliteStreetsStyleURL()
         self.flightMapView.showsUserLocation = true
         
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
@@ -183,7 +184,7 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
             region.span.latitudeDelta = 0.001
             region.span.longitudeDelta = 0.001
             
-            self.flightMapView.setRegion(region, animated: true)
+            self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
             // We don't want the map changing while the user is trying to draw on it.
             self.locationManager?.stopUpdatingLocation()
         }
@@ -191,10 +192,6 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
     
     // MARK: GestureDelegate
     func handleTap(gestureRecognizer: UILongPressGestureRecognizer) {
-        if (self.boundaryPolygon != nil) {
-            return
-        }
-        
         if gestureRecognizer.state == .ended {
             let touchPoint: CGPoint = gestureRecognizer.location(in: self.flightMapView)
             let newCoordinate: CLLocationCoordinate2D = self.flightMapView.convert(touchPoint, toCoordinateFrom: self.flightMapView)
@@ -205,83 +202,91 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
         }
     }
     
-    // MARK: - MKMapViewDelegate
+    // MARK: - MGLMapViewDelegate
     // Handle the placing of different annotations
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        var image: UIImage?
-        let imageAnnotation: DJIImageAnnotation
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        if annotation is MGLUserLocation {
+            return nil // Use default
+        }
         
-        if (annotation is MKUserLocation) {
-            imageAnnotation = DJIImageAnnotation()
-            imageAnnotation.identifier = "User"
-            image = #imageLiteral(resourceName: "waypoint")
-        } else {
-            imageAnnotation = annotation as! DJIImageAnnotation
+        var image: UIImage?
+        var identifier = ""
+        
+        if annotation is DJIImageAnnotation {
+            let imageAnnotation = annotation as! DJIImageAnnotation
+            identifier = imageAnnotation.identifier
             
             if annotation.isEqual(self.aircraftAnnotation) {
                 image = #imageLiteral(resourceName: "aircraft")
             } else if annotation.isEqual(self.homeAnnotation) {
                 image = #imageLiteral(resourceName: "navigation_poi_pin")
             }
+        } else {
+            identifier = annotation.title!!
+            image = #imageLiteral(resourceName: "navigation_poi_pin")
         }
         
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: imageAnnotation.identifier)
+        let annotationView = mapView.dequeueReusableAnnotationImage(withIdentifier: identifier)
         
         if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: imageAnnotation.identifier)
+            return MGLAnnotationImage(image: image!, reuseIdentifier: identifier)
+        } else {
+            return annotationView
         }
-        
-        annotationView?.image = image
-        
-        if annotation.isEqual(self.aircraftAnnotation) {
-            if annotationView != nil {
-                self.aircraftAnnotationView = annotationView!
-            }
-        }
-        
-        return annotationView
     }
     
     // Handle the drawing of the lines and shapes
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
-            let lineView = MKPolylineRenderer(overlay: overlay)
-            lineView.strokeColor = .red
-            lineView.lineWidth = 6
-            return lineView
+    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+        if annotation is MGLPolyline {
+            return .red
         }
         
-        if overlay is MKPolygon {
-            let polygonView = MKPolygonRenderer(overlay: overlay)
-            polygonView.strokeColor = .green
-            polygonView.lineWidth = 6
-            return polygonView
+        return .green
+    }
+    
+    func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+        return 6
+    }
+    
+    func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
+        return .green
+    }
+    
+    func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
+        if annotation is MGLPolyline {
+            return 1
         }
         
-        return MKOverlayRenderer()
+        return 0.5
     }
     
     // Handle the "click" of a coordinate
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if view.annotation is MKUserLocation {
-            return
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        if !(annotation is MGLPointAnnotation) {
+            return false
         }
         
-        if (view.annotation?.isEqual(self.aircraftAnnotation))! || (view.annotation?.isEqual(self.homeAnnotation))! {
-            return
-        }
+        return true
+    }
+    
+    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        return UIButton(type: .detailDisclosure)
+    }
+    
+    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+        mapView.deselectAnnotation(annotation, animated: false)
         
-        let coordinate = view.annotation?.coordinate
-        let latitude = (coordinate?.latitude)!
-        let longitude = (coordinate?.longitude)!
+        let coordinate = annotation.coordinate
+        let latitude = coordinate.latitude
+        let longitude = coordinate.longitude
         
         let alert = UIAlertController(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
             self.masterViewController.boundaryCoordinateList = self.masterViewController.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
-                coordinate?.latitude != listCoordinate.latitude || coordinate?.longitude != listCoordinate.longitude
+                coordinate.latitude != listCoordinate.latitude || coordinate.longitude != listCoordinate.longitude
             })
             
-            mapView.removeAnnotation(view.annotation!)
+            mapView.removeAnnotation(annotation)
             self.refreshCoordinates()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -291,9 +296,10 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
     // MARK: - Convenience
     
     private func addAnnotationOnLocation(pointedCoordinate: CLLocationCoordinate2D) {
-        let annotation = DJIImageAnnotation()
+        let annotation = MGLPointAnnotation()
+        annotation.title = "Latitude \(pointedCoordinate.latitude) Longitude \(pointedCoordinate.longitude)"
         annotation.coordinate = pointedCoordinate
-        
+
         self.flightMapView.addAnnotation(annotation)
     }
     
@@ -308,7 +314,11 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
                 self.flightMapView.remove(self.boundaryLine!)
             }
             
-            self.boundaryLine = MKPolyline(coordinates: self.masterViewController.boundaryCoordinateList, count: self.masterViewController.boundaryCoordinateList.count)
+            if self.masterViewController.boundaryCoordinateList.isEmpty {
+                return
+            }
+            
+            self.boundaryLine = MGLPolyline(coordinates: self.masterViewController.boundaryCoordinateList, count: UInt(self.masterViewController.boundaryCoordinateList.count))
             self.flightMapView.add(self.boundaryLine!)
         } else {
             if self.boundaryLine != nil {
@@ -320,7 +330,7 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
                 self.flightMapView.remove(self.boundaryPolygon!)
             }
             
-            self.boundaryPolygon = MKPolygon(coordinates: self.masterViewController.boundaryCoordinateList, count: self.masterViewController.boundaryCoordinateList.count)
+            self.boundaryPolygon = MGLPolygon(coordinates: self.masterViewController.boundaryCoordinateList, count: UInt(self.masterViewController.boundaryCoordinateList.count))
             self.flightMapView.add(self.boundaryPolygon!)
         }
     }

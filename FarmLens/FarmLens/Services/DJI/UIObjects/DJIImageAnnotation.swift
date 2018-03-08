@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import MapKit
+import Mapbox
 
-class DJIImageAnnotation: MKPointAnnotation {
+class DJIImageAnnotation: NSObject, MGLAnnotation {
 
     var identifier = "N/A"
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     
     fileprivate var _heading: Double = 0.0
     public var heading: Double {
@@ -23,13 +24,11 @@ class DJIImageAnnotation: MKPointAnnotation {
         }
     }
     
-    convenience init(identifier: String) {
-        self.init()
+    init(identifier: String) {
         self.identifier = identifier        
     }
     
-    convenience init(coordinates: CLLocationCoordinate2D, heading: Double) {
-        self.init()
+    init(coordinates: CLLocationCoordinate2D, heading: Double) {
         self.coordinate = coordinates
         _heading = heading
     }
