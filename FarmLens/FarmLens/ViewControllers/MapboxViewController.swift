@@ -6,62 +6,71 @@
 //  Copyright © 2018 DJI. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import CoreLocation
 import Mapbox
+import Photos
 
 class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
-    let locManager = CLLocationManager()
+    private let imageTiler = ImageTiler()
+    private let locManager = CLLocationManager()
     
-    var droneMarker: MGLPointAnnotation? = nil
-    var mapView: MGLMapView? = nil
+    private var mapStyle: MGLStyle!
+    private var masterViewController: MasterViewController!
     
-    var startLat = 0.0
-    var startLong = 0.0
+    @IBOutlet weak var mapView: MGLMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
         
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         locManager.requestWhenInUseAuthorization()
         locManager.startUpdatingLocation()
+        
+        PHPhotoLibrary.requestAuthorization { (status) in
+            
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.satelliteStreetsStyleURL())
-        mapView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView?.tintColor = .darkGray
-        
-        var currentLocation: CLLocation!
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse) {
-            currentLocation = locManager.location
-            startLat = currentLocation.coordinate.latitude
-            startLong = currentLocation.coordinate.longitude
-        }
-        
-        // Set the map's bounds to Pisa, Italy.
-        let bounds = MGLCoordinateBounds(
-            sw: CLLocationCoordinate2D(latitude: (startLat - 0.0005), longitude: (startLong - 0.01)),
-            ne: CLLocationCoordinate2D(latitude: (startLat + 0.0005), longitude: (startLong + 0.01)))
-        mapView?.setVisibleCoordinateBounds(bounds, animated: false)
-        
-        view.addSubview(mapView!)
-        
-        var UpdateMarkerTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(MapboxViewController.UpdateMarker), userInfo: nil, repeats: true)
-        
-        //UpdateMarker()
+        self.mapView.styleURL = MGLStyle.satelliteStreetsStyleURL()
+        self.mapView.showsUserLocation = true
         
         // Set the map view‘s delegate property.
-        mapView?.delegate = self
+        self.mapView.delegate = self
+    }
+    
+    @IBAction func loadImages(_ sender: Any) {
+        var imagesShown = false
+        
+        //TODO Put logic in to actually load the photos and try to show them.
+        if self.masterViewController.flightCoordinateList.isEmpty {
+            imagesShown = loadTestImages()
+        }
+        
+        if !imagesShown {
+            let alert = UIAlertController(title: "Image LoadingError", message: "There are no pictures to show. Please download the images first!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        
+        self.mapStyle = style
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.mapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
+        // We don't want the map changing while the user is trying to draw on it.
+        self.locManager.stopUpdatingLocation()
+    }
+    
+    private func loadTestImages() -> Bool {
         let loc_145 = CLLocationCoordinate2DMake(42.5450032416955, -83.1183242941811) // 145
         let loc_146 = CLLocationCoordinate2DMake(42.5448934989812, -83.1183242941811)
         let loc_147 = CLLocationCoordinate2DMake(42.5448934989812, -83.1182145514668)
@@ -92,46 +101,6 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
             images.append(img)
         }
         
-        if (ImageTiler().OverlayImages(mapView: mapView, style: style, imageLocations: imageLocations, images: images))
-        {
-            // success
-        }
-        else
-        {
-            // failure
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations[0]
-        startLat = location.coordinate.latitude
-        startLong = location.coordinate.longitude
-        UpdateMarker()
-    }
-    
-    func UpdateMarker()
-    {
-        if droneMarker != nil
-        {
-            mapView?.removeAnnotation(droneMarker!)
-        }
-        
-        // Initialize and add the point annotation.
-        droneMarker = MGLPointAnnotation()
-        droneMarker?.coordinate = CLLocationCoordinate2D(latitude: startLat, longitude: startLong)
-        //pisa.title = "Leaning Tower of Pisa"
-        mapView?.addAnnotation(droneMarker!)
-        
-        // NOTE: Leave this code here. It will be used in phase 2
-        // Set the map's bounds
-//        let bounds = MGLCoordinateBounds(
-//            sw: CLLocationCoordinate2D(latitude: (startLat - 0.0005), longitude: (startLong - 0.01)),
-//            ne: CLLocationCoordinate2D(latitude: (startLat + 0.0005), longitude: (startLong + 0.01)))
-//        mapView?.setVisibleCoordinateBounds(bounds, animated: false)
-    }
-    
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        // Always allow callouts to popup when annotations are tapped.
-        return true
+        return self.imageTiler.overlayImages(mapView: mapView, style: self.mapStyle, imageLocations: imageLocations, images: images)
     }
 }

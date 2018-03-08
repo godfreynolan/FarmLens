@@ -11,17 +11,17 @@ import DJISDK
 import Mapbox
 
 class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
-    var locationManager: CLLocationManager!
-    var boundaryPolygon: MGLPolygon?
-    var boundaryLine: MGLPolyline?
-    var flightPathLine: MGLPolyline?
+    private var boundaryCoordinateList: [CLLocationCoordinate2D] = []
+    private var locationManager: CLLocationManager!
+    private var boundaryPolygon: MGLPolygon?
+    private var boundaryLine: MGLPolyline?
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
     private var masterViewController: MasterViewController!
     
-    var homeAnnotation = DJIImageAnnotation(identifier: "homeAnnotation")
-    var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
-    var aircraftAnnotationView: MGLAnnotationView!
+    private var homeAnnotation = DJIImageAnnotation(identifier: "homeAnnotation")
+    private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
+    private var aircraftAnnotationView: MGLAnnotationView!
     
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -119,7 +119,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     }
     
     @IBAction func startFlight(_ sender: Any) {
-        if (self.masterViewController.boundaryCoordinateList.isEmpty) {
+        if (self.boundaryCoordinateList.isEmpty) {
             let alert = UIAlertController(title: "Flight Path Error", message: "Please prepare a flight before attempting to fly.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
@@ -133,8 +133,8 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             return
         }
         
-        let flightPathCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
-        let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinateList)
+        self.masterViewController.flightCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
+        let mission = self.flightPlanning.createMission(missionCoordinates: self.masterViewController.flightCoordinateList)
         
         DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
         
@@ -179,11 +179,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
-            var region: MKCoordinateRegion = MKCoordinateRegion()
-            region.center = (locations.last?.coordinate)!
-            region.span.latitudeDelta = 0.001
-            region.span.longitudeDelta = 0.001
-            
             self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
             // We don't want the map changing while the user is trying to draw on it.
             self.locationManager?.stopUpdatingLocation()
@@ -195,7 +190,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         if gestureRecognizer.state == .ended {
             let touchPoint: CGPoint = gestureRecognizer.location(in: self.flightMapView)
             let newCoordinate: CLLocationCoordinate2D = self.flightMapView.convert(touchPoint, toCoordinateFrom: self.flightMapView)
-            self.masterViewController.boundaryCoordinateList.append(newCoordinate)
+            self.boundaryCoordinateList.append(newCoordinate)
             
             addAnnotationOnLocation(pointedCoordinate: newCoordinate)
             self.refreshCoordinates()
@@ -282,7 +277,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         
         let alert = UIAlertController(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
-            self.masterViewController.boundaryCoordinateList = self.masterViewController.boundaryCoordinateList.filter({ (listCoordinate) -> Bool in
+            self.boundaryCoordinateList = self.masterViewController.flightCoordinateList.filter({ (listCoordinate) -> Bool in
                 coordinate.latitude != listCoordinate.latitude || coordinate.longitude != listCoordinate.longitude
             })
             
@@ -304,7 +299,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     }
     
     private func refreshCoordinates() {
-        if self.masterViewController.boundaryCoordinateList.count < 3 {
+        if self.boundaryCoordinateList.count < 3 {
             if self.boundaryPolygon != nil {
                 self.flightMapView.remove(self.boundaryPolygon!)
                 self.boundaryPolygon = nil
@@ -314,11 +309,11 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 self.flightMapView.remove(self.boundaryLine!)
             }
             
-            if self.masterViewController.boundaryCoordinateList.isEmpty {
+            if self.boundaryCoordinateList.isEmpty {
                 return
             }
             
-            self.boundaryLine = MGLPolyline(coordinates: self.masterViewController.boundaryCoordinateList, count: UInt(self.masterViewController.boundaryCoordinateList.count))
+            self.boundaryLine = MGLPolyline(coordinates: self.boundaryCoordinateList, count: UInt(self.boundaryCoordinateList.count))
             self.flightMapView.add(self.boundaryLine!)
         } else {
             if self.boundaryLine != nil {
@@ -330,7 +325,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 self.flightMapView.remove(self.boundaryPolygon!)
             }
             
-            self.boundaryPolygon = MGLPolygon(coordinates: self.masterViewController.boundaryCoordinateList, count: UInt(self.masterViewController.boundaryCoordinateList.count))
+            self.boundaryPolygon = MGLPolygon(coordinates: self.boundaryCoordinateList, count: UInt(self.boundaryCoordinateList.count))
             self.flightMapView.add(self.boundaryPolygon!)
         }
     }

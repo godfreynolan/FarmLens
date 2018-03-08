@@ -10,8 +10,6 @@
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* MapboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* MapboxViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
-		A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; };
-		A435F2181E8BD6CA00D58045 /* VideoPreviewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
 		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
@@ -22,7 +20,6 @@
 		F47D0E76FA038D14FB25719A /* Pods_FarmLensTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */; };
 		FF015AA1204087170093EA05 /* FarmLensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AA0204087170093EA05 /* FarmLensTests.swift */; };
 		FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */; };
-		FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */; };
 		FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF162715205026FA008BB642 /* ImageDownloadViewController.swift */; };
 		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
@@ -31,20 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A435F2151E8BD6BF00D58045 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 02A543FD1C3C51CB0083C11B;
-			remoteInfo = VideoPreviewer;
-		};
-		A435F2191E8BD6CA00D58045 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 02A543FC1C3C51CB0083C11B;
-			remoteInfo = VideoPreviewer;
-		};
 		FF015AA3204087170093EA05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 86985CC11E834EC200577EC7 /* Project object */;
@@ -61,7 +44,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A435F2181E8BD6CA00D58045 /* VideoPreviewer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,7 +59,6 @@
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
-		A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4DB95941FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,7 +72,6 @@
 		FF015AA0204087170093EA05 /* FarmLensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmLensTests.swift; sourceTree = "<group>"; };
 		FF015AA2204087170093EA05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanningTests.swift; sourceTree = "<group>"; };
-		FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesViewController.swift; sourceTree = "<group>"; };
 		FF162715205026FA008BB642 /* ImageDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadViewController.swift; sourceTree = "<group>"; };
 		FF16271720503CA0008BB642 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
@@ -106,7 +86,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */,
-				A435F2171E8BD6CA00D58045 /* VideoPreviewer.framework in Frameworks */,
 				CD30D554A752758047BFFF73 /* Pods_FarmLens.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */,
-				A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */,
 				1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */,
 				38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */,
 				3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */,
@@ -175,7 +153,6 @@
 				FF162715205026FA008BB642 /* ImageDownloadViewController.swift */,
 				18807768203CB60C006AC0E5 /* MapboxViewController.swift */,
 				FF16271720503CA0008BB642 /* MasterViewController.swift */,
-				FF0BACCA203B09B100BAFF23 /* PicturesViewController.swift */,
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
 			);
 			path = ViewControllers;
@@ -209,14 +186,6 @@
 				18348DE1203CB11F00842DE9 /* FarmLens.app */,
 				FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		A435F2121E8BD6BF00D58045 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
@@ -287,7 +256,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				A435F21A1E8BD6CA00D58045 /* PBXTargetDependency */,
 			);
 			name = FarmLens;
 			productName = "SDK Swift Sample";
@@ -355,12 +323,6 @@
 			mainGroup = 86985CC01E834EC200577EC7;
 			productRefGroup = 86985CC01E834EC200577EC7;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = A435F2121E8BD6BF00D58045 /* Products */;
-					ProjectRef = A435F2111E8BD6BF00D58045 /* VideoPreviewer.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				86985CC81E834EC200577EC7 /* FarmLens */,
@@ -368,16 +330,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		A435F2161E8BD6BF00D58045 /* VideoPreviewer.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = VideoPreviewer.framework;
-			remoteRef = A435F2151E8BD6BF00D58045 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		86985CC71E834EC200577EC7 /* Resources */ = {
@@ -512,7 +464,6 @@
 				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
 				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
 				FF162720205082E8008BB642 /* ImageLoader.swift in Sources */,
-				FF0BACCB203B09B100BAFF23 /* PicturesViewController.swift in Sources */,
 				18807769203CB60C006AC0E5 /* MapboxViewController.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
@@ -536,11 +487,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A435F21A1E8BD6CA00D58045 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = VideoPreviewer;
-			targetProxy = A435F2191E8BD6CA00D58045 /* PBXContainerItemProxy */;
-		};
 		FF015AA4204087170093EA05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 86985CC81E834EC200577EC7 /* FarmLens */;

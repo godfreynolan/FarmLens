@@ -23,7 +23,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
-        self.totalImageCount = self.masterViewController.boundaryCoordinateList.count
+        self.totalImageCount = self.masterViewController.flightCoordinateList.count
     }
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
-        if self.masterViewController.boundaryCoordinateList.isEmpty {
+        if self.masterViewController.flightCoordinateList.isEmpty {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -121,7 +121,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
 
         self.currentDownloadIndex = 0
         self.statusIndex = 1
-        if listCount > self.masterViewController.boundaryCoordinateList.count {
+        if listCount > self.masterViewController.flightCoordinateList.count {
             self.currentDownloadIndex = listCount - self.totalImageCount
         }
 
