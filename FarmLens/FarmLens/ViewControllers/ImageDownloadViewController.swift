@@ -47,6 +47,13 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
+        if self.masterViewController.boundaryCoordinateList.isEmpty {
+            let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         startMediaDownload()
     }
     

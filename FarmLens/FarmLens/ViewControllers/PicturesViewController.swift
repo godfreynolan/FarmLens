@@ -16,7 +16,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
     var mediaDownloadList: [DJIMediaFile] = []
     var currentDownloadIndex = 0
     var downloadedPictures: [UIImage] = []
-    var progressView: ProgressView!
     var statusIndex = 1
     
     @IBOutlet var outputLabel: UILabel!
@@ -26,7 +25,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
         UIApplication.shared.isIdleTimerDisabled = true
         super.viewDidLoad()
         self.resetUI()
-        self.progressView = ProgressView()
         
         self.camera = fetchCamera()
         self.camera?.delegate = self
@@ -150,8 +148,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             self.currentDownloadIndex = listCount - 66
         }
 
-        self.progressView.showAlertWithMessage(viewController: self, message: "Downloading file \(self.statusIndex)")
-
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
 
@@ -180,7 +176,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
             if (previousOffset == file.fileSizeInBytes && isComplete) {
                 self.saveImage(data: mutableData!)
                 self.statusIndex += 1
-                self.progressView.updateMessage(message: "Downloading file \(self.statusIndex)")
                 self.currentDownloadIndex += 1
 
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
@@ -188,7 +183,6 @@ class PicturesViewController: UIViewController, DJICameraDelegate, DJIMediaManag
                 } else {
                     self.log(info: "All downloads complete")
                     self.endMediaDownload()
-                    self.progressView.dismissAlert()
                 }
             }
         })

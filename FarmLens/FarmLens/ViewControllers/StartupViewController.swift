@@ -20,35 +20,21 @@ class StartupViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let connectedKey = DJIProductKey(param: DJIParamConnection) else {
-            print("Error creating the connectedKey")
-            return;
-        }
+        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIProductKey(param: DJIParamConnection)!, withListener: self, andUpdate: { (oldValue, newValue) in
+            if newValue != nil {
+                if newValue!.boolValue {
+                    self.productConnected()
+                }
+            }
+        })
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { 
-            DJISDKManager.keyManager()?.startListeningForChanges(on: connectedKey, withListener: self, andUpdate: { (oldValue: DJIKeyedValue?, newValue : DJIKeyedValue?) in
-                if newValue != nil {
-                    if newValue!.boolValue {
-                        // At this point, a product is connected so we can show it.
-                        
-                        // UI goes on MT.
-                        DispatchQueue.main.async {
-                            self.productConnected()
-                        }
-                    }
-                }
-            })
-            DJISDKManager.keyManager()?.getValueFor(connectedKey, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
-                if let unwrappedValue = value {
-                    if unwrappedValue.boolValue {
-                        // UI goes on MT.
-                        DispatchQueue.main.async {
-                            self.productConnected()
-                        }
-                    }
-                }
-            })
-        }
+//        DJISDKManager.keyManager()?.getValueFor(connectedKey, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
+//            if let unwrappedValue = value {
+//                if unwrappedValue.boolValue {
+//                    self.productConnected()
+//                }
+//            }
+//        })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -79,8 +65,6 @@ class StartupViewController: UIViewController {
         self.openComponents.alpha = 1.0;
         
         self.imgDrone.image = UIImage(named: "DroneConnected")
-        
-        print("Product Connected")
     }
     
     func productDisconnected() {
@@ -92,6 +76,5 @@ class StartupViewController: UIViewController {
         self.openComponents.alpha = 0.8;
         
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
-        print("Product Disconnected")
     }
 }
