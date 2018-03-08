@@ -111,8 +111,6 @@ class FlightViewDetailController: UIViewController, MKMapViewDelegate, DJICamera
                 self.present(alert, animated: true)
                 
                 return false
-            } else {
-                //TODO: Transition to the next screen with the image count and (maybe?) the coordinate list
             }
         }
         

@@ -52,6 +52,8 @@ class MasterViewController: UITableViewController {
             self.performSegue(withIdentifier: "FlightPathSegue", sender: nil)
         case 1:
             self.performSegue(withIdentifier: "ImageDownloadSegue", sender: nil)
+        case 2:
+            self.performSegue(withIdentifier: "ViewImagesSegue", sender: nil)
         default:
             break
         }
