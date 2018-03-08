@@ -89,13 +89,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="HAs-VH-jMg">
-                                <rect key="frame" x="0.0" y="0.0" width="703" height="768"/>
+                                <rect key="frame" x="-0.5" y="0.0" width="703" height="768"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5Pv-J6-T87">
-                                <rect key="frame" x="20" y="69" width="664" height="595"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTH-qb-2Mh">
                                 <rect key="frame" x="485" y="685" width="199" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -135,6 +131,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gZJ-Yx-VHI" customClass="MGLMapView">
+                                <rect key="frame" x="20" y="69" width="663" height="608"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -142,14 +143,14 @@
                     <connections>
                         <outlet property="altitudeLabel" destination="V8v-v3-bQX" id="Z46-OI-nfH"/>
                         <outlet property="batteryLifeLabel" destination="XXh-lC-yRh" id="dhX-3I-SiO"/>
-                        <outlet property="flightMapView" destination="5Pv-J6-T87" id="8GC-S7-icH"/>
+                        <outlet property="flightMapView" destination="gZJ-Yx-VHI" id="h5r-eB-CbJ"/>
                         <outlet property="latitudeLabel" destination="Zrh-VA-I5f" id="F3X-wK-YvQ"/>
                         <outlet property="longitudeLabel" destination="irg-rm-UeT" id="gl3-La-vhk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCa-ds-qdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="690" y="1423"/>
+            <point key="canvasLocation" x="689.6484375" y="1422.65625"/>
         </scene>
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">

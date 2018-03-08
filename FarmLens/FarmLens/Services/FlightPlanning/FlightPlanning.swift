@@ -6,7 +6,7 @@
 //  Copyright © 2018 DJI. All rights reserved.
 //
 
-import MapKit
+import Mapbox
 import DJISDK
 
 class FlightPlanning {
@@ -24,7 +24,7 @@ class FlightPlanning {
         
         for coordinate in missionCoordinates {
             let waypoint = DJIWaypoint(coordinate: coordinate)
-            waypoint.altitude = 50
+            waypoint.altitude = 100
             waypoint.heading = 0
             waypoint.actionRepeatTimes = 1
             waypoint.actionTimeoutInSeconds = 15
@@ -39,7 +39,7 @@ class FlightPlanning {
         return DJIWaypointMission(mission: mission)
     }
     
-    func calculateFlightPlan(boundingArea: MKPolygon, spacingFeet: Double) -> [CLLocationCoordinate2D] {
+    func calculateFlightPlan(boundingArea: MGLPolygon, spacingFeet: Double) -> [CLLocationCoordinate2D] {
         
         // Steps:
         // 1. Get overlaying rectangle
@@ -48,16 +48,14 @@ class FlightPlanning {
         // 4. Reorder points to scan properly.
         
         // Step 1.
-        let mapPoints = boundingArea.points()
+        var mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount - 1)))
         
-        var minX = MKCoordinateForMapPoint(mapPoints[0]).longitude
-        var minY = MKCoordinateForMapPoint(mapPoints[0]).latitude
-        var maxX = MKCoordinateForMapPoint(mapPoints[0]).longitude
-        var maxY = MKCoordinateForMapPoint(mapPoints[0]).latitude
+        var minX = mapPoints[0].longitude
+        var minY = mapPoints[0].latitude
+        var maxX = mapPoints[0].longitude
+        var maxY = mapPoints[0].latitude
         
-        for i in 0...(boundingArea.pointCount - 1) {
-            let coordinate = MKCoordinateForMapPoint(mapPoints[i])
-            
+        for coordinate in mapPoints {
             minX = minX > coordinate.longitude ? coordinate.longitude : minX
             minY = minY > coordinate.latitude ? coordinate.latitude : minY
             maxX = maxX < coordinate.longitude ? coordinate.longitude : maxX
@@ -66,8 +64,8 @@ class FlightPlanning {
         
         var x = minX
         var y = minY
-        let xIncrement = convertSpacingFeetToDegrees(40)
-        let yIncrement = convertSpacingFeetToDegrees(40)
+        let xIncrement = convertSpacingFeetToDegrees(spacingFeet)
+        let yIncrement = convertSpacingFeetToDegrees(spacingFeet)
         
         // Step 2.
         var locations:[CLLocationCoordinate2D] = []
@@ -121,11 +119,8 @@ class FlightPlanning {
         return coordinates
     }
     
-    private func isCoordinateInBoundingArea(boundingArea: MKPolygon, coordinate: CLLocationCoordinate2D) -> Bool {
-        let renderer = MKPolygonRenderer(polygon: boundingArea)
-        let position = renderer.point(for: MKMapPointForCoordinate(coordinate))
-        
-        return renderer.path.contains(position)
+    private func isCoordinateInBoundingArea(boundingArea: MGLPolygon, coordinate: CLLocationCoordinate2D) -> Bool {
+        return MGLCoordinateInCoordinateBounds(coordinate, boundingArea.overlayBounds)
     }
     
     private func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
