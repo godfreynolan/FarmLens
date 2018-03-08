@@ -133,7 +133,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             return
         }
         
-        let flightPathCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 40)
+        let flightPathCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinateList)
         
         DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
