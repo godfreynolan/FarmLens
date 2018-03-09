@@ -7,11 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
-		182D469B2053058C00A4CBD8 /* FarmLensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D469A2053058C00A4CBD8 /* FarmLensUITests.swift */; };
-=======
 		182D46A9205306B800A4CBD8 /* FarmLensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D46A8205306B800A4CBD8 /* FarmLensUITests.swift */; };
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
@@ -33,11 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-<<<<<<< HEAD
-		182D469D2053058C00A4CBD8 /* PBXContainerItemProxy */ = {
-=======
 		182D46AB205306B800A4CBD8 /* PBXContainerItemProxy */ = {
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			isa = PBXContainerItemProxy;
 			containerPortal = 86985CC11E834EC200577EC7 /* Project object */;
 			proxyType = 1;
@@ -67,15 +59,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
-		182D46982053058C00A4CBD8 /* FarmLensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		182D469A2053058C00A4CBD8 /* FarmLensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmLensUITests.swift; sourceTree = "<group>"; };
-		182D469C2053058C00A4CBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-=======
 		182D46A6205306B800A4CBD8 /* FarmLensUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		182D46A8205306B800A4CBD8 /* FarmLensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmLensUITests.swift; sourceTree = "<group>"; };
 		182D46AA205306B800A4CBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 		18348DE1203CB11F00842DE9 /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
 		18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImagesViewController.swift; sourceTree = "<group>"; };
@@ -106,11 +92,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-<<<<<<< HEAD
-		182D46952053058C00A4CBD8 /* Frameworks */ = {
-=======
 		182D46A3205306B800A4CBD8 /* Frameworks */ = {
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -148,19 +130,11 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-		182D46992053058C00A4CBD8 /* FarmLensUITests */ = {
-			isa = PBXGroup;
-			children = (
-				182D469A2053058C00A4CBD8 /* FarmLensUITests.swift */,
-				182D469C2053058C00A4CBD8 /* Info.plist */,
-=======
 		182D46A7205306B800A4CBD8 /* FarmLensUITests */ = {
 			isa = PBXGroup;
 			children = (
 				182D46A8205306B800A4CBD8 /* FarmLensUITests.swift */,
 				182D46AA205306B800A4CBD8 /* Info.plist */,
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			);
 			path = FarmLensUITests;
 			sourceTree = "<group>";
@@ -235,19 +209,11 @@
 				A4DB958E1FEAAD4500F405CA /* FarmLens */,
 				C0C7419B2667BCEE0BB6C689 /* Pods */,
 				FF015A9F204087170093EA05 /* FarmLensTests */,
-<<<<<<< HEAD
-				182D46992053058C00A4CBD8 /* FarmLensUITests */,
-				0B6F263FBC093B7B6FB6EF51 /* Frameworks */,
-				18348DE1203CB11F00842DE9 /* FarmLens.app */,
-				FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */,
-				182D46982053058C00A4CBD8 /* FarmLensUITests.xctest */,
-=======
 				182D46A7205306B800A4CBD8 /* FarmLensUITests */,
 				0B6F263FBC093B7B6FB6EF51 /* Frameworks */,
 				18348DE1203CB11F00842DE9 /* FarmLens.app */,
 				FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */,
 				182D46A6205306B800A4CBD8 /* FarmLensUITests.xctest */,
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			);
 			sourceTree = "<group>";
 		};
@@ -304,15 +270,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-<<<<<<< HEAD
-		182D46972053058C00A4CBD8 /* FarmLensUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 182D469F2053058C00A4CBD8 /* Build configuration list for PBXNativeTarget "FarmLensUITests" */;
-			buildPhases = (
-				182D46942053058C00A4CBD8 /* Sources */,
-				182D46952053058C00A4CBD8 /* Frameworks */,
-				182D46962053058C00A4CBD8 /* Resources */,
-=======
 		182D46A5205306B800A4CBD8 /* FarmLensUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 182D46AF205306B800A4CBD8 /* Build configuration list for PBXNativeTarget "FarmLensUITests" */;
@@ -320,24 +277,15 @@
 				182D46A2205306B800A4CBD8 /* Sources */,
 				182D46A3205306B800A4CBD8 /* Frameworks */,
 				182D46A4205306B800A4CBD8 /* Resources */,
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			);
 			buildRules = (
 			);
 			dependencies = (
-<<<<<<< HEAD
-				182D469E2053058C00A4CBD8 /* PBXTargetDependency */,
-			);
-			name = FarmLensUITests;
-			productName = FarmLensUITests;
-			productReference = 182D46982053058C00A4CBD8 /* FarmLensUITests.xctest */;
-=======
 				182D46AC205306B800A4CBD8 /* PBXTargetDependency */,
 			);
 			name = FarmLensUITests;
 			productName = FarmLensUITests;
 			productReference = 182D46A6205306B800A4CBD8 /* FarmLensUITests.xctest */;
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		86985CC81E834EC200577EC7 /* FarmLens */ = {
@@ -392,13 +340,10 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = DJI;
 				TargetAttributes = {
-<<<<<<< HEAD
-					182D46972053058C00A4CBD8 = {
-=======
 					182D46A5205306B800A4CBD8 = {
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = DYG5XF554D;
+						DevelopmentTeam = UHDP7LK8C7;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 86985CC81E834EC200577EC7;
 					};
@@ -436,21 +381,13 @@
 			targets = (
 				86985CC81E834EC200577EC7 /* FarmLens */,
 				FF015A9D204087170093EA05 /* FarmLensTests */,
-<<<<<<< HEAD
-				182D46972053058C00A4CBD8 /* FarmLensUITests */,
-=======
 				182D46A5205306B800A4CBD8 /* FarmLensUITests */,
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-<<<<<<< HEAD
-		182D46962053058C00A4CBD8 /* Resources */ = {
-=======
 		182D46A4205306B800A4CBD8 /* Resources */ = {
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -582,19 +519,11 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-<<<<<<< HEAD
-		182D46942053058C00A4CBD8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				182D469B2053058C00A4CBD8 /* FarmLensUITests.swift in Sources */,
-=======
 		182D46A2205306B800A4CBD8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				182D46A9205306B800A4CBD8 /* FarmLensUITests.swift in Sources */,
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,17 +557,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-<<<<<<< HEAD
-		182D469E2053058C00A4CBD8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 86985CC81E834EC200577EC7 /* FarmLens */;
-			targetProxy = 182D469D2053058C00A4CBD8 /* PBXContainerItemProxy */;
-=======
 		182D46AC205306B800A4CBD8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 86985CC81E834EC200577EC7 /* FarmLens */;
 			targetProxy = 182D46AB205306B800A4CBD8 /* PBXContainerItemProxy */;
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 		};
 		FF015AA4204087170093EA05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -659,44 +581,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-<<<<<<< HEAD
-		182D46A02053058C00A4CBD8 /* Debug */ = {
-=======
 		182D46AD205306B800A4CBD8 /* Debug */ = {
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DYG5XF554D;
+				DEVELOPMENT_TEAM = UHDP7LK8C7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FarmLensUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.FarmLensUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = FarmLens;
 			};
 			name = Debug;
 		};
-<<<<<<< HEAD
-		182D46A12053058C00A4CBD8 /* Release */ = {
-=======
 		182D46AE205306B800A4CBD8 /* Release */ = {
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DYG5XF554D;
+				DEVELOPMENT_TEAM = UHDP7LK8C7;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FarmLensUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -827,10 +744,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = UHDP7LK8C7;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../VideoPreviewer",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/FarmLens/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -855,10 +769,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = UHDP7LK8C7;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/../VideoPreviewer",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/FarmLens/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -922,19 +833,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-<<<<<<< HEAD
-		182D469F2053058C00A4CBD8 /* Build configuration list for PBXNativeTarget "FarmLensUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				182D46A02053058C00A4CBD8 /* Debug */,
-				182D46A12053058C00A4CBD8 /* Release */,
-=======
 		182D46AF205306B800A4CBD8 /* Build configuration list for PBXNativeTarget "FarmLensUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				182D46AD205306B800A4CBD8 /* Debug */,
 				182D46AE205306B800A4CBD8 /* Release */,
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

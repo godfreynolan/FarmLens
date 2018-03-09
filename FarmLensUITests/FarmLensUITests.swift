@@ -9,18 +9,6 @@
 import XCTest
 
 class FarmLensUITests: XCTestCase {
-<<<<<<< HEAD
-        
-    override func setUp() {
-        super.setUp()
-        
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-=======
     
     var app:XCUIApplication!
     
@@ -36,7 +24,6 @@ class FarmLensUITests: XCTestCase {
         // We send a command line argument to our app,
         // to enable it to reset its state
         app.launchArguments.append("--uitesting")
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
@@ -46,12 +33,6 @@ class FarmLensUITests: XCTestCase {
         super.tearDown()
     }
     
-<<<<<<< HEAD
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-                
-=======
     func testNavigation() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -64,7 +45,6 @@ class FarmLensUITests: XCTestCase {
         
         app.tables/*@START_MENU_TOKEN@*/.staticTexts["Click on map to create boundaries of the field you want to map."]/*[[".cells.staticTexts[\"Click on map to create boundaries of the field you want to map.\"]",".staticTexts[\"Click on map to create boundaries of the field you want to map.\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
->>>>>>> d6a5957babd3c5d9fde3925769e2faa0684ae885
     }
     
 }
