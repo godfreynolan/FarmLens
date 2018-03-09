@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCa-ds-qdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="689.6484375" y="1422.65625"/>
+            <point key="canvasLocation" x="-120" y="1188"/>
         </scene>
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">
@@ -211,7 +211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lba-kJ-o0n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1932" y="313"/>
+            <point key="canvasLocation" x="638" y="241"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="erG-qM-dZN">
@@ -237,7 +237,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rRy-rI-8L1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="690" y="313"/>
+            <point key="canvasLocation" x="-120" y="241"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="XO4-NK-k2y">
@@ -250,7 +250,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HK-IA-Gvd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-466" y="785"/>
+            <point key="canvasLocation" x="-881" y="784"/>
         </scene>
         <!--View Images View Controller-->
         <scene sceneID="nqJ-00-i6j">
@@ -294,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVw-wD-xf0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1771.8749999999998" y="1422.65625"/>
+            <point key="canvasLocation" x="638" y="1188"/>
         </scene>
         <!--Image Download View Controller-->
         <scene sceneID="cdD-ue-vF8">
@@ -348,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IfR-fK-Q8p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3114" y="313"/>
+            <point key="canvasLocation" x="1389" y="241"/>
         </scene>
     </scenes>
     <resources>
@@ -356,6 +356,6 @@
         <image name="DroneNotConnected" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="w6G-vS-U2W"/>
+        <segue reference="d0l-8C-xqA"/>
     </inferredMetricsTieBreakers>
 </document>
