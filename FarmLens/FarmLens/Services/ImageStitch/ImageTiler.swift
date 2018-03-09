@@ -42,22 +42,8 @@ class ImageTiler
             {
                 // Calculate the coordinates of the where the boundaries of the image should lay
                 let north: CLLocationDegrees = (loc.latitude) + heightSpace / 2
-                let south: CLLocationDegrees = (loc.latitude) - heightSpace / 2
                 let east:  CLLocationDegrees = (loc.longitude) + widthSpace / 2
                 let west:  CLLocationDegrees = (loc.longitude) - widthSpace / 2
-                
-                // TODO UPDATE THIS WITH BETTER COORDINATES
-                let polygon = MGLPolygon(coordinates: [
-                    CLLocationCoordinate2D(latitude: north, longitude: west),
-                    CLLocationCoordinate2D(latitude: north, longitude: east),
-                    CLLocationCoordinate2D(latitude: south, longitude: east),
-                    CLLocationCoordinate2D(latitude: south, longitude: west)
-                    ], count: 4)
-                
-                // Zoom the map to the region
-                mapView.setVisibleCoordinateBounds(polygon.overlayBounds,
-                                                   edgePadding: UIEdgeInsetsMake(50, 50, 50, 50),
-                                                   animated: false)
                 
                 let point = MGLPointFeature()
                 point.coordinate = loc

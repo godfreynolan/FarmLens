@@ -252,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="-466" y="785"/>
         </scene>
-        <!--Mapbox View Controller-->
+        <!--View Images View Controller-->
         <scene sceneID="nqJ-00-i6j">
             <objects>
-                <viewController id="XMn-Jh-mYk" customClass="MapboxViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="452-P2-k4p"/>
                         <viewControllerLayoutGuide type="bottom" id="uxj-ZG-DZ3"/>
@@ -273,7 +273,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="View Images">
+                                <state key="normal" title="2D Tile Map">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>

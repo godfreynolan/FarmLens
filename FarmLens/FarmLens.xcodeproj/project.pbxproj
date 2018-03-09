@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
-		18807769203CB60C006AC0E5 /* MapboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* MapboxViewController.swift */; };
+		18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
@@ -53,7 +53,7 @@
 /* Begin PBXFileReference section */
 		18348DE1203CB11F00842DE9 /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
-		18807768203CB60C006AC0E5 /* MapboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapboxViewController.swift; sourceTree = "<group>"; };
+		18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImagesViewController.swift; sourceTree = "<group>"; };
 		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
 		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,9 +151,9 @@
 			children = (
 				FF16271920504C87008BB642 /* FlightViewDetailController.swift */,
 				FF162715205026FA008BB642 /* ImageDownloadViewController.swift */,
-				18807768203CB60C006AC0E5 /* MapboxViewController.swift */,
 				FF16271720503CA0008BB642 /* MasterViewController.swift */,
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
+				18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -464,7 +464,7 @@
 				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
 				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
 				FF162720205082E8008BB642 /* ImageLoader.swift in Sources */,
-				18807769203CB60C006AC0E5 /* MapboxViewController.swift in Sources */,
+				18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
 				187203052050755C00008042 /* ImageTiler.swift in Sources */,

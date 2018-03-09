@@ -11,8 +11,9 @@ import CoreLocation
 import Mapbox
 import Photos
 
-class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
+class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     
+    private let imageLoader = ImageLoader()
     private let imageTiler = ImageTiler()
     private let locManager = CLLocationManager()
     
@@ -48,9 +49,11 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
     @IBAction func loadImages(_ sender: Any) {
         var imagesShown = false
         
-        //TODO Put logic in to actually load the photos and try to show them.
         if self.masterViewController.flightCoordinateList.isEmpty {
             imagesShown = loadTestImages()
+        } else {
+            let images = imageLoader.loadImages(imageCount: self.masterViewController.flightCoordinateList.count)
+            imagesShown = self.imageTiler.overlayImages(mapView: mapView, style: self.mapStyle, imageLocations: self.masterViewController.flightCoordinateList, images: images)
         }
         
         if !imagesShown {
@@ -66,7 +69,7 @@ class MapboxViewController: UIViewController, MGLMapViewDelegate, CLLocationMana
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.mapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
-        // We don't want the map changing while the user is trying to draw on it.
+        // We don't want the map changing while the user is trying to view images.
         self.locManager.stopUpdatingLocation()
     }
     
