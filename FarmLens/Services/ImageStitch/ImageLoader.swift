@@ -30,11 +30,12 @@ class ImageLoader {
         
         let imageOptions = PHImageRequestOptions()
         imageOptions.isSynchronous = true
+        imageOptions.resizeMode = .exact
         
         for index in 0...results.count - 1 {
             let result = results[index]
             
-            imageManager.requestImage(for: result, targetSize: CGSize(width: 4000, height: 3000), contentMode: .aspectFit, options: imageOptions, resultHandler: { (uiImage, info) in
+            imageManager.requestImage(for: result, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: imageOptions, resultHandler: { (uiImage, info) in
                 loadedImages.append(uiImage!)
             })
         }

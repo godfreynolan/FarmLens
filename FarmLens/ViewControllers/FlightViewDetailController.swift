@@ -20,7 +20,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     private var masterViewController: MasterViewController!
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
-    private var aircraftAnnotationView: MGLAnnotationView!
     
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -61,16 +60,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             
             self.batteryLifeLabel.text = "Battery Percentage: \(value!.unsignedIntegerValue)%"
         })
-        
-        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIFlightControllerKey(param: DJIFlightControllerParamCompassHeading)!, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in
-            if (newValue != nil) {
-                self.aircraftAnnotation.heading = newValue!.doubleValue
-                
-                if (self.aircraftAnnotationView != nil) {
-                    self.aircraftAnnotationView.transform = CGAffineTransform(rotationAngle: CGFloat(self.degreesToRadians(Double(self.aircraftAnnotation.heading))))
-                }
-            }
-        }
     }
     
     override func viewDidLoad() {
@@ -132,10 +121,15 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         }
         
         self.masterViewController.flightCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
+        
+        for coordinate in self.masterViewController.flightCoordinateList {
+            print("Lat/Long: \(coordinate.latitude)/\(coordinate.longitude)")
+        }
+        
         let mission = self.flightPlanning.createMission(missionCoordinates: self.masterViewController.flightCoordinateList)
-        
+
         DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
-        
+
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.error != nil {
                 let alert = UIAlertController(title: "Mission Error", message: "Failed at uploading mission: \(event.error?.localizedDescription)", preferredStyle: .alert)
@@ -151,7 +145,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 })
             }
         })
-        
+
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
             if error != nil {
                 let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
@@ -164,7 +158,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 self.present(alert, animated: true)
             }
         })
-        
+
         DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
             if error != nil {
                 let alert = UIAlertController(title: "Mission Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
@@ -198,23 +192,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     
     // MARK: - MGLMapViewDelegate
     // Handle the placing of different annotations
-//    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-//        if !(annotation is DJIImageAnnotation) {
-//            return nil
-//        }
-//
-//        let imageAnnotation = annotation as! DJIImageAnnotation
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: imageAnnotation.identifier)
-//
-//        if annotationView == nil {
-//            annotationView = DJIImageAnnotationView(annotation: imageAnnotation, reuseIdentifier: imageAnnotation.identifier)
-//        }
-//
-//        self.aircraftAnnotationView = annotationView as! DJIImageAnnotationView
-//
-//        return annotationView
-//    }
-    
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
         if annotation is MGLUserLocation {
             return nil // Use default
