@@ -7,6 +7,7 @@
 //
 
 import Mapbox
+import MapKit
 import DJISDK
 
 class FlightPlanning {
@@ -48,7 +49,7 @@ class FlightPlanning {
         // 4. Reorder points to scan properly.
         
         // Step 1.
-        var mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount - 1)))
+        var mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount)))
         
         var minX = mapPoints[0].longitude
         var minY = mapPoints[0].latitude
@@ -81,7 +82,7 @@ class FlightPlanning {
         }
         
         // Step 3.
-        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(boundingArea: boundingArea, coordinate: location) }
+        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(boundaryCoordinates: mapPoints, coordinate: location) }
         
         // Step 4.
         var lines:[[CLLocationCoordinate2D]] = []
@@ -119,8 +120,12 @@ class FlightPlanning {
         return coordinates
     }
     
-    private func isCoordinateInBoundingArea(boundingArea: MGLPolygon, coordinate: CLLocationCoordinate2D) -> Bool {
-        return MGLCoordinateInCoordinateBounds(coordinate, boundingArea.overlayBounds)
+    private func isCoordinateInBoundingArea(boundaryCoordinates: [CLLocationCoordinate2D], coordinate: CLLocationCoordinate2D) -> Bool {
+        // If there is a way to do this in mapbox, I would love to see it
+        let renderer = MKPolygonRenderer(polygon: MKPolygon(coordinates: boundaryCoordinates, count: boundaryCoordinates.count))
+        let position = renderer.point(for: MKMapPointForCoordinate(coordinate))
+        
+        return renderer.path.contains(position)
     }
     
     private func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
