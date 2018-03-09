@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import MapKit
+import Mapbox
 @testable import FarmLens
 
 class FlightPlanningTests: XCTestCase {
@@ -35,12 +35,14 @@ class FlightPlanningTests: XCTestCase {
     }
     
     func testCalculateFlightPlan() {
-        let flightPath = flightPlanning.calculateFlightPlan(boundingArea: MKPolygon(coordinates: points, count: points.count), spacingFeet: 40)
+        let polygon = MGLPolygon(coordinates: points, count: UInt(points.count))
+        let flightPath = flightPlanning.calculateFlightPlan(boundingArea: polygon, spacingFeet: 40)
         XCTAssert(flightPath.count == 17, "Actual value is \(flightPath.count)")
     }
     
     func testCreateMission() {
-        let flightPath = flightPlanning.calculateFlightPlan(boundingArea: MKPolygon(coordinates: points, count: points.count), spacingFeet: 40)
+        let polygon = MGLPolygon(coordinates: points, count: UInt(points.count))
+        let flightPath = flightPlanning.calculateFlightPlan(boundingArea: polygon, spacingFeet: 40)
         let mission = flightPlanning.createMission(missionCoordinates: flightPath)
         XCTAssert(mission.waypointCount == 17, "Actual value is \(mission.waypointCount)")
     }

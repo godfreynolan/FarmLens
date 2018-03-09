@@ -9,10 +9,9 @@
 import UIKit
 import Mapbox
 
-class DJIImageAnnotation: NSObject, MGLAnnotation {
+class DJIImageAnnotation: MGLPointAnnotation {
 
     var identifier = "N/A"
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     
     fileprivate var _heading: Double = 0.0
     public var heading: Double {
@@ -24,11 +23,13 @@ class DJIImageAnnotation: NSObject, MGLAnnotation {
         }
     }
     
-    init(identifier: String) {
+    convenience init(identifier: String) {
+        self.init()
         self.identifier = identifier        
     }
     
-    init(coordinates: CLLocationCoordinate2D, heading: Double) {
+    convenience init(coordinates: CLLocationCoordinate2D, heading: Double) {
+        self.init()
         self.coordinate = coordinates
         _heading = heading
     }

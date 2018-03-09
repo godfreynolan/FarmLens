@@ -7,7 +7,6 @@
 //
 
 import Mapbox
-import MapKit
 import UIKit
 
 class ImageTiler
@@ -19,7 +18,7 @@ class ImageTiler
         return (spacingFeet / 3280.4) / (10000/90)
     }
     
-    func OverlayImages(mapView:MGLMapView, style:MGLStyle, imageLocations:[CLLocationCoordinate2D], images:[UIImage]) -> Bool
+    func overlayImages(mapView:MGLMapView, style:MGLStyle, imageLocations:[CLLocationCoordinate2D], images:[UIImage]) -> Bool
     {
         var success = true
         
@@ -33,8 +32,8 @@ class ImageTiler
         else
         {
             // Calculate the physical dimensions of the image in terms of lat/long spacing
-            let heightSpace = convertSpacingFeetToDegrees(64.0)
-            let widthSpace =  convertSpacingFeetToDegrees(85.0)
+            let heightSpace = convertSpacingFeetToDegrees(416)
+            let widthSpace =  convertSpacingFeetToDegrees(537.6)
             
             var idx = 0
             
@@ -42,23 +41,9 @@ class ImageTiler
             for (img, loc) in zip(images, imageLocations)
             {
                 // Calculate the coordinates of the where the boundaries of the image should lay
-                let north: CLLocationDegrees = (loc.latitude) + heightSpace
-                let south: CLLocationDegrees = (loc.latitude) - heightSpace
-                let east:  CLLocationDegrees = (loc.longitude) + widthSpace
-                let west:  CLLocationDegrees = (loc.longitude) - widthSpace
-                
-                // TODO UPDATE THIS WITH BETTER COORDINATES
-                let polygon = MGLPolygon(coordinates: [
-                    CLLocationCoordinate2D(latitude: north, longitude: west),
-                    CLLocationCoordinate2D(latitude: north, longitude: east),
-                    CLLocationCoordinate2D(latitude: south, longitude: east),
-                    CLLocationCoordinate2D(latitude: south, longitude: west)
-                    ], count: 4)
-                
-                // Zoom the map to the region
-                mapView.setVisibleCoordinateBounds(polygon.overlayBounds,
-                                                   edgePadding: UIEdgeInsetsMake(50, 50, 50, 50),
-                                                   animated: false)
+                let north: CLLocationDegrees = (loc.latitude) + heightSpace / 2
+                let east:  CLLocationDegrees = (loc.longitude) + widthSpace / 2
+                let west:  CLLocationDegrees = (loc.longitude) - widthSpace / 2
                 
                 let point = MGLPointFeature()
                 point.coordinate = loc

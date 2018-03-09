@@ -20,21 +20,35 @@ class StartupViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIProductKey(param: DJIParamConnection)!, withListener: self, andUpdate: { (oldValue, newValue) in
-            if newValue != nil {
-                if newValue!.boolValue {
-                    self.productConnected()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DJISDKManager.keyManager()?.startListeningForChanges(on: DJIProductKey(param: DJIParamConnection)!, withListener: self, andUpdate: { (oldValue, newValue) in
+                if newValue != nil {
+                    if newValue!.boolValue {
+                        DispatchQueue.main.async {
+                            self.productConnected()
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.productDisconnected()
+                        }
+                    }
                 }
-            }
-        })
-        
-//        DJISDKManager.keyManager()?.getValueFor(connectedKey, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
-//            if let unwrappedValue = value {
-//                if unwrappedValue.boolValue {
-//                    self.productConnected()
-//                }
-//            }
-//        })
+            })
+            
+            DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
+                if let unwrappedValue = value {
+                    if unwrappedValue.boolValue {
+                        DispatchQueue.main.async {
+                            self.productConnected()
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.productDisconnected()
+                        }
+                    }
+                }
+            })
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
