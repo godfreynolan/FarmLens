@@ -21,14 +21,12 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     @IBOutlet weak var totalDownloadImageLabel: UILabel!
     @IBOutlet weak var downloadProgressLabel: UILabel!
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
-        self.totalImageCount = self.masterViewController.flightCoordinateList.count
-    }
-    
     override func viewDidLoad() {
         UIApplication.shared.isIdleTimerDisabled = true
         super.viewDidLoad()
+        
+        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
+        self.totalImageCount = self.masterViewController.flightCoordinateList.count
         
         self.camera = fetchCamera()
         self.mediaManager = self.camera?.mediaManager

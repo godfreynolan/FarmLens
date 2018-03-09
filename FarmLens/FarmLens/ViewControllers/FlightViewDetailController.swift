@@ -19,7 +19,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     private var isFlightComplete = false
     private var masterViewController: MasterViewController!
     
-    private var homeAnnotation = DJIImageAnnotation(identifier: "homeAnnotation")
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     private var aircraftAnnotationView: MGLAnnotationView!
     
@@ -33,7 +32,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     override func viewWillAppear(_ animated: Bool) {
         self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
         self.flightPlanning = FlightPlanning()
-        self.flightMapView.addAnnotations([self.aircraftAnnotation, self.homeAnnotation])
+        self.flightMapView.addAnnotation(self.aircraftAnnotation)
         
         DJISDKManager.keyManager()?.startListeningForChanges(on: DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation)!, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in
             if newValue != nil {
@@ -45,31 +44,30 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 
                 self.latitudeLabel.text = String(format:"Lat: %.4f", newLocationValue.coordinate.latitude)
                 self.longitudeLabel.text = String(format:"Long: %.4f", newLocationValue.coordinate.longitude)
-                self.altitudeLabel.text = String(format:"Alt: %.4f", newLocationValue.altitude)
+                self.altitudeLabel.text = String(format:"Alt: %.4f ft", self.metersToFeet(newLocationValue.altitude))
             }
         }
         
-        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIBatteryKey(), withListener: self, andUpdate: { (oldValue, newValue) in
+        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIBatteryKey(param: DJIBatteryParamChargeRemainingInPercent)!, withListener: self, andUpdate: { (oldValue, newValue) in
             if newValue != nil {
                 self.batteryLifeLabel.text = "Battery Percentage: \(newValue!.unsignedIntegerValue) %"
             }
         })
         
+        DJISDKManager.keyManager()?.getValueFor(DJIBatteryKey(param: DJIBatteryParamChargeRemainingInPercent)!, withCompletion: { [unowned self] (value: DJIKeyedValue?, error: Error?) in
+            if value == nil {
+                return
+            }
+            
+            self.batteryLifeLabel.text = "Battery Percentage: \(value!.unsignedIntegerValue)%"
+        })
+        
         DJISDKManager.keyManager()?.startListeningForChanges(on: DJIFlightControllerKey(param: DJIFlightControllerParamCompassHeading)!, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in
             if (newValue != nil) {
                 self.aircraftAnnotation.heading = newValue!.doubleValue
+                
                 if (self.aircraftAnnotationView != nil) {
                     self.aircraftAnnotationView.transform = CGAffineTransform(rotationAngle: CGFloat(self.degreesToRadians(Double(self.aircraftAnnotation.heading))))
-                }
-            }
-        }
-        
-        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIFlightControllerKey(param: DJIFlightControllerParamHomeLocation)!, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in
-            if (newValue != nil) {
-                let newLocationValue = newValue!.value as! CLLocation
-                
-                if CLLocationCoordinate2DIsValid(newLocationValue.coordinate) {
-                    self.homeAnnotation.coordinate = newLocationValue.coordinate
                 }
             }
         }
@@ -180,6 +178,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
             self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
+            self.aircraftAnnotation.coordinate = (locations.last?.coordinate)!
             // We don't want the map changing while the user is trying to draw on it.
             self.locationManager?.stopUpdatingLocation()
         }
@@ -199,6 +198,23 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     
     // MARK: - MGLMapViewDelegate
     // Handle the placing of different annotations
+//    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+//        if !(annotation is DJIImageAnnotation) {
+//            return nil
+//        }
+//
+//        let imageAnnotation = annotation as! DJIImageAnnotation
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: imageAnnotation.identifier)
+//
+//        if annotationView == nil {
+//            annotationView = DJIImageAnnotationView(annotation: imageAnnotation, reuseIdentifier: imageAnnotation.identifier)
+//        }
+//
+//        self.aircraftAnnotationView = annotationView as! DJIImageAnnotationView
+//
+//        return annotationView
+//    }
+    
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
         if annotation is MGLUserLocation {
             return nil // Use default
@@ -213,8 +229,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             
             if annotation.isEqual(self.aircraftAnnotation) {
                 image = #imageLiteral(resourceName: "aircraft")
-            } else if annotation.isEqual(self.homeAnnotation) {
-                image = #imageLiteral(resourceName: "navigation_poi_pin")
             }
         } else {
             identifier = annotation.title!!
@@ -332,5 +346,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     
     func degreesToRadians(_ degrees: Double) -> Double {
         return Double.pi / 180 * degrees
+    }
+    
+    func metersToFeet(_ meters: Double) -> Double {
+        return 3.28084 * meters
     }
 }

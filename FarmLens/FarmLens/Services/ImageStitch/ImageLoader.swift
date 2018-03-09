@@ -34,7 +34,7 @@ class ImageLoader {
         for index in 0...results.count - 1 {
             let result = results[index]
             
-            imageManager.requestImage(for: result, targetSize: CGSize(width: 480.0, height: 360.0), contentMode: .aspectFit, options: imageOptions, resultHandler: { (uiImage, info) in
+            imageManager.requestImage(for: result, targetSize: CGSize(width: 4000, height: 3000), contentMode: .aspectFit, options: imageOptions, resultHandler: { (uiImage, info) in
                 loadedImages.append(uiImage!)
             })
         }
