@@ -122,23 +122,35 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         
         self.masterViewController.flightCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
         
-        for coordinate in self.masterViewController.flightCoordinateList {
-            print("Lat/Long: \(coordinate.latitude)/\(coordinate.longitude)")
+        if self.masterViewController.flightCoordinateList.count >= 99 {
+            let pins = self.flightMapView.annotations?.filter({ (annotation) -> Bool in
+                !(annotation is MGLUserLocation) && !(annotation is DJIImageAnnotation)
+            })
+            self.flightMapView.removeAnnotations(pins!)
+            self.boundaryCoordinateList.removeAll()
+            self.refreshCoordinates()
+            
+            let alert = UIAlertController(title: "Mission Error", message: "Your flight is too long. Please select a smaller area", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
         }
         
         let mission = self.flightPlanning.createMission(missionCoordinates: self.masterViewController.flightCoordinateList)
 
-        DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
-
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
-            if event.error != nil {
-                let alert = UIAlertController(title: "Mission Error", message: "Failed at uploading mission: \(event.error?.localizedDescription)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
+            if event.currentState == .readyToUpload {
+                DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
+                    if error != nil {
+                        let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                })
             } else if event.currentState == .readyToExecute {
                 DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
                     if error != nil {
-                        let alert = UIAlertController(title: "Mission Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Start Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                         self.present(alert, animated: true)
                     }
@@ -158,14 +170,8 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 self.present(alert, animated: true)
             }
         })
-
-        DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
-            if error != nil {
-                let alert = UIAlertController(title: "Mission Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-            }
-        })
+        
+        DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
     }
     
     // MARK: - CLLocationManagerDelegate

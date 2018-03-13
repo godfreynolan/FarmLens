@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Override point for customization after application launch.
         Fabric.with([Crashlytics.self])
         self.productCommunicationManager.registerWithSDK()
+        
+        UIApplication.shared.isIdleTimerDisabled = true
         return true
     }
 

@@ -22,7 +22,6 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     @IBOutlet weak var downloadProgressLabel: UILabel!
     
     override func viewDidLoad() {
-        UIApplication.shared.isIdleTimerDisabled = true
         super.viewDidLoad()
         
         self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
