@@ -38,7 +38,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
             self.totalDownloadImageLabel.text = "1 Image to download"
             self.downloadProgressLabel.text = "Ready to download"
         } else {
-            self.totalDownloadImageLabel.text = "\(totalImageCount) Images to download"
+            self.totalDownloadImageLabel.text = "\(self.totalImageCount) Images to download"
             self.downloadProgressLabel.text = "Ready to download"
         }
     }
@@ -151,9 +151,9 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
                 
                 self.statusIndex += 1
                 self.currentDownloadIndex += 1
-                self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.totalImageCount)"
-
+                
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
+                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.totalImageCount)"
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.endMediaDownload()
