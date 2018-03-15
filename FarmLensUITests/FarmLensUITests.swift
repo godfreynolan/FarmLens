@@ -32,18 +32,19 @@ class FarmLensUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
+    
     func testNavigation() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         app.launch()
         
         XCUIDevice.shared.orientation = .landscapeLeft
-
+        
         app.buttons["Open"].tap()
         
-        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Click on map to create boundaries of the field you want to map."]/*[[".cells.staticTexts[\"Click on map to create boundaries of the field you want to map.\"]",".staticTexts[\"Click on map to create boundaries of the field you want to map.\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        let tablesQuery = app.tables
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Image Download"]/*[[".cells.staticTexts[\"Image Download\"]",".staticTexts[\"Image Download\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["View Images"]/*[[".cells.staticTexts[\"View Images\"]",".staticTexts[\"View Images\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Click on map to create boundaries of the field you want to map."]/*[[".cells.staticTexts[\"Click on map to create boundaries of the field you want to map.\"]",".staticTexts[\"Click on map to create boundaries of the field you want to map.\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
     }
     
