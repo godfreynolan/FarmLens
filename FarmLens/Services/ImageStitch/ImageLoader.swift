@@ -35,7 +35,7 @@ class ImageLoader {
         for index in 0...results.count - 1 {
             let result = results[index]
             
-            imageManager.requestImage(for: result, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFill, options: imageOptions, resultHandler: { (uiImage, info) in
+            imageManager.requestImage(for: result, targetSize: CGSize(width: CGFloat(400), height: CGFloat(300)), contentMode: .aspectFill, options: imageOptions, resultHandler: { (uiImage, info) in
                 loadedImages.append(uiImage!)
             })
         }

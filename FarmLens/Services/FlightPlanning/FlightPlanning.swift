@@ -28,7 +28,7 @@ class FlightPlanning {
             waypoint.altitude = 100
             waypoint.heading = 0
             waypoint.actionRepeatTimes = 1
-            waypoint.actionTimeoutInSeconds = 15
+            waypoint.actionTimeoutInSeconds = 30
             waypoint.turnMode = .clockwise
             waypoint.add(DJIWaypointAction(actionType: .rotateGimbalPitch, param: -90))
             waypoint.add(DJIWaypointAction(actionType: .shootPhoto, param: 0))
