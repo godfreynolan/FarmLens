@@ -159,8 +159,8 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 self.present(alert, animated: true)
             } else {
                 self.isFlightComplete = true
-//                let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
-                let alert = UIAlertController(title: "Mission Success", message: self.errorMessage, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
+//                let alert = UIAlertController(title: "Mission Success", message: self.errorMessage, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }
