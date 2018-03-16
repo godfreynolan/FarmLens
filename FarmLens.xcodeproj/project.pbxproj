@@ -11,6 +11,7 @@
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
+		18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C91378205AF46C00DBF615 /* ImageTilerTests.swift */; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
 		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
@@ -66,6 +67,7 @@
 		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
 		18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImagesViewController.swift; sourceTree = "<group>"; };
 		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
+		18C91378205AF46C00DBF615 /* ImageTilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTilerTests.swift; sourceTree = "<group>"; };
 		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
+				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
 				FF015AA0204087170093EA05 /* FarmLensTests.swift */,
 				FF015AA2204087170093EA05 /* Info.plist */,
 			);
@@ -349,7 +352,7 @@
 					};
 					86985CC81E834EC200577EC7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = UHDP7LK8C7;
+						DevelopmentTeam = DYG5XF554D;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -551,6 +554,7 @@
 			files = (
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				FF015AA1204087170093EA05 /* FarmLensTests.swift in Sources */,
+				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,7 +746,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = DYG5XF554D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
@@ -767,7 +771,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = DYG5XF554D;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "";
