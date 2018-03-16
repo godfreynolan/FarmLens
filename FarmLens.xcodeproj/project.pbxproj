@@ -11,7 +11,6 @@
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
-		18A178AF205BFCB200B66C61 /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A178AE205BFCB200B66C61 /* DJIImageAnnotationTest.swift */; };
 		18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C91378205AF46C00DBF615 /* ImageTilerTests.swift */; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
@@ -26,6 +25,8 @@
 		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
 		FF162720205082E8008BB642 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageLoader.swift */; };
+		FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */; };
+		FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB676205C0EF90033228A /* MockMGLStyle.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +68,6 @@
 		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
 		18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImagesViewController.swift; sourceTree = "<group>"; };
 		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
-		18A178AE205BFCB200B66C61 /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
 		18C91378205AF46C00DBF615 /* ImageTilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTilerTests.swift; sourceTree = "<group>"; };
 		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +89,8 @@
 		FF16271720503CA0008BB642 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
 		FF16271F205082E8008BB642 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
+		FF4FB676205C0EF90033228A /* MockMGLStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMGLStyle.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -262,12 +264,21 @@
 		FF015A9F204087170093EA05 /* FarmLensTests */ = {
 			isa = PBXGroup;
 			children = (
-				18A178AE205BFCB200B66C61 /* DJIImageAnnotationTest.swift */,
+				FF4FB675205C0EE80033228A /* Mocks */,
+				FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */,
 				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
 				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
 				FF015AA2204087170093EA05 /* Info.plist */,
 			);
 			path = FarmLensTests;
+			sourceTree = "<group>";
+		};
+		FF4FB675205C0EE80033228A /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				FF4FB676205C0EF90033228A /* MockMGLStyle.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,9 +563,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18A178AF205BFCB200B66C61 /* DJIImageAnnotationTest.swift in Sources */,
+				FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */,
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
+				FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
