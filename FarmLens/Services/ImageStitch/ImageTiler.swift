@@ -74,8 +74,8 @@ class ImageTiler
             while zoom > 0
             {
                 stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
-                zoom = zoom - 1
-                scale = scale / 2
+                zoom -= 1
+                scale /= 2
             }
             
             zoom = mapView.zoomLevel + 1

@@ -49,7 +49,7 @@ class FlightPlanning {
         // 4. Reorder points to scan properly.
         
         // Step 1.
-        var mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount)))
+        let mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount)))
         
         var minX = mapPoints[0].longitude
         var minY = mapPoints[0].latitude
@@ -74,7 +74,7 @@ class FlightPlanning {
         while x <= maxX {
             while y <= maxY {
                 locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
-                y = y + yIncrement
+                y += yIncrement
             }
             y = minY
             x = x + xIncrement
