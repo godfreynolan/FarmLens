@@ -22,31 +22,11 @@ class StartupViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             DJISDKManager.keyManager()?.startListeningForChanges(on: DJIProductKey(param: DJIParamConnection)!, withListener: self, andUpdate: { (oldValue, newValue) in
-                if newValue != nil {
-                    if newValue!.boolValue {
-                        DispatchQueue.main.async {
-                            self.productConnected()
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.productDisconnected()
-                        }
-                    }
-                }
+                self.handleConnectionResponse(keyValue: newValue)
             })
             
             DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
-                if let unwrappedValue = value {
-                    if unwrappedValue.boolValue {
-                        DispatchQueue.main.async {
-                            self.productConnected()
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.productDisconnected()
-                        }
-                    }
-                }
+                self.handleConnectionResponse(keyValue: value)
             })
         }
     }
@@ -90,5 +70,17 @@ class StartupViewController: UIViewController {
         self.openComponents.alpha = 0.8;
         
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
+    }
+    
+    private func handleConnectionResponse(keyValue: DJIKeyedValue?) {
+        if keyValue != nil {
+            DispatchQueue.main.async {
+                if keyValue!.boolValue {
+                    self.productConnected()
+                } else {
+                    self.productDisconnected()
+                }
+            }
+        }
     }
 }

@@ -18,7 +18,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
     private var masterViewController: MasterViewController!
-    private var errorMessage = ""
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     
@@ -124,17 +123,16 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         self.masterViewController.flightCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
         
         if self.masterViewController.flightCoordinateList.count <= 2 {
-            self.flightPathError(message: "Your flight is too short. Please select a larger area")
+            self.missionError(message: "Your flight is too short. Please select a larger area")
             return
         }
         
         if self.masterViewController.flightCoordinateList.count >= 99 {
-            self.flightPathError(message: "Your flight is too long. Please select a smaller area")
+            self.missionError(message: "Your flight is too long. Please select a smaller area")
             return
         }
         
         let mission = self.flightPlanning.createMission(missionCoordinates: self.masterViewController.flightCoordinateList)
-        self.errorMessage = ""
 
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.currentState == .readyToExecute {
@@ -160,18 +158,8 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             } else {
                 self.isFlightComplete = true
                 let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
-//                let alert = UIAlertController(title: "Mission Success", message: self.errorMessage, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
-            }
-        })
-        
-        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toExecutionEvent: self, with: DispatchQueue.main, andBlock: { (event) in
-            let progress = event.progress
-            if progress == nil && event.error != nil {
-                self.errorMessage += (event.error?.localizedDescription)! + "\n"
-            } else if progress != nil && progress?.execState == .finishedAction {
-                
             }
         })
         
@@ -301,7 +289,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     
     // MARK: - Convenience
     
-    private func flightPathError(message: String) {
+    private func missionError(message: String) {
         let pins = self.flightMapView.annotations?.filter({ (annotation) -> Bool in
             !(annotation is MGLUserLocation) && !(annotation is DJIImageAnnotation)
         })

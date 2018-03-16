@@ -29,20 +29,4 @@ extension ProductCommunicationManager : DJISDKManagerDelegate {
         
         DJISDKManager.startConnectionToProduct()
     }
-    
-    func productConnected(_ product: DJIBaseProduct?) {
-        
-    }
-    
-    func productDisconnected() {
-        
-    }
-    
-    func componentConnected(withKey key: String?, andIndex index: Int) {
-        
-    }
-    
-    func componentDisconnected(withKey key: String?, andIndex index: Int) {
-        
-    }
 }

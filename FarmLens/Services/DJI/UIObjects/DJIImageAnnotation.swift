@@ -13,13 +13,13 @@ class DJIImageAnnotation: MGLPointAnnotation {
 
     var identifier = "N/A"
     
-    fileprivate var _heading: Double = 0.0
+    fileprivate var headingValue: Double = 0.0
     public var heading: Double {
         get {
-            return _heading
+            return headingValue
         }
         set {
-            _heading = newValue
+            headingValue = newValue
         }
     }
     
@@ -31,7 +31,7 @@ class DJIImageAnnotation: MGLPointAnnotation {
     convenience init(coordinates: CLLocationCoordinate2D, heading: Double) {
         self.init()
         self.coordinate = coordinates
-        _heading = heading
+        headingValue = heading
     }
     
 }
