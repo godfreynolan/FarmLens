@@ -79,7 +79,7 @@
         <!--Flight View Detail Controller-->
         <scene sceneID="XY2-IX-t16">
             <objects>
-                <viewController id="L9n-SB-x1Z" customClass="FlightViewDetailController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlightViewDetailController" id="L9n-SB-x1Z" customClass="FlightViewDetailController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CsJ-cw-5xY"/>
                         <viewControllerLayoutGuide type="bottom" id="hqH-zJ-ePi"/>

@@ -29,6 +29,7 @@
 		FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB676205C0EF90033228A /* MockMGLStyle.swift */; };
 		FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */; };
 		FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */; };
+		FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		FF4FB676205C0EF90033228A /* MockMGLStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMGLStyle.swift; sourceTree = "<group>"; };
 		FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewControllerTest.swift; sourceTree = "<group>"; };
 		FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewControllerTest.swift; sourceTree = "<group>"; };
+		FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailControllerTest.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -272,6 +274,7 @@
 				FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */,
 				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
 				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
+				FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */,
 				FF015AA2204087170093EA05 /* Info.plist */,
 				FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */,
 				FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */,
@@ -570,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */,
+				FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */,
 				FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */,
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
