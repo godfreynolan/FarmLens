@@ -155,7 +155,7 @@
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="2xo-QJ-M16" customClass="MasterViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MasterViewController" clearsSelectionOnViewWillAppear="NO" id="2xo-QJ-M16" customClass="MasterViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="58T-7B-k41">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -356,6 +356,6 @@
         <image name="DroneNotConnected" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d0l-8C-xqA"/>
+        <segue reference="w6G-vS-U2W"/>
     </inferredMetricsTieBreakers>
 </document>
