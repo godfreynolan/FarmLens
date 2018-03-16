@@ -2,20 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Fabric</key>
-    <dict>
-        <key>APIKey</key>
-        <string>787bd563b901e2be66e2219e37c8989c3f48dc5a</string>
-        <key>Kits</key>
-        <array>
-            <dict>
-                <key>KitInfo</key>
-                <dict/>
-                <key>KitName</key>
-                <string>Crashlytics</string>
-            </dict>
-        </array>
-    </dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -35,11 +21,33 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>DJISDKAppKey</key>
 	<string>2d62b851d216e697e751671e</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>787bd563b901e2be66e2219e37c8989c3f48dc5a</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoicmlpcyIsImEiOiJjamRkN2JydXo0YmNxMnhxcjc3Yndvbjh1In0.8y5ioPcKGOl3YeI5olXamg</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Uses location information to show current location when evaluating flight paths.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow access to save photos in your photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow access to your camera roll</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -48,8 +56,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoicmlpcyIsImEiOiJjamRkN2JydXo0YmNxMnhxcjc3Yndvbjh1In0.8y5ioPcKGOl3YeI5olXamg</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -76,17 +84,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please allow access to save photos in your photo library</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow access to your camera roll</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Uses location information to show current location when evaluating flight paths.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
-    <key>UIStatusBarStyle</key>
-    <string>UIStatusBarStyleLightContent</string>
-    <key>UIViewControllerBasedStatusBarAppearance</key>
-    <false/>
+	<false/>
 </dict>
 </plist>
