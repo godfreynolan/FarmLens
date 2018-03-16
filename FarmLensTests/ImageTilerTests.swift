@@ -28,8 +28,12 @@ class ImageTilerTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
-//        let value:Double = imageTiler.convertSpacingFeetToDegrees(95)
-//        let expected:Double = 0.000260638946469943
-//        XCTAssert(value.isEqual(to: expected))
+        let value:Double = imageTiler.convertSpacingFeetToDegrees(95)
+        let value_trunc = Double(round(100000000 * value) / 100000000)
+        
+        let expected:Double = 0.000260638946469943
+        let expected_trunc = Double(round(100000000 * expected) / 100000000)
+        
+        XCTAssert(value_trunc.isEqual(to: expected_trunc))
     }
 }
