@@ -25,6 +25,7 @@
 		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
 		FF162720205082E8008BB642 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageLoader.swift */; };
+		FFB72DFA205BF024000C6661 /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB72DF9205BF024000C6661 /* DJIImageAnnotationTest.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
 		FF16271F205082E8008BB642 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFB72DF9205BF024000C6661 /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -260,8 +262,9 @@
 		FF015A9F204087170093EA05 /* FarmLensTests */ = {
 			isa = PBXGroup;
 			children = (
-				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
+				FFB72DF9205BF024000C6661 /* DJIImageAnnotationTest.swift */,
 				FF015AA0204087170093EA05 /* FarmLensTests.swift */,
+				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
 				FF015AA2204087170093EA05 /* Info.plist */,
 			);
 			path = FarmLensTests;
@@ -549,6 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFB72DFA205BF024000C6661 /* DJIImageAnnotationTest.swift in Sources */,
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				FF015AA1204087170093EA05 /* FarmLensTests.swift in Sources */,
 			);
