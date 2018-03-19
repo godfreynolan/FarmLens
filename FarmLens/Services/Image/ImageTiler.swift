@@ -9,22 +9,15 @@
 import Mapbox
 import Photos
 
-class ImageTiler
-{
-    func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
-        // SpacingFeet / 3280.4 converts feet to kilometers
-        // Kilometers / (10000/90) converts kilometers to lat/long distance
-        return (spacingFeet / 3280.4) / (10000/90)
-    }
-    
+class ImageTiler {
     func overlayImages(mapView:MGLMapView, style:MGLStyle, images:[DroneImage]) -> Bool {
         if images.isEmpty {
             return false
         }
         
         // Calculate the physical dimensions of the image in terms of lat/long spacing
-        let heightSpace = convertSpacingFeetToDegrees(416)
-        let widthSpace =  convertSpacingFeetToDegrees(537.6)
+        let heightSpace = Utils.convertSpacingFeetToDegrees(416)
+        let widthSpace = Utils.convertSpacingFeetToDegrees(537.6)
         
         var idx = 0
         

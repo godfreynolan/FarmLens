@@ -31,7 +31,10 @@
 		FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */; };
 		FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */; };
 		FF97633F206024260009B830 /* DroneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97633E206024260009B830 /* DroneImage.swift */; };
-		FF976341206029200009B830 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976340206029200009B830 /* CameraHandler.swift */; };
+		FF976344206039910009B830 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976343206039910009B830 /* ImageDownloader.swift */; };
+		FF976347206040AD0009B830 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976346206040AD0009B830 /* Utils.swift */; };
+		FF976349206041960009B830 /* CameraCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976348206041960009B830 /* CameraCallback.swift */; };
+		FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97634A2060432F0009B830 /* InitialCameraCallback.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,7 +104,10 @@
 		FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailControllerTest.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF97633E206024260009B830 /* DroneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneImage.swift; sourceTree = "<group>"; };
-		FF976340206029200009B830 /* CameraHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
+		FF976343206039910009B830 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		FF976346206040AD0009B830 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		FF976348206041960009B830 /* CameraCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCallback.swift; sourceTree = "<group>"; };
+		FF97634A2060432F0009B830 /* InitialCameraCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCameraCallback.swift; sourceTree = "<group>"; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -156,6 +162,7 @@
 		1880776E203F1450006AC0E5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FF976345206040A20009B830 /* General */,
 				1880776F203F1460006AC0E5 /* FlightPlanning */,
 				18BDBCFB20360FD900CD1D59 /* Connection */,
 				18BDBCFC20360FE900CD1D59 /* Image */,
@@ -210,9 +217,11 @@
 		18BDBCFC20360FE900CD1D59 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				FF976340206029200009B830 /* CameraHandler.swift */,
-				187203042050755C00008042 /* ImageTiler.swift */,
+				FF976348206041960009B830 /* CameraCallback.swift */,
+				FF976343206039910009B830 /* ImageDownloader.swift */,
 				FF16271F205082E8008BB642 /* ImageLoader.swift */,
+				187203042050755C00008042 /* ImageTiler.swift */,
+				FF97634A2060432F0009B830 /* InitialCameraCallback.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -234,11 +243,11 @@
 		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
 			isa = PBXGroup;
 			children = (
-				FF97634220602E3F0009B830 /* Models */,
 				18BDBCF820360FA700CD1D59 /* App */,
+				FF97634220602E3F0009B830 /* Models */,
+				1880776E203F1450006AC0E5 /* Services */,
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
-				1880776E203F1450006AC0E5 /* Services */,
 				A4DB95901FEAAD4500F405CA /* Assets.xcassets */,
 				A4DB95961FEAAD4500F405CA /* Info.plist */,
 			);
@@ -286,6 +295,14 @@
 				A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		FF976345206040A20009B830 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				FF976346206040AD0009B830 /* Utils.swift */,
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,12 +571,15 @@
 			files = (
 				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
 				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
+				FF976344206039910009B830 /* ImageDownloader.swift in Sources */,
 				FF162720205082E8008BB642 /* ImageLoader.swift in Sources */,
 				18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */,
+				FF976349206041960009B830 /* CameraCallback.swift in Sources */,
+				FF976347206040AD0009B830 /* Utils.swift in Sources */,
+				FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
 				FF97633F206024260009B830 /* DroneImage.swift in Sources */,
-				FF976341206029200009B830 /* CameraHandler.swift in Sources */,
 				187203052050755C00008042 /* ImageTiler.swift in Sources */,
 				1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
