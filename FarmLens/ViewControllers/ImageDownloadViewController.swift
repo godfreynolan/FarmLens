@@ -8,6 +8,7 @@
 
 import UIKit
 import DJISDK
+import Photos
 
 class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     private var camera: DJICamera?
@@ -112,7 +113,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
             self.present(alert, animated: true, completion: nil)
             return
         }
-        
+
         mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
         let listCount = mediaDownloadList.count
 
@@ -124,34 +125,34 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
 
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
-    
+
     private func downloadImage(file: DJIMediaFile) {
         let isPhoto = file.mediaType == .JPEG || file.mediaType == .TIFF;
         if (!isPhoto) {
             return
         }
-        
+
         var mutableData: Data? = nil
         var previousOffset = 0
-        
+
         file.fetchData(withOffset: UInt(previousOffset), update: DispatchQueue.main, update: { (data, isComplete, error) in
             if (error != nil) {
                 return
             }
-            
+
             if (mutableData == nil) {
                 mutableData = data
             } else {
                 mutableData?.append(data!)
             }
-            
+
             previousOffset += (data?.count)!;
             if (previousOffset == file.fileSizeInBytes && isComplete) {
                 self.saveImage(data: mutableData!)
-                
+
                 self.statusIndex += 1
                 self.currentDownloadIndex += 1
-                
+
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
                     self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.totalImageCount)"
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
@@ -161,10 +162,26 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
             }
         })
     }
-    
+
     private func saveImage(data: Data) {
+        // Wrong way
         let image = UIImage(data: data)
         UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
+
+        // Right way.
+        
+//        let request = URLRequest(url: url)
+//
+//        URLSession.shared.uploadTask(with: <#T##URLRequest#>, from: data?) { (<#Data?#>, <#URLResponse?#>, <#Error?#>) in
+//            temporaryFile.keepAlive()
+//        }
+////        URLSession.shared.uploadTask(with: request, fromFile: fileToUpload.contentURL) { _, _, _ in
+////            temporaryFile.keepAlive()
+////        }
+//
+//        let url:URL = URL(fileURLWithPath: "String")
+//        let library = PHPhotoLibrary()
+//        library.savePhotoFromURL(image: url, albumName: "")
     }
     
     func errorSaving(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {
