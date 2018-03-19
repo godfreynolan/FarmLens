@@ -136,17 +136,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
 
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.currentState == .readyToExecute {
-                DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
-                    if error != nil {
-                        loadingAlert.dismiss(animated: true, completion: {
-                            let alert = UIAlertController(title: "Start Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                            self.present(alert, animated: true)
-                        } )
-                    } else {
-                        loadingAlert.dismiss(animated: true, completion: nil)
-                    }
-                })
+                self.startMission(loadingAlert: loadingAlert)
             }
         })
 
@@ -288,6 +278,20 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     }
     
     // MARK: - Convenience
+    
+    private func startMission(loadingAlert: UIAlertController) {
+        DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
+            if error != nil {
+                loadingAlert.dismiss(animated: true, completion: {
+                    let alert = UIAlertController(title: "Start Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                } )
+            } else {
+                loadingAlert.dismiss(animated: true, completion: nil)
+            }
+        })
+    }
     
     private func missionError(message: String) {
         let pins = self.flightMapView.annotations?.filter({ (annotation) -> Bool in

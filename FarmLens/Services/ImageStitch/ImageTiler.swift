@@ -7,7 +7,6 @@
 //
 
 import Mapbox
-import UIKit
 import Photos
 
 class ImageTiler
