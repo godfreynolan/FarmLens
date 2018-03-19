@@ -10,14 +10,14 @@ import UIKit
 import DJISDK
 import Photos
 
-class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
+class ImageDownloadViewController: UIViewController {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     private var camera: DJICamera?
     private var currentDownloadIndex = 0
-    private var masterViewController: MasterViewController!
     private var mediaDownloadList: [DJIMediaFile] = []
     private var mediaManager: DJIMediaManager?
     private var statusIndex = 0
-    private var totalImageCount = 0
     
     @IBOutlet weak var totalDownloadImageLabel: UILabel!
     @IBOutlet weak var downloadProgressLabel: UILabel!
@@ -25,27 +25,25 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
-        self.totalImageCount = self.masterViewController.flightCoordinateList.count
+        self.camera = CameraHandler().fetchCamera()
+        self.mediaManager = CameraHandler().fetchMediaManager()
         
-        self.camera = fetchCamera()
-        self.mediaManager = self.camera?.mediaManager
-        self.mediaManager?.delegate = self
+        self.appDelegate.actualPictureCount = (self.mediaManager?.fileListSnapshot()?.count)! - self.appDelegate.preFlightImageCount
         
-        if self.totalImageCount == 0 {
+        if self.appDelegate.actualPictureCount == 0 {
             self.totalDownloadImageLabel.text = "0 Images to download"
             self.downloadProgressLabel.text = "No images to download"
-        } else if self.totalImageCount == 1 {
+        } else if self.appDelegate.actualPictureCount == 1 {
             self.totalDownloadImageLabel.text = "1 Image to download"
             self.downloadProgressLabel.text = "Ready to download"
         } else {
-            self.totalDownloadImageLabel.text = "\(self.totalImageCount) Images to download"
+            self.totalDownloadImageLabel.text = "\(self.appDelegate.actualPictureCount) Images to download"
             self.downloadProgressLabel.text = "Ready to download"
         }
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
-        if self.masterViewController.flightCoordinateList.isEmpty {
+        if self.appDelegate.actualPictureCount == 0 {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -53,18 +51,6 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
         }
         
         startMediaDownload()
-    }
-    
-    func fetchCamera() -> DJICamera? {
-        if (DJISDKManager.product() == nil) {
-            return nil
-        }
-        
-        if (DJISDKManager.product() is DJIAircraft) {
-            return (DJISDKManager.product() as? DJIAircraft)?.camera
-        }
-        
-        return nil
     }
     
     private func startMediaDownload() {
@@ -99,7 +85,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 } else {
-                    self.downloadProgressLabel.text = "Downloading Image 1 of \(self.totalImageCount)"
+                    self.downloadProgressLabel.text = "Downloading Image 1 of \(self.appDelegate.actualPictureCount)"
                     self.startImageDownload()
                 }
             })
@@ -114,14 +100,8 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
             return
         }
 
-        mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
-        let listCount = mediaDownloadList.count
-
-        self.currentDownloadIndex = 0
         self.statusIndex = 1
-        if listCount > self.masterViewController.flightCoordinateList.count {
-            self.currentDownloadIndex = listCount - self.totalImageCount
-        }
+        self.currentDownloadIndex = self.appDelegate.actualPictureCount
 
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
@@ -148,13 +128,13 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
 
             previousOffset += (data?.count)!;
             if (previousOffset == file.fileSizeInBytes && isComplete) {
-                self.saveImage(data: mutableData!, self.statusIndex)
+                self.saveImage(data: mutableData!, statusIndex: self.statusIndex)
 
                 self.statusIndex += 1
                 self.currentDownloadIndex += 1
 
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
-                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.totalImageCount)"
+                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.actualPictureCount)"
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.endMediaDownload()

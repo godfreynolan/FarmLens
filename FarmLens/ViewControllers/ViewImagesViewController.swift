@@ -12,19 +12,18 @@ import Mapbox
 import Photos
 
 class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     private let imageLoader = ImageLoader()
     private let imageTiler = ImageTiler()
     private let locManager = CLLocationManager()
     
     private var mapStyle: MGLStyle!
-    private var masterViewController: MasterViewController!
     
     @IBOutlet weak var mapView: MGLMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
         
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -49,14 +48,14 @@ class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocation
     @IBAction func loadImages(_ sender: Any) {
         var imagesShown = false
         
-        if self.masterViewController.flightCoordinateList.isEmpty {
+        if self.appDelegate.actualPictureCount == 0 {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to show. Please download the images first!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true)
             return
         } else {
-            let images = imageLoader.loadImages(imageCount: self.masterViewController.flightCoordinateList.count)
-            imagesShown = self.imageTiler.overlayImages(mapView: mapView, style: self.mapStyle, imageLocations: self.masterViewController.flightCoordinateList.reversed(), images: images)
+            let images = imageLoader.loadImages(imageCount: self.appDelegate.actualPictureCount)
+            imagesShown = self.imageTiler.overlayImages(mapView: mapView, style: self.mapStyle, images: images)
         }
         
         if !imagesShown {

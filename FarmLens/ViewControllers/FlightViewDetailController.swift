@@ -11,13 +11,14 @@ import DJISDK
 import Mapbox
 
 class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     private var boundaryCoordinateList: [CLLocationCoordinate2D] = []
     private var locationManager: CLLocationManager!
     private var boundaryPolygon: MGLPolygon?
     private var boundaryLine: MGLPolyline?
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
-    private var masterViewController: MasterViewController!
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     
@@ -29,7 +30,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     @IBOutlet weak var flightMapView: MGLMapView!
     
     override func viewWillAppear(_ animated: Bool) {
-        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
         self.flightPlanning = FlightPlanning()
         self.flightMapView.addAnnotation(self.aircraftAnnotation)
         
@@ -121,19 +121,22 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         let loadingAlert = UIAlertController(title: "Loading", message: "Calculating flight path and launching", preferredStyle: .alert)
         self.present(loadingAlert, animated: true)
         
-        self.masterViewController.flightCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
+        let flightPathCoordinates = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
         
-        if self.masterViewController.flightCoordinateList.count <= 2 {
+        if flightPathCoordinates.count <= 2 {
             self.missionError(message: "Your flight is too short. Please select a larger area")
             return
         }
         
-        if self.masterViewController.flightCoordinateList.count >= 99 {
+        if flightPathCoordinates.count >= 99 {
             self.missionError(message: "Your flight is too long. Please select a smaller area")
             return
         }
         
-        let mission = self.flightPlanning.createMission(missionCoordinates: self.masterViewController.flightCoordinateList)
+        let mediaManager = CameraHandler().fetchMediaManager()
+        appDelegate.preFlightImageCount = (mediaManager.fileListSnapshot()?.count)!
+        
+        let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
 
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.currentState == .readyToExecute {
@@ -267,10 +270,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         
         let alert = UIAlertController(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
-            self.boundaryCoordinateList = self.masterViewController.flightCoordinateList.filter({ (listCoordinate) -> Bool in
-                coordinate.latitude != listCoordinate.latitude || coordinate.longitude != listCoordinate.longitude
-            })
-            
             mapView.removeAnnotation(annotation)
             self.refreshCoordinates()
         }))
