@@ -165,23 +165,50 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
 
     private func saveImage(data: Data) {
         // Wrong way
-        let image = UIImage(data: data)
-        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
+//        let image = UIImage(data: data)
+//        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
 
         // Right way.
         
-//        let request = URLRequest(url: url)
+        let fileName = "ImageTest.jpg"
+        let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        
+        do {
+            try data.write(to: fileURL)
+        } catch {
+            
+        }
+        
+        PHPhotoLibrary.shared().performChanges({
+            let options = PHAssetResourceCreationOptions()
+            
+            let request = PHAssetCreationRequest.forAsset()
+            request.addResource(with: .photo, fileURL: fileURL, options: nil)
+//            request.addResource(with: .photo, data: data, options: nil)
+        }, completionHandler: { success, error in
+            do {
+                try FileManager.default.removeItem(at: fileURL)
+            } catch {
+                
+            }
+            
+            if success {
+                let alert = UIAlertController(title: "Success", message: "", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "Download Error", message: error?.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+        
+        
 //
-//        URLSession.shared.uploadTask(with: <#T##URLRequest#>, from: data?) { (<#Data?#>, <#URLResponse?#>, <#Error?#>) in
-//            temporaryFile.keepAlive()
-//        }
-////        URLSession.shared.uploadTask(with: request, fromFile: fileToUpload.contentURL) { _, _, _ in
-////            temporaryFile.keepAlive()
-////        }
+//        let library = PHPhotoLibrary.shared()
+//        library.savePhotoFromURL(image: fileURL, albumName: "DJI")
 //
-//        let url:URL = URL(fileURLWithPath: "String")
-//        let library = PHPhotoLibrary()
-//        library.savePhotoFromURL(image: url, albumName: "")
+        
     }
     
     func errorSaving(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {

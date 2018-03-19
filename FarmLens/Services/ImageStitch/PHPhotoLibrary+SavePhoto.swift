@@ -78,26 +78,25 @@ extension PHPhotoLibrary {
     fileprivate func saveImage(image: URL, album: PHAssetCollection, completion:((PHAsset?)->())? = nil) {
         var placeholder: PHObjectPlaceholder?
         PHPhotoLibrary.shared().performChanges({
-            //let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
             let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: image)!
             
-            guard let albumChangeRequest = PHAssetCollectionChangeRequest(for: album),
-                let photoPlaceholder = createAssetRequest.placeholderForCreatedAsset else { return }
-            placeholder = photoPlaceholder
-            let fastEnumeration = NSArray(array: [photoPlaceholder] as [PHObjectPlaceholder])
-            albumChangeRequest.addAssets(fastEnumeration)
+//            guard let albumChangeRequest = PHAssetCollectionChangeRequest(for: album),
+//                let photoPlaceholder = createAssetRequest.placeholderForCreatedAsset else { return }
+//            placeholder = photoPlaceholder
+//            let fastEnumeration = NSArray(array: [photoPlaceholder] as [PHObjectPlaceholder])
+//            albumChangeRequest.addAssets(fastEnumeration)
         }, completionHandler: { success, error in
-            guard let placeholder = placeholder else {
-                completion?(nil)
-                return
-            }
-            if success {
-                let assets:PHFetchResult<PHAsset> =  PHAsset.fetchAssets(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
-                let asset:PHAsset? = assets.firstObject
-                completion?(asset)
-            } else {
-                completion?(nil)
-            }
+//            guard let placeholder = placeholder else {
+//                completion?(nil)
+//                return
+//            }
+//            if success {
+//                let assets:PHFetchResult<PHAsset> =  PHAsset.fetchAssets(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
+//                let asset:PHAsset? = assets.firstObject
+//                completion?(asset)
+//            } else {
+//                completion?(nil)
+//            }
         })
     }
 }
