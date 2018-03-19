@@ -1,12 +1,7 @@
 //
 //  DJIImageAnnotation.swift
-//  SDK Swift Sample
-//
-//  Created by Arnaud Thiercelin on 3/25/17.
-//  Copyright © 2017 DJI. All rights reserved.
 //
 
-import UIKit
 import Mapbox
 
 class DJIImageAnnotation: MGLPointAnnotation {

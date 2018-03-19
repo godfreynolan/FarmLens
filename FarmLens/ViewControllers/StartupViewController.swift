@@ -46,6 +46,7 @@ class StartupViewController: UIViewController {
     func productConnected() {
         guard let newProduct = DJISDKManager.product() else {
             print("Product is connected but DJISDKManager.product is nil -> something is wrong")
+            self.productDisconnected()
             return;
         }
 

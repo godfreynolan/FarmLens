@@ -10,7 +10,7 @@ import XCTest
 import Mapbox
 @testable import FarmLens
 
-class DJIImageAnnotationTest: XCTest {
+class DJIImageAnnotationTest: XCTestCase {
     private var imageAnnotation: DJIImageAnnotation!
     
     override func setUp() {
@@ -37,3 +37,4 @@ class DJIImageAnnotationTest: XCTest {
         assert(imageAnnotation.heading == 5)
     }
 }
+

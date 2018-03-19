@@ -10,7 +10,7 @@ import XCTest
 import Mapbox
 @testable import FarmLens
 
-class ImageTilerTests: XCTest {
+class ImageTilerTests: XCTestCase {
     
     var imageTiler = ImageTiler()
     
@@ -41,9 +41,8 @@ class ImageTilerTests: XCTest {
     func testImageOverlay()
     {
         let mapView = MGLMapView()
-        mapView.styleURL = MGLStyle.satelliteStreetsStyleURL()
         
-        let style:MGLStyle = mapView.style!
+        let style:MGLStyle = MockMGLStyle()
         
         let points = [
             CLLocationCoordinate2D(latitude: 42.5448540291358, longitude: -83.118421372042),
