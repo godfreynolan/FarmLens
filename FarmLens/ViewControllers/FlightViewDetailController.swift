@@ -69,6 +69,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             locationManager = CLLocationManager()
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
+            locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
         } else {
             let alert = UIAlertController(title: "Location Services", message: "Location Services are not enabled.", preferredStyle: .alert)

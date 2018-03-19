@@ -148,7 +148,7 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
 
             previousOffset += (data?.count)!;
             if (previousOffset == file.fileSizeInBytes && isComplete) {
-                self.saveImage(data: mutableData!)
+                self.saveImage(data: mutableData!, self.statusIndex)
 
                 self.statusIndex += 1
                 self.currentDownloadIndex += 1
@@ -163,14 +163,8 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
         })
     }
 
-    private func saveImage(data: Data) {
-        // Wrong way
-//        let image = UIImage(data: data)
-//        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(errorSaving(_:didFinishSavingWithError:contextInfo:)), nil)
-
-        // Right way.
-        
-        let fileName = "ImageTest.jpg"
+    private func saveImage(data: Data, statusIndex: Int) {
+        let fileName = "DJI_Image_\(statusIndex).jpg"
         let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
         
         do {
@@ -180,11 +174,8 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
         }
         
         PHPhotoLibrary.shared().performChanges({
-            let options = PHAssetResourceCreationOptions()
-            
             let request = PHAssetCreationRequest.forAsset()
             request.addResource(with: .photo, fileURL: fileURL, options: nil)
-//            request.addResource(with: .photo, data: data, options: nil)
         }, completionHandler: { success, error in
             do {
                 try FileManager.default.removeItem(at: fileURL)
@@ -202,13 +193,6 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
                 self.present(alert, animated: true, completion: nil)
             }
         })
-        
-        
-//
-//        let library = PHPhotoLibrary.shared()
-//        library.savePhotoFromURL(image: fileURL, albumName: "DJI")
-//
-        
     }
     
     func errorSaving(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {
