@@ -27,6 +27,7 @@
 		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
 		FF162720205082E8008BB642 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageLoader.swift */; };
+		FF4E29E82061385D00564E27 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29E72061385D00564E27 /* UtilsTest.swift */; };
 		FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */; };
 		FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB676205C0EF90033228A /* MockMGLStyle.swift */; };
 		FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */; };
@@ -101,6 +102,7 @@
 		FF16271720503CA0008BB642 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
 		FF16271F205082E8008BB642 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		FF4E29E72061385D00564E27 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
 		FF4FB676205C0EF90033228A /* MockMGLStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMGLStyle.swift; sourceTree = "<group>"; };
 		FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewControllerTest.swift; sourceTree = "<group>"; };
@@ -166,9 +168,9 @@
 		1880776E203F1450006AC0E5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				FF976345206040A20009B830 /* General */,
-				1880776F203F1460006AC0E5 /* FlightPlanning */,
 				18BDBCFB20360FD900CD1D59 /* Connection */,
+				1880776F203F1460006AC0E5 /* FlightPlanning */,
+				FF976345206040A20009B830 /* General */,
 				18BDBCFC20360FE900CD1D59 /* Image */,
 			);
 			path = Services;
@@ -272,17 +274,66 @@
 		FF015A9F204087170093EA05 /* FarmLensTests */ = {
 			isa = PBXGroup;
 			children = (
+				FF4E29EA206138DE00564E27 /* Services */,
 				FF4FB675205C0EE80033228A /* Mocks */,
-				FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */,
-				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
-				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
-				FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */,
+				FF4E29E9206138CC00564E27 /* Models */,
+				FF4E29EE2061392500564E27 /* ViewControllers */,
 				FF015AA2204087170093EA05 /* Info.plist */,
+			);
+			path = FarmLensTests;
+			sourceTree = "<group>";
+		};
+		FF4E29E9206138CC00564E27 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FF4E29EA206138DE00564E27 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FF4E29EC206138F200564E27 /* FlightPlanning */,
+				FF4E29EB206138E400564E27 /* General */,
+				FF4E29ED2061390900564E27 /* Image */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FF4E29EB206138E400564E27 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				FF4E29E72061385D00564E27 /* UtilsTest.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		FF4E29EC206138F200564E27 /* FlightPlanning */ = {
+			isa = PBXGroup;
+			children = (
+				FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */,
+			);
+			path = FlightPlanning;
+			sourceTree = "<group>";
+		};
+		FF4E29ED2061390900564E27 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		FF4E29EE2061392500564E27 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */,
 				FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */,
 				FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */,
 				184F9AD42061380E0086D0F4 /* CameraCallbackTest.swift */,
 			);
-			path = FarmLensTests;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		FF4FB675205C0EE80033228A /* Mocks */ = {
@@ -602,6 +653,7 @@
 				184F9AD52061380E0086D0F4 /* CameraCallbackTest.swift in Sources */,
 				FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */,
 				FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */,
+				FF4E29E82061385D00564E27 /* UtilsTest.swift in Sources */,
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
 				FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */,
