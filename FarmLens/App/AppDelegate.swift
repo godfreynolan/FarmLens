@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var productCommunicationManager = ProductCommunicationManager()
     
-    var preFlightImageCount = 0
+    var preFlightImageCount = 38
     var flightImageCount = 0
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
