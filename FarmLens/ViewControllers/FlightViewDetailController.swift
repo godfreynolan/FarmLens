@@ -122,7 +122,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         self.present(self.loadingAlert, animated: true)
         
         // Fetches the initial number of files on the SD Card. This is used to determine how many images we have to download later
-        let initialCameraCallback = InitialCameraCallback(viewController: self)
+        let initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
         initialCameraCallback.fetchInitialData()
     }
     
@@ -139,6 +139,18 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     // MARK: - CameraCallback Helper
     func setPreFlightImageCount(imageCount: Int) {
         self.appDelegate.preFlightImageCount = imageCount
+    }
+    
+    func fetchCamera() -> DJICamera? {
+        if (DJISDKManager.product() == nil) {
+            return nil
+        }
+        
+        if (DJISDKManager.product() is DJIAircraft) {
+            return (DJISDKManager.product() as? DJIAircraft)?.camera
+        }
+        
+        return nil
     }
     
     func startMission() {

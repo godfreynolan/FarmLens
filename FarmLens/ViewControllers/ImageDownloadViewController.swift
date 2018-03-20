@@ -27,10 +27,10 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.imageDownloader = ImageDownloader(callback: self)
+        self.imageDownloader = ImageDownloader(callback: self, camera: self.fetchCamera()!)
         self.mediaManager = self.imageDownloader.fetchMediaManager()
         
-        self.initialCameraCallback = InitialCameraCallback(viewController: self)
+        self.initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
         self.initialCameraCallback.fetchInitialData()
     }
     
@@ -59,6 +59,18 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     
     func onFileListRefresh() {
         // Not needed since we already refreshed the file snapshot to get the image count
+    }
+    
+    func fetchCamera() -> DJICamera? {
+        if (DJISDKManager.product() == nil) {
+            return nil
+        }
+        
+        if (DJISDKManager.product() is DJIAircraft) {
+            return (DJISDKManager.product() as? DJIAircraft)?.camera
+        }
+        
+        return nil
     }
     
     //### CameraCallback Helper ###

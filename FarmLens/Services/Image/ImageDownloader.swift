@@ -13,9 +13,9 @@ class ImageDownloader {
     private var camera: DJICamera!
     private var callback: CameraCallback!
     
-    init(callback: CameraCallback) {
+    init(callback: CameraCallback, camera: DJICamera) {
         self.callback = callback
-        camera = fetchCamera()
+        self.camera = camera
     }
     
     // ### Camera Modes ###
@@ -39,7 +39,7 @@ class ImageDownloader {
     
     // ### MediaManager state ###
     func retrieveMediaFiles() {
-        if (self.camera.mediaManager?.fileListState == .syncing || self.camera.mediaManager?.fileListState == .deleting) {
+        if (self.fetchMediaManager().fileListState == .syncing || self.fetchMediaManager().fileListState == .deleting) {
             self.callback.onError(error: nil)
         } else {
             self.camera.mediaManager?.refreshFileList(completion: { (error) in
@@ -53,19 +53,7 @@ class ImageDownloader {
     }
     
     // ### Helpers ###
-    private func fetchCamera() -> DJICamera? {
-        if (DJISDKManager.product() == nil) {
-            return nil
-        }
-        
-        if (DJISDKManager.product() is DJIAircraft) {
-            return (DJISDKManager.product() as? DJIAircraft)?.camera
-        }
-        
-        return nil
-    }
-    
     func fetchMediaManager() -> DJIMediaManager {
-        return (fetchCamera()?.mediaManager)!
+        return (self.camera.mediaManager)!
     }
 }

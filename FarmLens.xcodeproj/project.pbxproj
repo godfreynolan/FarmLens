@@ -26,6 +26,9 @@
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
 		FF162720205082E8008BB642 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageLoader.swift */; };
 		FF4E29E82061385D00564E27 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29E72061385D00564E27 /* UtilsTest.swift */; };
+		FF4E29F420613C7400564E27 /* ImageDownloaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F320613C7400564E27 /* ImageDownloaderTest.swift */; };
+		FF4E29F620613CBA00564E27 /* MockCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F520613CBA00564E27 /* MockCamera.swift */; };
+		FF4E29F820613D2C00564E27 /* MockMediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F720613D2C00564E27 /* MockMediaManager.swift */; };
 		FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */; };
 		FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB676205C0EF90033228A /* MockMGLStyle.swift */; };
 		FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */; };
@@ -99,6 +102,9 @@
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
 		FF16271F205082E8008BB642 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		FF4E29E72061385D00564E27 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
+		FF4E29F320613C7400564E27 /* ImageDownloaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTest.swift; sourceTree = "<group>"; };
+		FF4E29F520613CBA00564E27 /* MockCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCamera.swift; sourceTree = "<group>"; };
+		FF4E29F720613D2C00564E27 /* MockMediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediaManager.swift; sourceTree = "<group>"; };
 		FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
 		FF4FB676205C0EF90033228A /* MockMGLStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMGLStyle.swift; sourceTree = "<group>"; };
 		FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewControllerTest.swift; sourceTree = "<group>"; };
@@ -317,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
+				FF4E29F320613C7400564E27 /* ImageDownloaderTest.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -335,6 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				FF4FB676205C0EF90033228A /* MockMGLStyle.swift */,
+				FF4E29F520613CBA00564E27 /* MockCamera.swift */,
+				FF4E29F720613D2C00564E27 /* MockMediaManager.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -649,8 +658,11 @@
 				FF4E29E82061385D00564E27 /* UtilsTest.swift in Sources */,
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
+				FF4E29F820613D2C00564E27 /* MockMediaManager.swift in Sources */,
+				FF4E29F420613C7400564E27 /* ImageDownloaderTest.swift in Sources */,
 				FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */,
 				FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */,
+				FF4E29F620613CBA00564E27 /* MockCamera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
