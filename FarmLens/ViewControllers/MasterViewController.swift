@@ -18,8 +18,7 @@ class MasterViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             cell.textLabel?.text = "Flight Plan"
-            cell.detailTextLabel?.numberOfLines = 0
-            cell.detailTextLabel?.text = "Click on map to create boundaries of the field you want to map."
+            cell.detailTextLabel?.text = ""
         case 1:
             cell.textLabel?.text = "Image Download"
             cell.detailTextLabel?.text = ""
