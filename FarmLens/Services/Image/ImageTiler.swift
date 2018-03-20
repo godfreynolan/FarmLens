@@ -9,56 +9,45 @@
 import Mapbox
 import Photos
 
-class ImageTiler
-{
-    func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double
-    {
-        // SpacingFeet / 3280.4 converts feet to kilometers
-        // Kilometers / (10000/90) converts kilometers to lat/long distance
-        return (spacingFeet / 3280.4) / (10000/90)
-    }
-    
-    func overlayImages(mapView:MGLMapView, style:MGLStyle, imageLocations:[CLLocationCoordinate2D], images:[UIImage]) -> Bool
-    {
-        // Determine that the ratio from image to image_location is 1:1 and that the lists
-        // are not empty
-        if images.count != imageLocations.count || images.isEmpty || imageLocations.isEmpty
-        {
-            // Image to image_location ratio is not 1:1, or one of the lists is empty
+class ImageTiler {
+    func overlayImages(mapView:MGLMapView, style:MGLStyle, images:[DroneImage]) -> Bool {
+        if images.isEmpty {
             return false
         }
         
         // Calculate the physical dimensions of the image in terms of lat/long spacing
-        let heightSpace = convertSpacingFeetToDegrees(416)
-        let widthSpace =  convertSpacingFeetToDegrees(537.6)
+        let heightSpace = Utils.convertSpacingFeetToDegrees(416)
+        let widthSpace = Utils.convertSpacingFeetToDegrees(537.6)
         
         var idx = 0
         
         // Overlay each image
-        for (img, loc) in zip(images, imageLocations)
-        {
+        for droneImage in images {
+            let location = droneImage.getLocation()
+            let image = droneImage.getImage()
+            
             // Calculate the coordinates of the where the boundaries of the image should lay
-            let north: CLLocationDegrees = (loc.latitude) + heightSpace / 2
-            let east:  CLLocationDegrees = (loc.longitude) + widthSpace / 2
-            let west:  CLLocationDegrees = (loc.longitude) - widthSpace / 2
+            let north: CLLocationDegrees = (location.latitude) + heightSpace / 2
+            let east:  CLLocationDegrees = (location.longitude) + widthSpace / 2
+            let west:  CLLocationDegrees = (location.longitude) - widthSpace / 2
             
             let point = MGLPointFeature()
-            point.coordinate = loc
+            point.coordinate = location
             
             // Add image to the style
             let source = MGLShapeSource(identifier: "overlay_\(idx)", shape: point, options: nil)
             style.addSource(source)
             
             // Scale image
-            let metersPerPoint = mapView.metersPerPoint(atLatitude: loc.latitude)
+            let metersPerPoint = mapView.metersPerPoint(atLatitude: location.latitude)
             let polygonMetersWidth = CLLocation(latitude: north, longitude: west).distance(from: CLLocation(latitude: north, longitude: east))
             let polygonPointsWidth = CGFloat(polygonMetersWidth / metersPerPoint)
-            let currentImageScale = img.size.width / polygonPointsWidth
+            let currentImageScale = image.size.width / polygonPointsWidth
             
             // Resize to current zoom
-            let rect = CGRect(x: 0, y: 0, width: img.size.width / currentImageScale, height: img.size.height / currentImageScale)
+            let rect = CGRect(x: 0, y: 0, width: image.size.width / currentImageScale, height: image.size.height / currentImageScale)
             UIGraphicsBeginImageContextWithOptions(rect.size, true, UIScreen.main.scale)
-            img.draw(in: rect)
+            image.draw(in: rect)
             let scaledImage = UIGraphicsGetImageFromCurrentImageContext()!
             UIGraphicsEndImageContext()
             
@@ -70,8 +59,7 @@ class ImageTiler
             var zoom = mapView.zoomLevel
             var scale = 1.0
             
-            while zoom > 0
-            {
+            while zoom > 0 {
                 stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
                 zoom -= 1
                 scale /= 2
@@ -80,8 +68,7 @@ class ImageTiler
             zoom = mapView.zoomLevel + 1
             scale = 2.0
             
-            while zoom < mapView.maximumZoomLevel + 1
-            {
+            while zoom < mapView.maximumZoomLevel + 1 {
                 stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
                 zoom = zoom + 1
                 scale = scale * 2

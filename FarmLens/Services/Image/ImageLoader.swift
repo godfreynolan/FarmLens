@@ -9,8 +9,8 @@
 import Photos
 
 class ImageLoader {
-    func loadImages(imageCount: Int) -> [UIImage] {
-        var loadedImages: [UIImage] = []
+    func loadImages(imageCount: Int) -> [DroneImage] {
+        var loadedImages: [DroneImage] = []
         
         if imageCount == 0 {
             return loadedImages
@@ -36,7 +36,7 @@ class ImageLoader {
             let result = results[index]
             
             imageManager.requestImage(for: result, targetSize: CGSize(width: CGFloat(400), height: CGFloat(300)), contentMode: .aspectFill, options: imageOptions, resultHandler: { (uiImage, info) in
-                loadedImages.append(uiImage!)
+                loadedImages.append(DroneImage(location: result.location!, image: uiImage!))
             })
         }
         

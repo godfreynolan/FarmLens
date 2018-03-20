@@ -10,14 +10,16 @@ import UIKit
 import DJISDK
 import Photos
 
-class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
+class ImageDownloadViewController: UIViewController, CameraCallback {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     private var camera: DJICamera?
     private var currentDownloadIndex = 0
-    private var masterViewController: MasterViewController!
     private var mediaDownloadList: [DJIMediaFile] = []
     private var mediaManager: DJIMediaManager?
     private var statusIndex = 0
-    private var totalImageCount = 0
+    private var imageDownloader: MediaHandler!
+    private var initialCameraCallback: InitialCameraCallback!
     
     @IBOutlet weak var totalDownloadImageLabel: UILabel!
     @IBOutlet weak var downloadProgressLabel: UILabel!
@@ -25,34 +27,38 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
-        self.totalImageCount = self.masterViewController.flightCoordinateList.count
+        self.imageDownloader = MediaHandler(callback: self, camera: self.fetchCamera()!)
+        self.mediaManager = self.imageDownloader.fetchMediaManager()
         
-        self.camera = fetchCamera()
-        self.mediaManager = self.camera?.mediaManager
-        self.mediaManager?.delegate = self
-        
-        if self.totalImageCount == 0 {
-            self.totalDownloadImageLabel.text = "0 Images to download"
-            self.downloadProgressLabel.text = "No images to download"
-        } else if self.totalImageCount == 1 {
-            self.totalDownloadImageLabel.text = "1 Image to download"
-            self.downloadProgressLabel.text = "Ready to download"
-        } else {
-            self.totalDownloadImageLabel.text = "\(self.totalImageCount) Images to download"
-            self.downloadProgressLabel.text = "Ready to download"
-        }
+        self.initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
+        self.initialCameraCallback.fetchInitialData()
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
-        if self.masterViewController.flightCoordinateList.isEmpty {
+        if self.appDelegate.flightImageCount == 0 {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
         
-        startMediaDownload()
+        self.imageDownloader.setCameraToDownload()
+    }
+    
+    //### CameraCallback ###
+    func onDownloadReady() {
+        self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
+        
+        self.downloadProgressLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
+        self.startImageDownload()
+    }
+    
+    func onPhotoReady() {
+        self.downloadProgressLabel.text = "All Images Downloaded"
+    }
+    
+    func onFileListRefresh() {
+        // Not needed since we already refreshed the file snapshot to get the image count
     }
     
     func fetchCamera() -> DJICamera? {
@@ -67,61 +73,38 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
         return nil
     }
     
-    private func startMediaDownload() {
-        self.camera?.setMode(.mediaDownload, withCompletion: { (error) in
-            if (error != nil) {
-                let alert = UIAlertController(title: "Camera Error", message: "Please verify connection to the drone. If connected, please verify the drone is nearby.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                self.retrieveMediaFiles()
-            }
-        })
+    //### CameraCallback Helper ###
+    func setTotalImageCount(totalFileCount: Int) {
+        self.appDelegate.flightImageCount = totalFileCount - self.appDelegate.preFlightImageCount
+        
+        if self.appDelegate.flightImageCount == 0 {
+            self.totalDownloadImageLabel.text = "0 Images to download"
+            self.downloadProgressLabel.text = "No images to download"
+        } else if self.appDelegate.flightImageCount == 1 {
+            self.totalDownloadImageLabel.text = "1 Image to download"
+            self.downloadProgressLabel.text = "Ready to download"
+        } else {
+            self.totalDownloadImageLabel.text = "\(self.appDelegate.flightImageCount) Images to download"
+            self.downloadProgressLabel.text = "Ready to download"
+        }
     }
     
-    func endMediaDownload() {
-        self.camera?.setMode(.shootPhoto, withCompletion: { (error) in
-            if (error == nil) {
-                self.downloadProgressLabel.text = "All Images Downloaded"
-            }
-        })
-    }
-    
-    func retrieveMediaFiles() {
-        if (self.mediaManager?.fileListState == .syncing || self.mediaManager?.fileListState == .deleting) {
-            let alert = UIAlertController(title: "Camera Error", message: "Please verify the drone is idle.", preferredStyle: .alert)
+    func onError(error: Error?) {
+        if (error != nil) {
+            let alert = UIAlertController(title: "Camera Error", message: "Please verify connection to the drone. If connected, please verify the drone is nearby.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            self.mediaManager?.refreshFileList(completion: { (error) in
-                if (error != nil) {
-                    let alert = UIAlertController(title: "Camera Error", message: "Please verify the drone is idle.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    self.downloadProgressLabel.text = "Downloading Image 1 of \(self.totalImageCount)"
-                    self.startImageDownload()
-                }
-            })
-        }
-    }
-    
-    private func startImageDownload() {
-        if (self.mediaManager?.fileListState != .upToDate && self.mediaManager?.fileListState != .incomplete) {
             let alert = UIAlertController(title: "Camera Error", message: "Please verify the drone is idle.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            return
         }
-
-        mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
-        let listCount = mediaDownloadList.count
-
-        self.currentDownloadIndex = 0
+    }
+    
+    //### Helper Methods ###
+    private func startImageDownload() {
         self.statusIndex = 1
-        if listCount > self.masterViewController.flightCoordinateList.count {
-            self.currentDownloadIndex = listCount - self.totalImageCount
-        }
+        self.currentDownloadIndex = self.appDelegate.preFlightImageCount
 
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
@@ -148,16 +131,16 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
 
             previousOffset += (data?.count)!;
             if (previousOffset == file.fileSizeInBytes && isComplete) {
-                self.saveImage(data: mutableData!, self.statusIndex)
+                self.saveImage(data: mutableData!, statusIndex: self.statusIndex)
 
                 self.statusIndex += 1
                 self.currentDownloadIndex += 1
 
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
-                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.totalImageCount)"
+                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
-                    self.endMediaDownload()
+                    self.imageDownloader.setCameraToPhotoShoot()
                 }
             }
         })
@@ -183,24 +166,12 @@ class ImageDownloadViewController: UIViewController, DJIMediaManagerDelegate {
                 
             }
             
-            if success {
-                let alert = UIAlertController(title: "Success", message: "", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                let alert = UIAlertController(title: "Download Error", message: error?.localizedDescription, preferredStyle: .alert)
+            if !success {
+                let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
+                let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         })
-    }
-    
-    func errorSaving(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {
-        if (error != nil) {
-            let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
-            let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 }

@@ -65,8 +65,8 @@ class FlightPlanning {
         
         var x = minX
         var y = minY
-        let xIncrement = convertSpacingFeetToDegrees(spacingFeet)
-        let yIncrement = convertSpacingFeetToDegrees(spacingFeet)
+        let xIncrement = Utils.convertSpacingFeetToDegrees(spacingFeet)
+        let yIncrement = Utils.convertSpacingFeetToDegrees(spacingFeet)
         
         // Step 2.
         var locations:[CLLocationCoordinate2D] = []
@@ -126,12 +126,6 @@ class FlightPlanning {
         let position = renderer.point(for: MKMapPointForCoordinate(coordinate))
         
         return renderer.path.contains(position)
-    }
-    
-    private func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
-        // SpacingFeet / 3280.4 converts feet to kilometers
-        // Kilometers / (10000/90) converts kilometers to lat/long distance
-        return (spacingFeet / 3280.4) / (10000/90)
     }
 }
 

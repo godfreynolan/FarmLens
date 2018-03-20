@@ -10,14 +10,16 @@ import UIKit
 import DJISDK
 import Mapbox
 
-class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICameraDelegate, DJIMediaManagerDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     private var boundaryCoordinateList: [CLLocationCoordinate2D] = []
     private var locationManager: CLLocationManager!
     private var boundaryPolygon: MGLPolygon?
     private var boundaryLine: MGLPolyline?
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
-    private var masterViewController: MasterViewController!
+    private var loadingAlert: UIAlertController!
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     
@@ -29,7 +31,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
     @IBOutlet weak var flightMapView: MGLMapView!
     
     override func viewWillAppear(_ animated: Bool) {
-        self.masterViewController = self.splitViewController?.viewControllers.first?.childViewControllers.first as! MasterViewController
         self.flightPlanning = FlightPlanning()
         self.flightMapView.addAnnotation(self.aircraftAnnotation)
         
@@ -43,7 +44,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
                 
                 self.latitudeLabel.text = String(format:"Lat: %.4f", newLocationValue.coordinate.latitude)
                 self.longitudeLabel.text = String(format:"Long: %.4f", newLocationValue.coordinate.longitude)
-                self.altitudeLabel.text = String(format:"Alt: %.4f ft", self.metersToFeet(newLocationValue.altitude))
+                self.altitudeLabel.text = String(format:"Alt: %.4f ft", Utils.metersToFeet(newLocationValue.altitude))
             }
         }
         
@@ -69,7 +70,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             locationManager = CLLocationManager()
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
-            locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
         } else {
             let alert = UIAlertController(title: "Location Services", message: "Location Services are not enabled.", preferredStyle: .alert)
@@ -118,29 +118,62 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             return
         }
         
-        let loadingAlert = UIAlertController(title: "Loading", message: "Calculating flight path and launching", preferredStyle: .alert)
-        self.present(loadingAlert, animated: true)
+        self.loadingAlert = UIAlertController(title: "Loading", message: "Calculating flight path and launching", preferredStyle: .alert)
+        self.present(self.loadingAlert, animated: true)
         
-        self.masterViewController.flightCoordinateList = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
+        // Fetches the initial number of files on the SD Card. This is used to determine how many images we have to download later
+        let initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
+        initialCameraCallback.fetchInitialData()
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
+            self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
+            self.aircraftAnnotation.coordinate = (locations.last?.coordinate)!
+            // We don't want the map changing while the user is trying to draw on it.
+            self.locationManager?.stopUpdatingLocation()
+        }
+    }
+    
+    // MARK: - CameraCallback Helper
+    func setPreFlightImageCount(imageCount: Int) {
+        self.appDelegate.preFlightImageCount = imageCount
+    }
+    
+    func fetchCamera() -> DJICamera? {
+        if (DJISDKManager.product() == nil) {
+            return nil
+        }
         
-        if self.masterViewController.flightCoordinateList.count <= 2 {
+        if (DJISDKManager.product() is DJIAircraft) {
+            return (DJISDKManager.product() as? DJIAircraft)?.camera
+        }
+        
+        return nil
+    }
+    
+    func startMission() {
+        let flightPathCoordinates = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
+        
+        if flightPathCoordinates.count <= 2 {
             self.missionError(message: "Your flight is too short. Please select a larger area")
             return
         }
         
-        if self.masterViewController.flightCoordinateList.count >= 99 {
+        if flightPathCoordinates.count >= 99 {
             self.missionError(message: "Your flight is too long. Please select a smaller area")
             return
         }
         
-        let mission = self.flightPlanning.createMission(missionCoordinates: self.masterViewController.flightCoordinateList)
-
+        let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
+        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.currentState == .readyToExecute {
-                self.startMission(loadingAlert: loadingAlert)
+                self.startMission(loadingAlert: self.loadingAlert)
             }
         })
-
+        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
             if error != nil {
                 let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
@@ -158,23 +191,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         
         DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
             if error != nil {
-                loadingAlert.dismiss(animated: true, completion: {
+                self.loadingAlert.dismiss(animated: true, completion: {
                     let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     self.present(alert, animated: true)
                 })
             }
         })
-    }
-    
-    // MARK: - CLLocationManagerDelegate
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
-            self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
-            self.aircraftAnnotation.coordinate = (locations.last?.coordinate)!
-            // We don't want the map changing while the user is trying to draw on it.
-            self.locationManager?.stopUpdatingLocation()
-        }
     }
     
     // MARK: GestureDelegate
@@ -267,10 +290,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
         
         let alert = UIAlertController(title: "Coordinate Details", message: "Latitude \(latitude)\nLongitude \(longitude)\n\nWould you like to remove this coordinate?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { (alert: UIAlertAction!) in
-            self.boundaryCoordinateList = self.masterViewController.flightCoordinateList.filter({ (listCoordinate) -> Bool in
-                coordinate.latitude != listCoordinate.latitude || coordinate.longitude != listCoordinate.longitude
-            })
-            
             mapView.removeAnnotation(annotation)
             self.refreshCoordinates()
         }))
@@ -345,13 +364,5 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, DJICamer
             self.boundaryPolygon = MGLPolygon(coordinates: self.boundaryCoordinateList, count: UInt(self.boundaryCoordinateList.count))
             self.flightMapView.add(self.boundaryPolygon!)
         }
-    }
-    
-    func degreesToRadians(_ degrees: Double) -> Double {
-        return Double.pi / 180 * degrees
-    }
-    
-    func metersToFeet(_ meters: Double) -> Double {
-        return 3.28084 * meters
     }
 }

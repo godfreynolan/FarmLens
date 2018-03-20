@@ -255,7 +255,7 @@
         <!--View Images View Controller-->
         <scene sceneID="nqJ-00-i6j">
             <objects>
-                <viewController id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewImagesViewController" id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="452-P2-k4p"/>
                         <viewControllerLayoutGuide type="bottom" id="uxj-ZG-DZ3"/>
@@ -331,8 +331,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 Images to download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ew-aF-ccT">
-                                <rect key="frame" x="252" y="281" width="199" height="64"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checking for Images to download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ew-aF-ccT">
+                                <rect key="frame" x="20" y="281" width="664" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
