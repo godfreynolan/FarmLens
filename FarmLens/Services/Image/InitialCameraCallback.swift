@@ -10,31 +10,28 @@ import UIKit
 import DJISDK
 
 class InitialCameraCallback: CameraCallback {
-    private var imageDownloader: MediaHandler!
+    private var mediaHandler: MediaHandler!
     private var viewController: UIViewController!
     
     init(camera: DJICamera, viewController: UIViewController) {
-        self.imageDownloader = MediaHandler(callback: self, camera: camera)
+        self.mediaHandler = MediaHandler(callback: self, camera: camera)
         self.viewController = viewController
     }
     
     func fetchInitialData() {
-        self.imageDownloader.setCameraToDownload()
+        self.mediaHandler.setCameraToDownload()
     }
     
     func onDownloadReady() {
-        self.imageDownloader.retrieveMediaFiles()
+        self.mediaHandler.retrieveMediaFiles()
     }
     
     func onPhotoReady() {
-        if viewController is FlightViewDetailController {
-            let flightViewDetailController = viewController as! FlightViewDetailController
-            flightViewDetailController.startMission()
-        }
+        
     }
     
     func onFileListRefresh() {
-        let mediaManager = self.imageDownloader.fetchMediaManager()
+        let mediaManager = self.mediaHandler.fetchMediaManager()
         
         if viewController is FlightViewDetailController {
             let flightViewDetailController = self.viewController as! FlightViewDetailController
@@ -44,7 +41,7 @@ class InitialCameraCallback: CameraCallback {
             imageDownloadViewController.setTotalImageCount(totalFileCount: (mediaManager.fileListSnapshot()?.count)!)
         }
         
-        self.imageDownloader.setCameraToPhotoShoot()
+        self.mediaHandler.setCameraToPhotoShoot()
     }
     
     func onError(error: Error?) {

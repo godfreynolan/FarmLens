@@ -61,6 +61,10 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             
             self.batteryLifeLabel.text = "Battery Percentage: \(value!.unsignedIntegerValue)%"
         })
+        
+        // Fetches the initial number of files on the SD Card. This is used to determine how many images we have to download later
+        let initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
+        initialCameraCallback.fetchInitialData()
     }
     
     override func viewDidLoad() {
@@ -121,9 +125,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         self.loadingAlert = UIAlertController(title: "Loading", message: "Calculating flight path and launching", preferredStyle: .alert)
         self.present(self.loadingAlert, animated: true)
         
-        // Fetches the initial number of files on the SD Card. This is used to determine how many images we have to download later
-        let initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
-        initialCameraCallback.fetchInitialData()
+        self.startMission()
     }
     
     // MARK: - CLLocationManagerDelegate

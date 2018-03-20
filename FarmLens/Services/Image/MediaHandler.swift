@@ -10,6 +10,7 @@ import DJISDK
 import UIKit
 
 class MediaHandler {
+    private var isFirstAttempt = true
     private var camera: DJICamera!
     private var callback: CameraCallback!
     
@@ -22,8 +23,15 @@ class MediaHandler {
     func setCameraToDownload() {
         self.camera.setMode(.mediaDownload, withCompletion: { (error) in
             if (error != nil) {
-                self.callback.onError(error: error)
+                if self.isFirstAttempt {
+                    self.isFirstAttempt = false
+                    self.setCameraToDownload()
+                } else {
+                    self.isFirstAttempt = true
+                    self.callback.onError(error: error)
+                }
             } else {
+                self.isFirstAttempt = true
                 self.callback.onDownloadReady()
             }
         })
