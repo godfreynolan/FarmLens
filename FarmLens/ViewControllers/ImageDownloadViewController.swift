@@ -18,7 +18,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     private var mediaDownloadList: [DJIMediaFile] = []
     private var mediaManager: DJIMediaManager?
     private var statusIndex = 0
-    private var imageDownloader: ImageDownloader!
+    private var imageDownloader: MediaHandler!
     private var initialCameraCallback: InitialCameraCallback!
     
     @IBOutlet weak var totalDownloadImageLabel: UILabel!
@@ -27,7 +27,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.imageDownloader = ImageDownloader(callback: self, camera: self.fetchCamera()!)
+        self.imageDownloader = MediaHandler(callback: self, camera: self.fetchCamera()!)
         self.mediaManager = self.imageDownloader.fetchMediaManager()
         
         self.initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)

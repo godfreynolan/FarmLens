@@ -19,7 +19,7 @@ class CameraCallbackTest: XCTestCase {
         
         // Test Constructor
         let viewController = MockFlightViewDetailController()
-        cam_cb = InitialCameraCallback(viewController: viewController)
+        cam_cb = InitialCameraCallback(camera: MockCamera(), viewController: viewController)
     }
     
     // Test OnError

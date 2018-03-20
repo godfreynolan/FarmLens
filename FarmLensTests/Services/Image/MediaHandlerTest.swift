@@ -1,5 +1,5 @@
 //
-//  ImageDownloaderTest.swift
+//  MediaHandlerTest.swift
 //  FarmLensTests
 //
 //  Created by Tom Kocik on 3/20/18.
@@ -9,15 +9,15 @@
 import XCTest
 @testable import FarmLens
 
-class ImageDownloaderTest: XCTestCase, CameraCallback {
+class MediaHandlerTest: XCTestCase, CameraCallback {
     
     private var camera = MockCamera()
-    private var downloader: ImageDownloader!
+    private var downloader: MediaHandler!
     
     override func setUp() {
         super.setUp()
         
-        self.downloader = ImageDownloader(callback: self, camera: self.camera)
+        self.downloader = MediaHandler(callback: self, camera: self.camera)
     }
     
     func testCallback() {

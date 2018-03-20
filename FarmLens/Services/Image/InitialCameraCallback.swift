@@ -10,11 +10,11 @@ import UIKit
 import DJISDK
 
 class InitialCameraCallback: CameraCallback {
-    private var imageDownloader: ImageDownloader!
+    private var imageDownloader: MediaHandler!
     private var viewController: UIViewController!
     
     init(camera: DJICamera, viewController: UIViewController) {
-        self.imageDownloader = ImageDownloader(callback: self, camera: camera)
+        self.imageDownloader = MediaHandler(callback: self, camera: camera)
         self.viewController = viewController
     }
     

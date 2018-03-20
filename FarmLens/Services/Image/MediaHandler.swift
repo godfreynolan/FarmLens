@@ -1,5 +1,5 @@
 //
-//  ImageDownloader.swift
+//  MediaHandler.swift
 //  FarmLens
 //
 //  Created by Tom Kocik on 3/19/18.
@@ -9,7 +9,7 @@
 import DJISDK
 import UIKit
 
-class ImageDownloader {
+class MediaHandler {
     private var camera: DJICamera!
     private var callback: CameraCallback!
     

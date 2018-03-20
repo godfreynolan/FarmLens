@@ -29,7 +29,7 @@
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
 		FF162720205082E8008BB642 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageLoader.swift */; };
 		FF4E29E82061385D00564E27 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29E72061385D00564E27 /* UtilsTest.swift */; };
-		FF4E29F420613C7400564E27 /* ImageDownloaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F320613C7400564E27 /* ImageDownloaderTest.swift */; };
+		FF4E29F420613C7400564E27 /* MediaHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F320613C7400564E27 /* MediaHandlerTest.swift */; };
 		FF4E29F620613CBA00564E27 /* MockCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F520613CBA00564E27 /* MockCamera.swift */; };
 		FF4E29F820613D2C00564E27 /* MockMediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F720613D2C00564E27 /* MockMediaManager.swift */; };
 		FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */; };
@@ -38,7 +38,7 @@
 		FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */; };
 		FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */; };
 		FF97633F206024260009B830 /* DroneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97633E206024260009B830 /* DroneImage.swift */; };
-		FF976344206039910009B830 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976343206039910009B830 /* ImageDownloader.swift */; };
+		FF976344206039910009B830 /* MediaHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976343206039910009B830 /* MediaHandler.swift */; };
 		FF976347206040AD0009B830 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976346206040AD0009B830 /* Utils.swift */; };
 		FF976349206041960009B830 /* CameraCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976348206041960009B830 /* CameraCallback.swift */; };
 		FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97634A2060432F0009B830 /* InitialCameraCallback.swift */; };
@@ -108,7 +108,7 @@
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
 		FF16271F205082E8008BB642 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		FF4E29E72061385D00564E27 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
-		FF4E29F320613C7400564E27 /* ImageDownloaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTest.swift; sourceTree = "<group>"; };
+		FF4E29F320613C7400564E27 /* MediaHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHandlerTest.swift; sourceTree = "<group>"; };
 		FF4E29F520613CBA00564E27 /* MockCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCamera.swift; sourceTree = "<group>"; };
 		FF4E29F720613D2C00564E27 /* MockMediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediaManager.swift; sourceTree = "<group>"; };
 		FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailControllerTest.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF97633E206024260009B830 /* DroneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneImage.swift; sourceTree = "<group>"; };
-		FF976343206039910009B830 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		FF976343206039910009B830 /* MediaHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHandler.swift; sourceTree = "<group>"; };
 		FF976346206040AD0009B830 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FF976348206041960009B830 /* CameraCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCallback.swift; sourceTree = "<group>"; };
 		FF97634A2060432F0009B830 /* InitialCameraCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCameraCallback.swift; sourceTree = "<group>"; };
@@ -232,10 +232,10 @@
 			isa = PBXGroup;
 			children = (
 				FF976348206041960009B830 /* CameraCallback.swift */,
-				FF976343206039910009B830 /* ImageDownloader.swift */,
 				FF16271F205082E8008BB642 /* ImageLoader.swift */,
 				187203042050755C00008042 /* ImageTiler.swift */,
 				FF97634A2060432F0009B830 /* InitialCameraCallback.swift */,
+				FF976343206039910009B830 /* MediaHandler.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -330,7 +330,7 @@
 			children = (
 				184F9AD820613B370086D0F4 /* CameraCallbackTest.swift */,
 				18C91378205AF46C00DBF615 /* ImageTilerTests.swift */,
-				FF4E29F320613C7400564E27 /* ImageDownloaderTest.swift */,
+				FF4E29F320613C7400564E27 /* MediaHandlerTest.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -640,7 +640,7 @@
 			files = (
 				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
 				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
-				FF976344206039910009B830 /* ImageDownloader.swift in Sources */,
+				FF976344206039910009B830 /* MediaHandler.swift in Sources */,
 				FF162720205082E8008BB642 /* ImageLoader.swift in Sources */,
 				18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */,
 				FF976349206041960009B830 /* CameraCallback.swift in Sources */,
@@ -668,7 +668,7 @@
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
 				FF4E29F820613D2C00564E27 /* MockMediaManager.swift in Sources */,
-				FF4E29F420613C7400564E27 /* ImageDownloaderTest.swift in Sources */,
+				FF4E29F420613C7400564E27 /* MediaHandlerTest.swift in Sources */,
 				184F9ADB20613EEA0086D0F4 /* MockFlightViewDetailController.swift in Sources */,
 				FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */,
 				184F9AD920613B370086D0F4 /* CameraCallbackTest.swift in Sources */,
