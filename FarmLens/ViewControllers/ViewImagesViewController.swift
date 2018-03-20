@@ -48,13 +48,13 @@ class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocation
     @IBAction func loadImages(_ sender: Any) {
         var imagesShown = false
         
-        if self.appDelegate.actualPictureCount == 0 {
+        if self.appDelegate.flightImageCount == 0 {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to show. Please download the images first!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true)
             return
         } else {
-            let images = imageLoader.loadImages(imageCount: self.appDelegate.actualPictureCount)
+            let images = imageLoader.loadImages(imageCount: self.appDelegate.flightImageCount)
             imagesShown = self.imageTiler.overlayImages(mapView: mapView, style: self.mapStyle, images: images)
         }
         

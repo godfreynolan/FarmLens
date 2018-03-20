@@ -19,7 +19,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     private var boundaryLine: MGLPolyline?
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
-    private var initialCameraCallback: InitialCameraCallback!
+    private var loadingAlert: UIAlertController!
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     
@@ -31,9 +31,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     @IBOutlet weak var flightMapView: MGLMapView!
     
     override func viewWillAppear(_ animated: Bool) {
-        self.initialCameraCallback = InitialCameraCallback(viewController: self)
-        self.initialCameraCallback.fetchInitialData()
-        
         self.flightPlanning = FlightPlanning()
         self.flightMapView.addAnnotation(self.aircraftAnnotation)
         
@@ -73,7 +70,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             locationManager = CLLocationManager()
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
-            locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
         } else {
             let alert = UIAlertController(title: "Location Services", message: "Location Services are not enabled.", preferredStyle: .alert)
@@ -122,9 +118,30 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             return
         }
         
-        let loadingAlert = UIAlertController(title: "Loading", message: "Calculating flight path and launching", preferredStyle: .alert)
-        self.present(loadingAlert, animated: true)
+        self.loadingAlert = UIAlertController(title: "Loading", message: "Calculating flight path and launching", preferredStyle: .alert)
+        self.present(self.loadingAlert, animated: true)
         
+        // Fetches the initial number of files on the SD Card. This is used to determine how many images we have to download later
+        let initialCameraCallback = InitialCameraCallback(viewController: self)
+        initialCameraCallback.fetchInitialData()
+    }
+    
+    // MARK: - CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
+            self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
+            self.aircraftAnnotation.coordinate = (locations.last?.coordinate)!
+            // We don't want the map changing while the user is trying to draw on it.
+            self.locationManager?.stopUpdatingLocation()
+        }
+    }
+    
+    // MARK: - CameraCallback Helper
+    func setPreFlightImageCount(imageCount: Int) {
+        self.appDelegate.preFlightImageCount = imageCount
+    }
+    
+    func startMission() {
         let flightPathCoordinates = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
         
         if flightPathCoordinates.count <= 2 {
@@ -138,13 +155,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         }
         
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
-
+        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
             if event.currentState == .readyToExecute {
-                self.startMission(loadingAlert: loadingAlert)
+                self.startMission(loadingAlert: self.loadingAlert)
             }
         })
-
+        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
             if error != nil {
                 let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
@@ -162,28 +179,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         
         DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
             if error != nil {
-                loadingAlert.dismiss(animated: true, completion: {
+                self.loadingAlert.dismiss(animated: true, completion: {
                     let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     self.present(alert, animated: true)
                 })
             }
         })
-    }
-    
-    // MARK: - CLLocationManagerDelegate
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if (CLLocationCoordinate2DIsValid((locations.last?.coordinate)!)) {
-            self.flightMapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
-            self.aircraftAnnotation.coordinate = (locations.last?.coordinate)!
-            // We don't want the map changing while the user is trying to draw on it.
-            self.locationManager?.stopUpdatingLocation()
-        }
-    }
-    
-    // MARK: - CameraCallback Helper
-    func setPreFlightImageCount(imageCount: Int) {
-        self.appDelegate.preFlightImageCount = imageCount
     }
     
     // MARK: GestureDelegate

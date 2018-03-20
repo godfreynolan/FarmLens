@@ -28,26 +28,14 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
         super.viewDidLoad()
         
         self.imageDownloader = ImageDownloader(callback: self)
+        self.mediaManager = self.imageDownloader.fetchMediaManager()
         
         self.initialCameraCallback = InitialCameraCallback(viewController: self)
         self.initialCameraCallback.fetchInitialData()
-        
-        self.mediaManager = self.imageDownloader.fetchMediaManager()
-        
-        if self.appDelegate.actualPictureCount == 0 {
-            self.totalDownloadImageLabel.text = "0 Images to download"
-            self.downloadProgressLabel.text = "No images to download"
-        } else if self.appDelegate.actualPictureCount == 1 {
-            self.totalDownloadImageLabel.text = "1 Image to download"
-            self.downloadProgressLabel.text = "Ready to download"
-        } else {
-            self.totalDownloadImageLabel.text = "\(self.appDelegate.actualPictureCount) Images to download"
-            self.downloadProgressLabel.text = "Ready to download"
-        }
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
-        if self.appDelegate.actualPictureCount == 0 {
+        if self.appDelegate.flightImageCount == 0 {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -59,7 +47,10 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     
     //### CameraCallback ###
     func onDownloadReady() {
-        self.imageDownloader.retrieveMediaFiles()
+        self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
+        
+        self.downloadProgressLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
+        self.startImageDownload()
     }
     
     func onPhotoReady() {
@@ -67,13 +58,23 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     }
     
     func onFileListRefresh() {
-        self.downloadProgressLabel.text = "Downloading Image 1 of \(self.appDelegate.actualPictureCount)"
-        self.startImageDownload()
+        // Not needed since we already refreshed the file snapshot to get the image count
     }
     
     //### CameraCallback Helper ###
     func setTotalImageCount(totalFileCount: Int) {
-        self.appDelegate.actualPictureCount = totalFileCount - self.appDelegate.preFlightImageCount
+        self.appDelegate.flightImageCount = totalFileCount - self.appDelegate.preFlightImageCount
+        
+        if self.appDelegate.flightImageCount == 0 {
+            self.totalDownloadImageLabel.text = "0 Images to download"
+            self.downloadProgressLabel.text = "No images to download"
+        } else if self.appDelegate.flightImageCount == 1 {
+            self.totalDownloadImageLabel.text = "1 Image to download"
+            self.downloadProgressLabel.text = "Ready to download"
+        } else {
+            self.totalDownloadImageLabel.text = "\(self.appDelegate.flightImageCount) Images to download"
+            self.downloadProgressLabel.text = "Ready to download"
+        }
     }
     
     func onError(error: Error?) {
@@ -90,15 +91,8 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     
     //### Helper Methods ###
     private func startImageDownload() {
-        if (self.mediaManager?.fileListState != .upToDate && self.mediaManager?.fileListState != .incomplete) {
-            let alert = UIAlertController(title: "Camera Error", message: "Please verify the drone is idle.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-
         self.statusIndex = 1
-        self.currentDownloadIndex = self.appDelegate.actualPictureCount
+        self.currentDownloadIndex = self.appDelegate.preFlightImageCount
 
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
@@ -131,7 +125,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                 self.currentDownloadIndex += 1
 
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
-                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.actualPictureCount)"
+                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.imageDownloader.setCameraToPhotoShoot()
@@ -160,24 +154,12 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                 
             }
             
-            if success {
-                let alert = UIAlertController(title: "Success", message: "", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                let alert = UIAlertController(title: "Download Error", message: error?.localizedDescription, preferredStyle: .alert)
+            if !success {
+                let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
+                let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         })
-    }
-    
-    func errorSaving(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {
-        if (error != nil) {
-            let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
-            let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 }

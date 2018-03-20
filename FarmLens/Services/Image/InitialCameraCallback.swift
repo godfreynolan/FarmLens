@@ -26,17 +26,20 @@ class InitialCameraCallback: CameraCallback {
     }
     
     func onPhotoReady() {
-        
+        if viewController is FlightViewDetailController {
+            let flightViewDetailController = viewController as! FlightViewDetailController
+            flightViewDetailController.startMission()
+        }
     }
     
     func onFileListRefresh() {
         let mediaManager = self.imageDownloader.fetchMediaManager()
         
         if viewController is FlightViewDetailController {
-            let flightViewDetailController = viewController as! FlightViewDetailController
+            let flightViewDetailController = self.viewController as! FlightViewDetailController
             flightViewDetailController.setPreFlightImageCount(imageCount: (mediaManager.fileListSnapshot()?.count)!)
         } else if viewController is ImageDownloadViewController {
-            let imageDownloadViewController = viewController as! ImageDownloadViewController
+            let imageDownloadViewController = self.viewController as! ImageDownloadViewController
             imageDownloadViewController.setTotalImageCount(totalFileCount: (mediaManager.fileListSnapshot()?.count)!)
         }
         
@@ -44,6 +47,8 @@ class InitialCameraCallback: CameraCallback {
     }
     
     func onError(error: Error?) {
-        
+        let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.viewController.present(alert, animated: true, completion: nil)
     }
 }
