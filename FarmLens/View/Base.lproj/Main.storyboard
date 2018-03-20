@@ -255,7 +255,7 @@
         <!--View Images View Controller-->
         <scene sceneID="nqJ-00-i6j">
             <objects>
-                <viewController id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewImagesViewController" id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="452-P2-k4p"/>
                         <viewControllerLayoutGuide type="bottom" id="uxj-ZG-DZ3"/>
