@@ -18,35 +18,13 @@ class CameraCallbackTest: XCTestCase {
         super.setUp()
         
         // Test Constructor
-        let viewController = UIViewController()
+        let viewController = FlightViewDetailController()
         cam_cb = InitialCameraCallback(viewController: viewController)
     }
     
-    func testFetchInitialData() {
-        cam_cb.fetchInitialData()
-    }
-    
-    func testOnDownloadReady() {
-        cam_cb.onDownloadReady()
-    }
-    
-    func testOnPhotoReady() {
-        cam_cb.onPhotoReady()
-    }
-    
-    func testOnFileListRefresh() {
-        cam_cb.onFileListRefresh()
-    }
-    
+    // Test OnError
     func testOnError() {
         let error = MockError()
         cam_cb.onError(error: error)
     }
 }
-
-//fetchInitialData()
-//onDownloadReady()
-//onPhotoReady()
-//onFileListRefresh()
-//onError(error: Error?)
-
