@@ -32,4 +32,6 @@ class CameraCallbackTest: XCTestCase {
     func testOnPhotoReady() {
         cam_cb.onPhotoReady()
     }
+    
+    // fetchInitialData() and onDownloadReady() and onFileListRefresh() are not tested here as they rely heavily on the ImageDownloader
 }
