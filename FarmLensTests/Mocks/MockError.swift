@@ -9,5 +9,5 @@
 import Foundation
 
 class MockError: Error {
-   
+   // This needs to be here because Error class has no initializer.
 }
