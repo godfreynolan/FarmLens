@@ -27,16 +27,25 @@ class InitialCameraCallback: CameraCallback {
     }
     
     func onPhotoReady() {
-        
+        if viewController is StartupViewController {
+            let startupViewController = self.viewController as! StartupViewController
+            startupViewController.handleConnected()
+        } else if viewController is FlightViewDetailController {
+            let flightViewDetailController = self.viewController as! FlightViewDetailController
+            flightViewDetailController.startMission()
+        }
     }
     
     func onFileListRefresh() {
         let mediaManager = self.mediaHandler.fetchMediaManager()
         
-        if viewController is FlightViewDetailController {
+        if viewController is StartupViewController {
+            let startupViewController = self.viewController as! StartupViewController
+            startupViewController.setPreFlightImageCount(imageCount: (mediaManager.fileListSnapshot()?.count)!)
+        } else if self.viewController is FlightViewDetailController {
             let flightViewDetailController = self.viewController as! FlightViewDetailController
             flightViewDetailController.setPreFlightImageCount(imageCount: (mediaManager.fileListSnapshot()?.count)!)
-        } else if viewController is ImageDownloadViewController {
+        } else if self.viewController is ImageDownloadViewController {
             let imageDownloadViewController = self.viewController as! ImageDownloadViewController
             imageDownloadViewController.setTotalImageCount(totalFileCount: (mediaManager.fileListSnapshot()?.count)!)
         }

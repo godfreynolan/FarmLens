@@ -44,22 +44,15 @@ class StartupViewController: UIViewController {
     // MARK : Product connection UI changes
     
     func productConnected() {
-        guard let newProduct = DJISDKManager.product() else {
+        if DJISDKManager.product() == nil {
             print("Product is connected but DJISDKManager.product is nil -> something is wrong")
             self.productDisconnected()
             return;
         }
 
-        //Updates the product's model
-        self.productModel.text = "Model: \((newProduct.model)!)"
-        
-        //Updates the product's connection status
-        self.productConnectionStatus.text = "Status: Product Connected"
-        
-        self.openComponents.isEnabled = true;
-        self.openComponents.alpha = 1.0;
-        
-        self.imgDrone.image = UIImage(named: "DroneConnected")
+        // Fetches the initial number of files on the SD Card. This is used to determine how many images we have to download later
+        let initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
+        initialCameraCallback.fetchInitialData()
     }
     
     func productDisconnected() {
@@ -73,6 +66,29 @@ class StartupViewController: UIViewController {
         self.imgDrone.image = UIImage(named: "DroneNotConnected")
     }
     
+    func setPreFlightImageCount(imageCount: Int) {
+        self.appDelegate.preFlightImageCount = imageCount
+    }
+    
+    func handleConnected() {
+        guard let newProduct = DJISDKManager.product() else {
+            print("Product is connected but DJISDKManager.product is nil -> something is wrong")
+            self.productDisconnected()
+            return;
+        }
+        
+        //Updates the product's model
+        self.productModel.text = "Model: \((newProduct.model)!)"
+        
+        //Updates the product's connection status
+        self.productConnectionStatus.text = "Status: Product Connected"
+        
+        self.openComponents.isEnabled = true;
+        self.openComponents.alpha = 1.0;
+        
+        self.imgDrone.image = UIImage(named: "DroneConnected")
+    }
+    
     private func handleConnectionResponse(keyValue: DJIKeyedValue?) {
         if keyValue != nil {
             DispatchQueue.main.async {
@@ -83,5 +99,17 @@ class StartupViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func fetchCamera() -> DJICamera? {
+        if (DJISDKManager.product() == nil) {
+            return nil
+        }
+        
+        if (DJISDKManager.product() is DJIAircraft) {
+            return (DJISDKManager.product() as? DJIAircraft)?.camera
+        }
+        
+        return nil
     }
 }
