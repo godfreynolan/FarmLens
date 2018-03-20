@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		182D46A9205306B800A4CBD8 /* FarmLensUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D46A8205306B800A4CBD8 /* FarmLensUITests.swift */; };
+		184F9AD52061380E0086D0F4 /* CameraCallbackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184F9AD42061380E0086D0F4 /* CameraCallbackTest.swift */; };
+		184F9AD720613A230086D0F4 /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184F9AD620613A230086D0F4 /* MockError.swift */; };
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
@@ -73,6 +75,8 @@
 		182D46A8205306B800A4CBD8 /* FarmLensUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmLensUITests.swift; sourceTree = "<group>"; };
 		182D46AA205306B800A4CBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18348DE1203CB11F00842DE9 /* FarmLens.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FarmLens.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		184F9AD42061380E0086D0F4 /* CameraCallbackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCallbackTest.swift; sourceTree = "<group>"; };
+		184F9AD620613A230086D0F4 /* MockError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
 		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
 		18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImagesViewController.swift; sourceTree = "<group>"; };
 		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 				FF015AA2204087170093EA05 /* Info.plist */,
 				FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */,
 				FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */,
+				184F9AD42061380E0086D0F4 /* CameraCallbackTest.swift */,
 			);
 			path = FarmLensTests;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				FF4FB676205C0EF90033228A /* MockMGLStyle.swift */,
+				184F9AD620613A230086D0F4 /* MockError.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -593,11 +599,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */,
+				184F9AD52061380E0086D0F4 /* CameraCallbackTest.swift in Sources */,
 				FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */,
 				FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */,
 				FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */,
 				18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */,
 				FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */,
+				184F9AD720613A230086D0F4 /* MockError.swift in Sources */,
 				FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
