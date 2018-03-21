@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Agribotix Logo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "agribotix.png",
       "scale" : "2x"
     },
     {
