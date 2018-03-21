@@ -25,8 +25,4 @@ class ImageLoaderTest: XCTestCase {
     func testLoadImagesNil() {
         XCTAssert(loader.loadImages(imageCount: 0).count == 0)
     }
-    
-    func testLoadImagesNotNil() {
-        XCTAssertNotNil(loader.loadImages(imageCount: 1))
-    }
 }
