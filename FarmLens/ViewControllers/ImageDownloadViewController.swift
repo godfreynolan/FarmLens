@@ -24,14 +24,31 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     @IBOutlet weak var totalDownloadImageLabel: UILabel!
     @IBOutlet weak var downloadProgressLabel: UILabel!
     
+    private var droneConnected:Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.imageDownloader = MediaHandler(callback: self, camera: self.fetchCamera()!)
-        self.mediaManager = self.imageDownloader.fetchMediaManager()
-        
-        self.initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
-        self.initialCameraCallback.fetchInitialData()
+        DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
+            
+            if value != nil {
+                if value!.boolValue {
+                    // connected
+                    self.droneConnected = true
+                } else {
+                    // disconnected
+                    self.droneConnected = false
+                }
+            }
+            
+            if (self.droneConnected) {
+                self.imageDownloader = MediaHandler(callback: self, camera: self.fetchCamera()!)
+                self.mediaManager = self.imageDownloader.fetchMediaManager()
+            
+                self.initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
+                self.initialCameraCallback.fetchInitialData()
+            }
+        })
     }
     
     @IBAction func downloadPictures(_ sender: UIButton) {
@@ -42,7 +59,9 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
             return
         }
         
-        self.imageDownloader.setCameraToDownload()
+        if (self.droneConnected) {
+            self.imageDownloader.setCameraToDownload()
+        }
     }
     
     //### CameraCallback ###
