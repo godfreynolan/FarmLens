@@ -415,6 +415,7 @@
 				86985DA41E8356C600577EC7 /* Embed Frameworks */,
 				8A68B323F021A127CDC7173C /* [CP] Embed Pods Frameworks */,
 				7483B5029B3A2172B51AD3FB /* [CP] Copy Pods Resources */,
+				1865A74B206934E2008C755C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -529,6 +530,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1865A74B206934E2008C755C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 787bd563b901e2be66e2219e37c8989c3f48dc5a 0e9f0c050f74f380ed87237be5a10534dbf81191358282b65ade2049084bc6fa";
+		};
 		7483B5029B3A2172B51AD3FB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -886,7 +900,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riis.farmlens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -911,7 +925,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agribotix.farmlens;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riis.farmlens;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
