@@ -33,6 +33,7 @@ class FlightPlanning {
             waypoint.add(DJIWaypointAction(actionType: .rotateGimbalPitch, param: -90))
             waypoint.add(DJIWaypointAction(actionType: .shootPhoto, param: 0))
             waypoint.gimbalPitch = -90
+            waypoint.shootPhotoDistanceInterval = Float(Utils.feetToMeters(95))
             
             mission.add(waypoint)
         }
@@ -41,12 +42,12 @@ class FlightPlanning {
     }
     
     func calculateFlightPlan(boundingArea: MGLPolygon, spacingFeet: Double) -> [CLLocationCoordinate2D] {
-        
         // Steps:
-        // 1. Get overlaying rectangle
-        // 2. Create a point at each {spacingFeet} interval
-        // 3. Remove all points outside the original polygon
-        // 4. Reorder points to scan properly.
+        // 1. Get the overlay polygon's min/max lat/long's
+        // 2. Starting from lat/long mins, increment the lat by spacingFeet and store the coordinate.
+        // 3. Once the max lat is exceeded, filter out coordinates that are not in the original overlay polygon.
+        // 4. Store the start and end point of the above line. Increment the long. Repeat 2-4 until the max long is exceeded
+        // 5. Reorder points to create a more efficient flight plan
         
         // Step 1.
         let mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount)))
@@ -72,25 +73,33 @@ class FlightPlanning {
         var locations:[CLLocationCoordinate2D] = []
         
         while x <= maxX {
+            var yLineLocations = [CLLocationCoordinate2D]()
+            
             while y <= maxY {
-                locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
+                yLineLocations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
                 y += yIncrement
             }
+            
+            // Step 3.
+            yLineLocations = yLineLocations.filter{ location in isCoordinateInBoundingArea(boundaryCoordinates: mapPoints, coordinate: location) }
+            
+            // Step 4.
+            if !yLineLocations.isEmpty {
+                locations.append(yLineLocations.first!)
+                locations.append(yLineLocations.last!)
+            }
+            
             y = minY
             x = x + xIncrement
-            locations.append(CLLocationCoordinate2D(latitude: y, longitude: x))
         }
         
-        // Step 3.
-        let locationsInPolygon = locations.filter{ location in isCoordinateInBoundingArea(boundaryCoordinates: mapPoints, coordinate: location) }
-        
-        // Step 4.
+        // Step 5.
         var lines:[[CLLocationCoordinate2D]] = []
         var currentLine:[CLLocationCoordinate2D] = []
         
-        var currentLong = locationsInPolygon[0].longitude
+        var currentLong = locations[0].longitude
         
-        for loc in locationsInPolygon
+        for loc in locations
         {
             if loc.longitude == currentLong {
                 currentLine.append(loc)

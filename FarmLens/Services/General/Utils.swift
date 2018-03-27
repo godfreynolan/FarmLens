@@ -13,6 +13,10 @@ class Utils {
         return 3.28084 * meters
     }
     
+    static func feetToMeters(_ feet: Double) -> Double {
+        return 0.3048 * feet
+    }
+    
     static func convertSpacingFeetToDegrees(_ spacingFeet:Double) -> Double {
         // SpacingFeet / 3280.4 converts feet to kilometers
         // Kilometers / (10000/90) converts kilometers to lat/long distance
