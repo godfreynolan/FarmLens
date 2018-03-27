@@ -12,6 +12,22 @@ import MapKit
 class MasterViewController: UITableViewController {
     private var isLoadingTable = true
     
+    override func viewDidLoad() {
+        let img = #imageLiteral(resourceName: "agribotix")
+        let imgView = UIImageView(image:img)
+        
+        let bannerWidth  = (navigationController?.navigationBar.frame.size.width)! - 10
+        let bannerHeight = (navigationController?.navigationBar.frame.size.height)! - 10
+        
+        let bannerX = bannerWidth / 2 - img.size.width
+        let bannerY = bannerHeight / 2 - img.size.height
+        
+        imgView.frame = CGRect(x: bannerX, y: bannerY, width: bannerWidth, height: bannerHeight)
+        imgView.contentMode = .scaleAspectFit
+        
+        navigationItem.titleView = imgView
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         

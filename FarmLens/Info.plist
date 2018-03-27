@@ -21,9 +21,9 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>9</string>
 	<key>DJISDKAppKey</key>
-	<string>2d62b851d216e697e751671e</string>
+	<string>5db1a572cc068050e7a82443</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
