@@ -29,21 +29,16 @@ class FlightPlanningTests: XCTestCase {
         flightPlanning = FlightPlanning()
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testCalculateFlightPlan() {
         let polygon = MGLPolygon(coordinates: points, count: UInt(points.count))
         let flightPath = flightPlanning.calculateFlightPlan(boundingArea: polygon, spacingFeet: 40)
-        XCTAssert(flightPath.count == 17, "Actual value is \(flightPath.count)")
+        XCTAssert(flightPath.count == 14, "Actual value is \(flightPath.count)")
     }
     
     func testCreateMission() {
         let polygon = MGLPolygon(coordinates: points, count: UInt(points.count))
         let flightPath = flightPlanning.calculateFlightPlan(boundingArea: polygon, spacingFeet: 40)
         let mission = flightPlanning.createMission(missionCoordinates: flightPath)
-        XCTAssert(mission.waypointCount == 17, "Actual value is \(mission.waypointCount)")
+        XCTAssert(mission.waypointCount == 14, "Actual value is \(mission.waypointCount)")
     }
 }
