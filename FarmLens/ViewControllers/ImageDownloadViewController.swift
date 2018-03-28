@@ -41,6 +41,10 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                 }
             }
             
+            PHPhotoLibrary.requestAuthorization { (status) in
+                
+            }
+            
             if (self.droneConnected) {
                 self.imageDownloader = MediaHandler(callback: self, camera: self.fetchCamera()!)
                 self.mediaManager = self.imageDownloader.fetchMediaManager()
