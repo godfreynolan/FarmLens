@@ -29,8 +29,11 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
+        PHPhotoLibrary.requestAuthorization { (status) in
             
+        }
+        
+        DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
             if value != nil {
                 if value!.boolValue {
                     // connected
@@ -39,10 +42,6 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                     // disconnected
                     self.droneConnected = false
                 }
-            }
-            
-            PHPhotoLibrary.requestAuthorization { (status) in
-                
             }
             
             if (self.droneConnected) {

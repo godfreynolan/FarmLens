@@ -14,6 +14,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     private var boundaryCoordinateList: [CLLocationCoordinate2D] = []
+    private var droneConnected = false
     private var locationManager: CLLocationManager!
     private var boundaryPolygon: MGLPolygon?
     private var boundaryLine: MGLPolyline?
@@ -60,6 +61,18 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             }
             
             self.batteryLifeLabel.text = "Battery Percentage: \(value!.unsignedIntegerValue)%"
+        })
+        
+        DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
+            if value != nil {
+                if value!.boolValue {
+                    // connected
+                    self.droneConnected = true
+                } else {
+                    // disconnected
+                    self.droneConnected = false
+                }
+            }
         })
     }
     
@@ -113,6 +126,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         
         if (self.isFlightComplete) {
             let alert = UIAlertController(title: "Flight Error", message: "Please download your pictures before flying again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
+        if !self.droneConnected {
+            let alert = UIAlertController(title: "Drone Error", message: "Please connect to a drone before attempting to fly", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
             return
@@ -321,9 +341,11 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         self.boundaryCoordinateList.removeAll()
         self.refreshCoordinates()
         
-        let alert = UIAlertController(title: "Mission Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
+        self.loadingAlert.dismiss(animated: true) {
+            let alert = UIAlertController(title: "Mission Error", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
     private func addAnnotationOnLocation(pointedCoordinate: CLLocationCoordinate2D) {
