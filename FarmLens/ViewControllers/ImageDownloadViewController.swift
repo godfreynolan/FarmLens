@@ -54,6 +54,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
         })
     }
     
+    var didDownload = false
     @IBAction func downloadPictures(_ sender: UIButton) {
         if self.appDelegate.flightImageCount == 0 {
             let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
@@ -68,30 +69,35 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     }
     
     @IBAction func GenerateNdviImages(_ sender: Any) {
-        
-        if self.appDelegate.flightImageCount != 0 {
-            let gen = HealthMapGenerator()
-            let loader = ImageLoader()
-            
-            downloadProgressLabel.text = "Loading images..."
-            let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
-            
-            var i = 1
-            for img in drone_images {
+        if didDownload == true {
+            if self.appDelegate.flightImageCount != 0 {
+                let gen = HealthMapGenerator()
+                let loader = ImageLoader()
                 
-                downloadProgressLabel.text = "Processing Image \(i) of \(appDelegate.flightImageCount)"
+                downloadProgressLabel.text = "Loading images..."
+                let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
                 
-                // Generate health map
-                img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
-                
-                // Save to photo album
-                let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
-                addAssetWithMetadata(image: img.getImage(), location: loc)
-                
-                i = i + 1
+                var i = 1
+                for img in drone_images {
+                    
+                    downloadProgressLabel.text = "Processing Image \(i) of \(appDelegate.flightImageCount)"
+                    
+                    // Generate health map
+                    img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
+                    
+                    // Save to photo album
+                    let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
+                    addAssetWithMetadata(image: img.getImage(), location: loc)
+                    
+                    i = i + 1
+                }
+            } else {
+                let alert = UIAlertController(title: "Error", message: "There are no pictures to process", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         } else {
-            let alert = UIAlertController(title: "Error", message: "There are no pictures to process", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: "You need to download images first", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -120,6 +126,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     
     func onPhotoReady() {
         self.downloadProgressLabel.text = "All Images Downloaded"
+        didDownload = true
     }
     
     func onFileListRefresh() {
