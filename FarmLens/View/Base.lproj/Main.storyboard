@@ -442,6 +442,9 @@
                                 <state key="normal" title="Generate NDVI Images">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="GenerateNdviImages:" destination="ikC-T6-mr4" eventType="touchUpInside" id="9Dl-n3-wtK"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

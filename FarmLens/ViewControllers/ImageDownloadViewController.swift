@@ -67,6 +67,10 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
         }
     }
     
+    @IBAction func GenerateNdviImages(_ sender: Any) {
+        let gen = HealthMapGenerator()
+    }
+    
     //### CameraCallback ###
     func onDownloadReady() {
         self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
