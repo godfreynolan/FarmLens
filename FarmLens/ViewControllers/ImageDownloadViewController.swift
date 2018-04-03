@@ -68,17 +68,32 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     }
     
     @IBAction func GenerateNdviImages(_ sender: Any) {
-        let gen = HealthMapGenerator()
-        let loader = ImageLoader()
         
-        let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
-        
-        for img in drone_images {
-            img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
+        if self.appDelegate.flightImageCount != 0 {
+            let gen = HealthMapGenerator()
+            let loader = ImageLoader()
             
-            let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
+            downloadProgressLabel.text = "Loading images..."
+            let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
             
-            addAssetWithMetadata(image: img.getImage(), location: loc)
+            var i = 1
+            for img in drone_images {
+                
+                downloadProgressLabel.text = "Processing Image \(i) of \(appDelegate.flightImageCount)"
+                
+                // Generate health map
+                img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
+                
+                // Save to photo album
+                let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
+                addAssetWithMetadata(image: img.getImage(), location: loc)
+                
+                i = i + 1
+            }
+        } else {
+            let alert = UIAlertController(title: "Error", message: "There are no pictures to process", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
