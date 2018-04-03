@@ -10,7 +10,7 @@ import UIKit
 import DJISDK
 import Photos
 
-class ImageDownloadViewController: UIViewController, CameraCallback, ImageProcessingCallback {
+class ImageDownloadViewController: UIViewController, CameraCallback {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     private var camera: DJICamera?
@@ -19,19 +19,15 @@ class ImageDownloadViewController: UIViewController, CameraCallback, ImageProces
     private var mediaManager: DJIMediaManager?
     private var statusIndex = 0
     private var imageDownloader: MediaHandler!
-    private var imageManager: ImageManager!
     private var initialCameraCallback: InitialCameraCallback!
-    private var isReadyToProcessImages = true
     
-    @IBOutlet weak var totalImageLabel: UILabel!
-    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var totalDownloadImageLabel: UILabel!
+    @IBOutlet weak var downloadProgressLabel: UILabel!
     
     private var droneConnected:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.imageManager = ImageManager()
         
         PHPhotoLibrary.requestAuthorization { (status) in
             
@@ -66,85 +62,80 @@ class ImageDownloadViewController: UIViewController, CameraCallback, ImageProces
             return
         }
         
-        if self.isReadyToProcessImages {
-            let alert = UIAlertController(title: "Error", message: "Pictures already downloaded. Please generate NDVI Pictures", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-        
         if (self.droneConnected) {
             self.imageDownloader.setCameraToDownload()
         }
     }
     
-    @IBAction func generateNdviImages(_ sender: Any) {
-        if !self.isReadyToProcessImages {
-            let alert = UIAlertController(title: "Error", message: "Please download pictures first", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
+    @IBAction func GenerateNdviImages(_ sender: Any) {
+        let gen = HealthMapGenerator()
+        let loader = ImageLoader()
         
-        self.statusIndex = 1
-        self.progressLabel.text = "Processing Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
+        let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
         
-        DispatchQueue.main.async {
-            self.imageManager.generateNdviImages(imageCount: self.appDelegate.flightImageCount, iter: 0, callback: self)
+        for img in drone_images {
+            img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
+            
+            let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
+            
+            addAssetWithMetadata(image: img.getImage(), location: loc)
         }
+    }
+    
+    func addAssetWithMetadata(image: UIImage, location: CLLocation? = nil) {
+        PHPhotoLibrary.shared().performChanges({
+            // Request creating an asset from the image.
+            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            // Set metadata location
+            if let location = location {
+                creationRequest.location = location
+            }
+        }, completionHandler: { success, error in
+            if !success { NSLog("error creating asset: \(String(describing: error))") }
+        })
     }
     
     //### CameraCallback ###
     func onDownloadReady() {
         self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
         
-        self.progressLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
+        self.downloadProgressLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
         self.startImageDownload()
     }
     
     func onPhotoReady() {
-        self.progressLabel.text = "All Images Downloaded. Ready to Generate NDVI Images"
-        
-        self.isReadyToProcessImages = true
+        self.downloadProgressLabel.text = "All Images Downloaded"
     }
     
     func onFileListRefresh() {
         // Not needed since we already refreshed the file snapshot to get the image count
     }
     
-    //### ImageProcessingCallback ###
-    func onBatchComplete(completedIter: Int) {
-        if self.statusIndex >= self.appDelegate.flightImageCount {
-            self.imageManager.deleteOldImages(imageCount: self.appDelegate.flightImageCount)
-            
-            self.progressLabel.text = "All Images Processed"
-            self.isReadyToProcessImages = false
-        } else {
-            DispatchQueue.main.async {
-                self.imageManager.generateNdviImages(imageCount: self.appDelegate.flightImageCount, iter: completedIter + 1, callback: self)
-            }
+    func fetchCamera() -> DJICamera? {
+        if (DJISDKManager.product() == nil) {
+            return nil
         }
-    }
-    
-    func onImageComplete() {
-        self.statusIndex += 1
         
-        self.progressLabel.text = "Processing Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
+        if (DJISDKManager.product() is DJIAircraft) {
+            return (DJISDKManager.product() as? DJIAircraft)?.camera
+        }
+        
+        return nil
     }
     
     //### CameraCallback Helper ###
     func setTotalImageCount(totalFileCount: Int) {
-//        self.appDelegate.flightImageCount = totalFileCount - self.appDelegate.preFlightImageCount
+        self.appDelegate.flightImageCount = totalFileCount - self.appDelegate.preFlightImageCount
         
         if self.appDelegate.flightImageCount == 0 {
-            self.totalImageLabel.text = "0 Images to download"
-            self.progressLabel.text = "No images to download"
+            self.totalDownloadImageLabel.text = "0 Images to download"
+            self.downloadProgressLabel.text = "No images to download"
         } else if self.appDelegate.flightImageCount == 1 {
-            self.totalImageLabel.text = "1 Image to download"
-            self.progressLabel.text = "Ready to download"
+            self.totalDownloadImageLabel.text = "1 Image to download"
+            self.downloadProgressLabel.text = "Ready to download"
         } else {
-            self.totalImageLabel.text = "\(self.appDelegate.flightImageCount) Images to download"
-            self.progressLabel.text = "Ready to download"
+            self.totalDownloadImageLabel.text = "\(self.appDelegate.flightImageCount) Images to download"
+            self.downloadProgressLabel.text = "Ready to download"
         }
     }
     
@@ -158,18 +149,6 @@ class ImageDownloadViewController: UIViewController, CameraCallback, ImageProces
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-    }
-    
-    private func fetchCamera() -> DJICamera? {
-        if (DJISDKManager.product() == nil) {
-            return nil
-        }
-        
-        if (DJISDKManager.product() is DJIAircraft) {
-            return (DJISDKManager.product() as? DJIAircraft)?.camera
-        }
-        
-        return nil
     }
     
     //### Helper Methods ###
@@ -208,7 +187,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback, ImageProces
                 self.currentDownloadIndex += 1
 
                 if (self.currentDownloadIndex < self.mediaDownloadList.count) {
-                    self.progressLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
+                    self.downloadProgressLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
                     self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
                 } else {
                     self.imageDownloader.setCameraToPhotoShoot()
