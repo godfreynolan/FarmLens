@@ -17,6 +17,8 @@
 		187203052050755C00008042 /* ImageTiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187203042050755C00008042 /* ImageTiler.swift */; };
 		18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */; };
 		1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1880776C203F0E14006AC0E5 /* FlightPlanning.swift */; };
+		188737482073C6BA003EC5E0 /* HealthMapGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188737472073C6BA003EC5E0 /* HealthMapGenerator.swift */; };
+		1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188737492073C738003EC5E0 /* UIImage+pixelData.swift */; };
 		18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C91378205AF46C00DBF615 /* ImageTilerTests.swift */; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
@@ -91,6 +93,8 @@
 		187203042050755C00008042 /* ImageTiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTiler.swift; sourceTree = "<group>"; };
 		18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImagesViewController.swift; sourceTree = "<group>"; };
 		1880776C203F0E14006AC0E5 /* FlightPlanning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPlanning.swift; sourceTree = "<group>"; };
+		188737472073C6BA003EC5E0 /* HealthMapGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMapGenerator.swift; sourceTree = "<group>"; };
+		188737492073C738003EC5E0 /* UIImage+pixelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+pixelData.swift"; sourceTree = "<group>"; };
 		18C91378205AF46C00DBF615 /* ImageTilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTilerTests.swift; sourceTree = "<group>"; };
 		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +184,7 @@
 		1880776E203F1450006AC0E5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				188737462073C698003EC5E0 /* HealthMapGenerator */,
 				18BDBCFB20360FD900CD1D59 /* Connection */,
 				1880776F203F1460006AC0E5 /* FlightPlanning */,
 				FF976345206040A20009B830 /* General */,
@@ -194,6 +199,15 @@
 				1880776C203F0E14006AC0E5 /* FlightPlanning.swift */,
 			);
 			path = FlightPlanning;
+			sourceTree = "<group>";
+		};
+		188737462073C698003EC5E0 /* HealthMapGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				188737472073C6BA003EC5E0 /* HealthMapGenerator.swift */,
+				188737492073C738003EC5E0 /* UIImage+pixelData.swift */,
+			);
+			path = HealthMapGenerator;
 			sourceTree = "<group>";
 		};
 		18BDBCF820360FA700CD1D59 /* App */ = {
@@ -262,10 +276,10 @@
 			isa = PBXGroup;
 			children = (
 				18BDBCF820360FA700CD1D59 /* App */,
-				FF97634220602E3F0009B830 /* Models */,
-				1880776E203F1450006AC0E5 /* Services */,
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
+				1880776E203F1450006AC0E5 /* Services */,
+				FF97634220602E3F0009B830 /* Models */,
 				A4DB95901FEAAD4500F405CA /* Assets.xcassets */,
 				A4DB95961FEAAD4500F405CA /* Info.plist */,
 			);
@@ -565,12 +579,14 @@
 				"${PODS_ROOT}/DJI-SDK-iOS/iOS_Mobile_SDK/DJISDK.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/Surge/Surge.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DJISDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Surge.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -664,12 +680,14 @@
 				FF162720205082E8008BB642 /* ImageLoader.swift in Sources */,
 				18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */,
 				FF976349206041960009B830 /* CameraCallback.swift in Sources */,
+				1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */,
 				FF976347206040AD0009B830 /* Utils.swift in Sources */,
 				FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
 				FF97633F206024260009B830 /* DroneImage.swift in Sources */,
 				187203052050755C00008042 /* ImageTiler.swift in Sources */,
+				188737482073C6BA003EC5E0 /* HealthMapGenerator.swift in Sources */,
 				1880776D203F0E14006AC0E5 /* FlightPlanning.swift in Sources */,
 				A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */,
 				A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */,
