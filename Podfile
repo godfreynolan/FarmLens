@@ -6,7 +6,7 @@ target 'FarmLens' do
    pod 'Mapbox-iOS-SDK', '~> 3.7'
    pod 'Fabric'
    pod 'Crashlytics'
-   
+   pod 'Surge', '~> 2.0.0'   
    target 'FarmLensTests' do
        inherit! :search_paths
    end

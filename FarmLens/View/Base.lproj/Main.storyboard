@@ -398,19 +398,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="xmY-7o-jBe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="xmY-7o-jBe">
                                 <rect key="frame" x="-13" y="0.0" width="716" height="768"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZF-Yc-Eov">
-                                <rect key="frame" x="198" y="674" width="308" height="74"/>
+                                <rect key="frame" x="198" y="566" width="308" height="74"/>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="74" id="BmC-Kq-WLt"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="308" id="NnU-rM-5Z0"/>
-                                    <constraint firstAttribute="width" constant="308" id="byc-5F-vI9"/>
-                                    <constraint firstAttribute="height" constant="74" id="f99-Ie-g8c"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="74" id="wKS-gh-1YJ"/>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="308" id="x30-UY-Xfc"/>
+                                    <constraint firstAttribute="height" constant="74" id="JAO-SW-5ic"/>
+                                    <constraint firstAttribute="width" constant="308" id="usw-hw-9AD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Start Download">
@@ -420,31 +417,43 @@
                                     <action selector="downloadPictures:" destination="ikC-T6-mr4" eventType="touchUpInside" id="cgS-Ax-4BO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading Image 0 of 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fi9-mP-o7a">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Downloading Image 0 of 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fi9-mP-o7a">
                                 <rect key="frame" x="246.5" y="310.5" width="211.5" height="21.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checking for Images to download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ew-aF-ccT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Checking for Images to download" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ew-aF-ccT">
                                 <rect key="frame" x="217" y="281" width="270.5" height="21.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUq-7t-qDG">
+                                <rect key="frame" x="198" y="654" width="308" height="74"/>
+                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="uaG-m9-nt0"/>
+                                    <constraint firstAttribute="width" constant="308" id="wPt-at-STg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Generate NDVI Images">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="GenerateNdviImages:" destination="ikC-T6-mr4" eventType="touchUpInside" id="9Dl-n3-wtK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Fi9-mP-o7a" firstAttribute="top" secondItem="2ew-aF-ccT" secondAttribute="bottom" constant="8" id="3Bu-0J-3HI"/>
-                            <constraint firstItem="8Ih-BB-r2J" firstAttribute="top" secondItem="LZF-Yc-Eov" secondAttribute="bottom" constant="20" id="4l7-BC-urq"/>
-                            <constraint firstItem="LZF-Yc-Eov" firstAttribute="centerX" secondItem="POc-eE-RaF" secondAttribute="centerX" id="4lY-1S-gka"/>
-                            <constraint firstItem="2ew-aF-ccT" firstAttribute="top" secondItem="2t9-Bj-7zg" secondAttribute="bottom" constant="261" id="7eY-Yt-M16"/>
-                            <constraint firstItem="2ew-aF-ccT" firstAttribute="centerX" secondItem="POc-eE-RaF" secondAttribute="centerX" id="D5X-fU-soJ"/>
-                            <constraint firstAttribute="trailing" secondItem="xmY-7o-jBe" secondAttribute="trailing" id="DhA-Rb-Vwu"/>
-                            <constraint firstItem="Fi9-mP-o7a" firstAttribute="centerX" secondItem="POc-eE-RaF" secondAttribute="centerX" id="FuW-wE-o5i"/>
-                            <constraint firstItem="xmY-7o-jBe" firstAttribute="top" secondItem="POc-eE-RaF" secondAttribute="top" id="RIP-ri-skf"/>
-                            <constraint firstItem="xmY-7o-jBe" firstAttribute="leading" secondItem="POc-eE-RaF" secondAttribute="leading" constant="-13" id="XXh-oU-uLN"/>
-                            <constraint firstItem="8Ih-BB-r2J" firstAttribute="top" secondItem="xmY-7o-jBe" secondAttribute="bottom" id="bUW-Mf-2ON"/>
+                            <constraint firstItem="gUq-7t-qDG" firstAttribute="top" secondItem="LZF-Yc-Eov" secondAttribute="bottom" constant="14" id="1IW-6f-Tsc"/>
+                            <constraint firstItem="gUq-7t-qDG" firstAttribute="top" secondItem="LZF-Yc-Eov" secondAttribute="bottom" constant="14" id="4qF-GU-OOU"/>
+                            <constraint firstItem="8Ih-BB-r2J" firstAttribute="top" secondItem="gUq-7t-qDG" secondAttribute="bottom" constant="40" id="9ke-jQ-Apk"/>
+                            <constraint firstItem="LZF-Yc-Eov" firstAttribute="centerX" secondItem="POc-eE-RaF" secondAttribute="centerX" id="WUc-sc-Gjh"/>
+                            <constraint firstItem="gUq-7t-qDG" firstAttribute="centerX" secondItem="POc-eE-RaF" secondAttribute="centerX" id="jmW-Hv-4WA"/>
                         </constraints>
                     </view>
                     <connections>

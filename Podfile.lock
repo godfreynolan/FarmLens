@@ -4,19 +4,22 @@ PODS:
   - DJI-SDK-iOS (4.4)
   - Fabric (1.7.2)
   - Mapbox-iOS-SDK (3.7.3)
+  - Surge (2.0.0)
 
 DEPENDENCIES:
   - Crashlytics
   - DJI-SDK-iOS (~> 4.4)
   - Fabric
   - Mapbox-iOS-SDK (~> 3.7)
+  - Surge (~> 2.0.0)
 
 SPEC CHECKSUMS:
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   DJI-SDK-iOS: d44ef9eea43531daa082a3de2630b019f277c066
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   Mapbox-iOS-SDK: 5304bd9605babe6da9050ea4cb23c1671420b737
+  Surge: 1f0286bc5f0fe4283f3455479895bf85c7ef7760
 
-PODFILE CHECKSUM: 73b0601be22a6894be4693ea5072f71da3dc1124
+PODFILE CHECKSUM: c6a2caad606b22cc2c487dd525ebf88988c01caf
 
 COCOAPODS: 1.4.0

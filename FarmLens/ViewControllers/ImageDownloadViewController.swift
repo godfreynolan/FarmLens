@@ -67,6 +67,34 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
         }
     }
     
+    @IBAction func GenerateNdviImages(_ sender: Any) {
+        let gen = HealthMapGenerator()
+        let loader = ImageLoader()
+        
+        let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
+        
+        for img in drone_images {
+            img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
+            
+            let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
+            
+            addAssetWithMetadata(image: img.getImage(), location: loc)
+        }
+    }
+    
+    func addAssetWithMetadata(image: UIImage, location: CLLocation? = nil) {
+        PHPhotoLibrary.shared().performChanges({
+            // Request creating an asset from the image.
+            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            // Set metadata location
+            if let location = location {
+                creationRequest.location = location
+            }
+        }, completionHandler: { success, error in
+            if !success { NSLog("error creating asset: \(String(describing: error))") }
+        })
+    }
+    
     //### CameraCallback ###
     func onDownloadReady() {
         self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
