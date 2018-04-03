@@ -25,4 +25,8 @@ class DroneImage {
     func getImage() -> UIImage {
         return image
     }
+    
+    func setImage(image: UIImage) {
+        self.image = image
+    }
 }
