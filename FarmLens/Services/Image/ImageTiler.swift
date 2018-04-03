@@ -15,6 +15,26 @@ class ImageTiler {
             return false
         }
         
+        // Configure image to grow and shrink when the user zooms in and out in the map
+        var stops = [NSNumber : MGLStyleValue<NSNumber>]()
+        var zoom = mapView.zoomLevel
+        var scale = 1.0
+        
+        while zoom > 0 {
+            stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
+            zoom -= 1
+            scale /= 2
+        }
+        
+        zoom = mapView.zoomLevel + 1
+        scale = 2.0
+        
+        while zoom < mapView.maximumZoomLevel + 1 {
+            stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
+            zoom = zoom + 1
+            scale = scale * 2
+        }
+        
         // Calculate the physical dimensions of the image in terms of lat/long spacing
         let heightSpace = Utils.convertSpacingFeetToDegrees(416)
         let widthSpace = Utils.convertSpacingFeetToDegrees(537.6)
@@ -54,26 +74,6 @@ class ImageTiler {
             // add scaled image to the style
             style.setImage(scaledImage, forName: "scaled_overlay_\(idx)")
             
-            // Configure image to grow and shrink when the user zooms in and out in the map
-            var stops = [NSNumber : MGLStyleValue<NSNumber>]()
-            var zoom = mapView.zoomLevel
-            var scale = 1.0
-            
-            while zoom > 0 {
-                stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
-                zoom -= 1
-                scale /= 2
-            }
-            
-            zoom = mapView.zoomLevel + 1
-            scale = 2.0
-            
-            while zoom < mapView.maximumZoomLevel + 1 {
-                stops[NSNumber(value: zoom)] = MGLStyleValue(rawValue: NSNumber(value: scale))
-                zoom = zoom + 1
-                scale = scale * 2
-            }
-            
             // Create layer
             let layer = MGLSymbolStyleLayer(identifier: "overlay_\(idx)", source: source)
             
@@ -86,9 +86,7 @@ class ImageTiler {
             layer.iconRotationAlignment = MGLStyleValue(rawValue: NSNumber(value: MGLIconRotationAlignment.map.rawValue))
             
             // Scale factor
-            layer.iconScale = MGLCameraStyleFunction(interpolationMode: .exponential,
-                                                     cameraStops: stops,
-                                                     options: nil)
+            layer.iconScale = MGLCameraStyleFunction(interpolationMode: .exponential, cameraStops: stops, options: nil)
             
             // Add overlay to map
             style.insertLayer(layer, below: style.layer(withIdentifier: "waterway-label")!)
