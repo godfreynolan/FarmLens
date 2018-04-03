@@ -38,7 +38,6 @@
 		FF4FB674205C0CA40033228A /* DJIImageAnnotationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */; };
 		FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB676205C0EF90033228A /* MockMGLStyle.swift */; };
 		FF4FB67B205C12C80033228A /* StartupViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */; };
-		FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */; };
 		FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */; };
 		FF97633F206024260009B830 /* DroneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97633E206024260009B830 /* DroneImage.swift */; };
 		FF976344206039910009B830 /* MediaHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976343206039910009B830 /* MediaHandler.swift */; };
@@ -120,7 +119,6 @@
 		FF4FB673205C0CA40033228A /* DJIImageAnnotationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIImageAnnotationTest.swift; sourceTree = "<group>"; };
 		FF4FB676205C0EF90033228A /* MockMGLStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMGLStyle.swift; sourceTree = "<group>"; };
 		FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewControllerTest.swift; sourceTree = "<group>"; };
-		FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewControllerTest.swift; sourceTree = "<group>"; };
 		FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailControllerTest.swift; sourceTree = "<group>"; };
 		FF630A9D204EE7C700D7DE52 /* FarmLensTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FarmLensTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF97633E206024260009B830 /* DroneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneImage.swift; sourceTree = "<group>"; };
@@ -347,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				FF4FB67E205C36250033228A /* FlightViewDetailControllerTest.swift */,
-				FF4FB67C205C2C5C0033228A /* MasterViewControllerTest.swift */,
 				FF4FB67A205C12C80033228A /* StartupViewControllerTest.swift */,
 				184F9AE0206149550086D0F4 /* ViewImagesViewControllerTest.swift */,
 			);
@@ -477,7 +474,7 @@
 					};
 					FF015A9D204087170093EA05 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = UHDP7LK8C7;
+						DevelopmentTeam = DYG5XF554D;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 86985CC81E834EC200577EC7;
 					};
@@ -684,7 +681,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF4FB67D205C2C5C0033228A /* MasterViewControllerTest.swift in Sources */,
 				FF4FB67F205C36250033228A /* FlightViewDetailControllerTest.swift in Sources */,
 				184F9ADD206140EF0086D0F4 /* DroneImageTest.swift in Sources */,
 				FF4FB677205C0EF90033228A /* MockMGLStyle.swift in Sources */,
@@ -944,7 +940,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = DYG5XF554D;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FarmLensTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -967,7 +963,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = DYG5XF554D;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FarmLensTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;

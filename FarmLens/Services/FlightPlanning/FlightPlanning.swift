@@ -14,8 +14,8 @@ class FlightPlanning {
     
     func createMission(missionCoordinates: [CLLocationCoordinate2D]) -> DJIWaypointMission {
         let mission = DJIMutableWaypointMission()
-        mission.maxFlightSpeed = 8
-        mission.autoFlightSpeed = 4
+        mission.maxFlightSpeed = 15
+        mission.autoFlightSpeed = 15
         mission.finishedAction = .goHome
         mission.headingMode = .usingWaypointHeading
         mission.flightPathMode = .normal

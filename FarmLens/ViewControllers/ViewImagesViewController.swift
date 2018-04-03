@@ -40,6 +40,11 @@ class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocation
         
         self.mapView.styleURL = MGLStyle.satelliteStreetsStyleURL()
         self.mapView.showsUserLocation = true
+        self.mapView.isPitchEnabled = false
+        self.mapView.isRotateEnabled = false
+        
+        self.mapView.maximumZoomLevel = 18
+        self.mapView.minimumZoomLevel = 16
         
         // Set the map view‘s delegate property.
         self.mapView.delegate = self
@@ -65,12 +70,16 @@ class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocation
         }
     }
     
+    func mapView(_ mapView: MGLMapView, didAdd annotationViews: [MGLAnnotationView]) {
+        print("Added \(annotationViews.count) views")
+    }
+    
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
         self.mapStyle = style
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.mapView.setCenter((locations.last?.coordinate)!, zoomLevel: 18, animated: true)
+        self.mapView.setCenter((locations.last?.coordinate)!, zoomLevel: 16, animated: true)
         // We don't want the map changing while the user is trying to view images.
         self.locManager.stopUpdatingLocation()
     }
