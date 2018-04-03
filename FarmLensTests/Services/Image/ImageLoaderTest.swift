@@ -11,11 +11,11 @@ import XCTest
 
 class ImageLoaderTest: XCTestCase {
     
-    var loader:ImageLoader!
+    var loader:ImageManager!
     
     override func setUp() {
         super.setUp()
-        loader = ImageLoader()
+        loader = ImageManager()
     }
     
     func testInit() {
@@ -23,6 +23,6 @@ class ImageLoaderTest: XCTestCase {
     }
     
     func testLoadImagesNil() {
-        XCTAssert(loader.loadImages(imageCount: 0).count == 0)
+        XCTAssert(loader.loadTileImages(imageCount: 0).count == 0)
     }
 }

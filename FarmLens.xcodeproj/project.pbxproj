@@ -32,7 +32,7 @@
 		FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF162715205026FA008BB642 /* ImageDownloadViewController.swift */; };
 		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
 		FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271920504C87008BB642 /* FlightViewDetailController.swift */; };
-		FF162720205082E8008BB642 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageLoader.swift */; };
+		FF162720205082E8008BB642 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271F205082E8008BB642 /* ImageManager.swift */; };
 		FF4E29E82061385D00564E27 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29E72061385D00564E27 /* UtilsTest.swift */; };
 		FF4E29F420613C7400564E27 /* MediaHandlerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F320613C7400564E27 /* MediaHandlerTest.swift */; };
 		FF4E29F620613CBA00564E27 /* MockCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4E29F520613CBA00564E27 /* MockCamera.swift */; };
@@ -47,6 +47,7 @@
 		FF976349206041960009B830 /* CameraCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976348206041960009B830 /* CameraCallback.swift */; };
 		FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97634A2060432F0009B830 /* InitialCameraCallback.swift */; };
 		FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */; };
+		FFF3621A2073E6B50076B517 /* ImageProcessingCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF362192073E6B50076B517 /* ImageProcessingCallback.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +116,7 @@
 		FF162715205026FA008BB642 /* ImageDownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadViewController.swift; sourceTree = "<group>"; };
 		FF16271720503CA0008BB642 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		FF16271920504C87008BB642 /* FlightViewDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightViewDetailController.swift; sourceTree = "<group>"; };
-		FF16271F205082E8008BB642 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		FF16271F205082E8008BB642 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		FF4E29E72061385D00564E27 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		FF4E29F320613C7400564E27 /* MediaHandlerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHandlerTest.swift; sourceTree = "<group>"; };
 		FF4E29F520613CBA00564E27 /* MockCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCamera.swift; sourceTree = "<group>"; };
@@ -131,6 +132,7 @@
 		FF976348206041960009B830 /* CameraCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCallback.swift; sourceTree = "<group>"; };
 		FF97634A2060432F0009B830 /* InitialCameraCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCameraCallback.swift; sourceTree = "<group>"; };
 		FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FFF362192073E6B50076B517 /* ImageProcessingCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessingCallback.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,10 +252,11 @@
 			isa = PBXGroup;
 			children = (
 				FF976348206041960009B830 /* CameraCallback.swift */,
-				FF16271F205082E8008BB642 /* ImageLoader.swift */,
+				FF16271F205082E8008BB642 /* ImageManager.swift */,
 				187203042050755C00008042 /* ImageTiler.swift */,
 				FF97634A2060432F0009B830 /* InitialCameraCallback.swift */,
 				FF976343206039910009B830 /* MediaHandler.swift */,
+				FFF362192073E6B50076B517 /* ImageProcessingCallback.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -677,11 +680,12 @@
 				FF16271A20504C87008BB642 /* FlightViewDetailController.swift in Sources */,
 				FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */,
 				FF976344206039910009B830 /* MediaHandler.swift in Sources */,
-				FF162720205082E8008BB642 /* ImageLoader.swift in Sources */,
+				FF162720205082E8008BB642 /* ImageManager.swift in Sources */,
 				18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */,
 				FF976349206041960009B830 /* CameraCallback.swift in Sources */,
 				1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */,
 				FF976347206040AD0009B830 /* Utils.swift in Sources */,
+				FFF3621A2073E6B50076B517 /* ImageProcessingCallback.swift in Sources */,
 				FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,

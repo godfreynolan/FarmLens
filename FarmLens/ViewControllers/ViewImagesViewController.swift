@@ -14,7 +14,7 @@ import Photos
 class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    private let imageLoader = ImageLoader()
+    private let imageLoader = ImageManager()
     private let imageTiler = ImageTiler()
     private let locManager = CLLocationManager()
     
@@ -59,7 +59,7 @@ class ViewImagesViewController: UIViewController, MGLMapViewDelegate, CLLocation
             self.present(alert, animated: true)
             return
         } else {
-            let images = imageLoader.loadImages(imageCount: self.appDelegate.flightImageCount)
+            let images = imageLoader.loadTileImages(imageCount: self.appDelegate.flightImageCount)
             imagesShown = self.imageTiler.overlayImages(mapView: mapView, style: self.mapStyle, images: images)
         }
         
