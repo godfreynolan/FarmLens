@@ -56,12 +56,12 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     
     var didDownload = false
     @IBAction func downloadPictures(_ sender: UIButton) {
-        if self.appDelegate.flightImageCount == 0 {
-            let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
+//        if self.appDelegate.flightImageCount == 0 {
+//            let alert = UIAlertController(title: "Error", message: "There are no pictures to download", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//            return
+//        }
         
         if (self.droneConnected) {
             self.imageDownloader.setCameraToDownload()
@@ -73,10 +73,10 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
             if self.appDelegate.flightImageCount != 0 {
                 let gen = HealthMapGenerator()
                 let loader = ImageLoader()
-                
+
                 downloadProgressLabel.text = "Loading images..."
-                let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
-                
+                let drone_images = loader.loadImages(imageCount: 8)
+
                 var i = 1
                 for img in drone_images {
                     
@@ -84,13 +84,14 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                     
                     // Generate health map
                     img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
-                    
+
                     // Save to photo album
                     let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
                     addAssetWithMetadata(image: img.getImage(), location: loc)
-                    
+
                     i = i + 1
                 }
+                stitchImages("")
             } else {
                 let alert = UIAlertController(title: "Error", message: "There are no pictures to process", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -127,6 +128,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     func onPhotoReady() {
         self.downloadProgressLabel.text = "All Images Downloaded"
         didDownload = true
+        GenerateNdviImages("")
     }
     
     func onFileListRefresh() {
@@ -148,6 +150,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     //### CameraCallback Helper ###
     func setTotalImageCount(totalFileCount: Int) {
         self.appDelegate.flightImageCount = totalFileCount - self.appDelegate.preFlightImageCount
+        self.appDelegate.flightImageCount = 8
         
         if self.appDelegate.flightImageCount == 0 {
             self.totalDownloadImageLabel.text = "0 Images to download"
@@ -176,7 +179,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     //### Helper Methods ###
     private func startImageDownload() {
         self.statusIndex = 1
-        self.currentDownloadIndex = self.appDelegate.preFlightImageCount
+        self.currentDownloadIndex = 0
 
         downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
     }
@@ -245,5 +248,90 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                 self.present(alert, animated: true, completion: nil)
             }
         })
+    }
+    
+    @IBAction func stitchImages(_ sender: Any) {
+        self.downloadProgressLabel.text = String(format: "Uploading image 1 of %d", mediaDownloadList.count)
+        var num = 0
+        DispatchQueue.global(qos: .background).async {
+            let requester = StitchRequester()
+            requester.startStitch {
+                DispatchQueue.main.async {
+                    self.downloadProgressLabel.text = String("Started stitch")
+                    self.downloadProgressLabel.setNeedsDisplay()
+                }
+                let loader = ImageLoader()
+                let images = loader.loadAssetImages(imageCount: 8)
+                DispatchQueue.main.async {
+                    self.downloadProgressLabel.text = String(format: "Images fetched: %d", images.count)
+                    self.downloadProgressLabel.setNeedsDisplay()
+                }
+                requester.addImages(images: images, onImageSuccess: {
+                    num = num + 1
+                    DispatchQueue.main.async {
+                        self.downloadProgressLabel.text = String(format: "SUCCESS %d", num)
+                        self.downloadProgressLabel.setNeedsDisplay()
+                    }
+                    if num == 8 {
+                        self.lockStitch(requester)
+                    }
+                }, onImageFailure: { (err) in
+                    num = num + 1
+                    let alert = UIAlertController(title: "Mission Error", message: err, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                    DispatchQueue.main.async {
+                        self.downloadProgressLabel.text = String(format: "failure %d", num)
+                        self.downloadProgressLabel.setNeedsDisplay()
+                    }
+                })
+            }
+        }
+    }
+    
+    private func lockStitch(_ requester: StitchRequester) {
+        requester.lockStitch(onSuccess: { () in
+            DispatchQueue.main.async {
+                self.downloadProgressLabel.text = "Stitch locked! Waiting for completion..."
+                self.downloadProgressLabel.setNeedsDisplay()
+            }
+            self.pollStitch(requester)
+        }, onFailure: { () in
+            DispatchQueue.main.async {
+                self.downloadProgressLabel.text = "Could not lock stitch!"
+                self.downloadProgressLabel.setNeedsDisplay()
+            }
+        })
+    }
+    
+    private func pollStitch(_ requester: StitchRequester) {
+        requester.pollStitch { (isComplete) in
+            if(!isComplete) {
+                sleep(3)
+                self.pollStitch(requester)
+            } else {
+                DispatchQueue.main.async {
+                    self.downloadProgressLabel.text = "Stitch complete! Downloading..."
+                    self.downloadProgressLabel.setNeedsDisplay()
+                }
+                self.retrieveStitch(requester)
+            }
+        }
+    }
+    
+    private func retrieveStitch(_ requester: StitchRequester) {
+        requester.retrieveResult { (data) in
+            if data == nil {
+                DispatchQueue.main.async {
+                    self.downloadProgressLabel.text = "Stitch download failed. Please try again."
+                    self.downloadProgressLabel.setNeedsDisplay()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.downloadProgressLabel.text = "Stitch download complete."
+                    self.downloadProgressLabel.setNeedsDisplay()
+                }
+            }
+        }
     }
 }

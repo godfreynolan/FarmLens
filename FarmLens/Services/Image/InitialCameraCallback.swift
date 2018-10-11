@@ -20,6 +20,10 @@ class InitialCameraCallback: CameraCallback {
     
     func fetchInitialData() {
         self.mediaHandler.setCameraToDownload()
+        if viewController is FlightViewDetailController {
+            let flightViewDetailController = self.viewController as! FlightViewDetailController
+            flightViewDetailController.startMission()
+        }
     }
     
     func onDownloadReady() {

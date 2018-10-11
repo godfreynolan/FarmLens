@@ -25,7 +25,7 @@ class FlightPlanning {
         
         for coordinate in missionCoordinates {
             let waypoint = DJIWaypoint(coordinate: coordinate)
-            waypoint.altitude = 100
+            waypoint.altitude = 46.672
             waypoint.heading = 0
             waypoint.actionRepeatTimes = 1
             waypoint.actionTimeoutInSeconds = 30

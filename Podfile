@@ -7,6 +7,7 @@ target 'FarmLens' do
    pod 'Fabric'
    pod 'Crashlytics'
    pod 'Surge', '~> 2.0.0'   
+   pod 'Alamofire', '~> 4.7'
    target 'FarmLensTests' do
        inherit! :search_paths
    end

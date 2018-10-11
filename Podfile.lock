@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.3)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - DJI-SDK-iOS (4.4)
@@ -7,19 +8,30 @@ PODS:
   - Surge (2.0.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - Crashlytics
   - DJI-SDK-iOS (~> 4.4)
   - Fabric
   - Mapbox-iOS-SDK (~> 3.7)
   - Surge (~> 2.0.0)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Crashlytics
+    - DJI-SDK-iOS
+    - Fabric
+    - Mapbox-iOS-SDK
+    - Surge
+
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   DJI-SDK-iOS: d44ef9eea43531daa082a3de2630b019f277c066
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   Mapbox-iOS-SDK: 5304bd9605babe6da9050ea4cb23c1671420b737
   Surge: 1f0286bc5f0fe4283f3455479895bf85c7ef7760
 
-PODFILE CHECKSUM: c6a2caad606b22cc2c487dd525ebf88988c01caf
+PODFILE CHECKSUM: e2f03f2cf31529ea96e0e8b27896d325befb9439
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
