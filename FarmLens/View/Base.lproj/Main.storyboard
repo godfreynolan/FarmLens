@@ -21,81 +21,104 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="mIC-bw-9zQ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mIC-bw-9zQ">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWh-8t-5th">
-                                <rect key="frame" x="387" y="537" width="250" height="52"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWh-8t-5th">
+                                <rect key="frame" x="358" y="506" width="309" height="70"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="UFR-5G-wS7"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
-                                <state key="normal" title="Open">
+                                <state key="normal" title="Create Flight Plan" backgroundImage="main-button-rect">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="o6h-pm-zW8" kind="show" id="9AZ-lE-dom"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Model: Not Available" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvn-Jl-PRU">
-                                <rect key="frame" x="232" y="460" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Drone Connected" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvn-Jl-PRU">
+                                <rect key="frame" x="440" y="460" width="350" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="560" id="lLB-5x-QKo"/>
+                                    <constraint firstAttribute="width" constant="350" id="lLB-5x-QKo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DroneNotConnected" translatesAutoresizingMaskIntoConstraints="NO" id="lbr-iN-3xl">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="drone-camera" translatesAutoresizingMaskIntoConstraints="NO" id="lbr-iN-3xl">
                                 <rect key="frame" x="392" y="212" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="jqx-Yt-atS"/>
                                     <constraint firstAttribute="height" constant="240" id="ssg-1i-uze"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status: Trying to connect..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAw-ns-Vhl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trying to connect..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAw-ns-Vhl">
                                 <rect key="frame" x="379" y="180" width="266" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="4yf-2L-Xzh"/>
                                     <constraint firstAttribute="width" constant="266" id="RtG-3O-x8o"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="agribotix" translatesAutoresizingMaskIntoConstraints="NO" id="ppk-3G-TEB">
-                                <rect key="frame" x="89" y="75" width="287" height="90"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="field-map-header" translatesAutoresizingMaskIntoConstraints="NO" id="ppk-3G-TEB">
+                                <rect key="frame" x="274.5" y="70" width="475" height="91"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="0Tx-ow-fZt"/>
-                                    <constraint firstAttribute="width" constant="287" id="djl-i4-ZWs"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="287" id="f7D-7f-Hne"/>
-                                    <constraint firstAttribute="height" constant="90" id="vOb-wV-gIF"/>
+                                    <constraint firstAttribute="height" constant="91" id="BuQ-hW-Hc8"/>
+                                    <constraint firstAttribute="width" constant="475" id="LWL-rf-vKY"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle-off" translatesAutoresizingMaskIntoConstraints="NO" id="N1Y-W3-rYC">
+                                <rect key="frame" x="422" y="466" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="pZ9-cx-L5B"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beM-zl-qnn">
+                                <rect key="frame" x="412" y="638" width="200" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                <state key="normal" title="View Images" backgroundImage="nofill-button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="mIC-bw-9zQ" firstAttribute="top" secondItem="13d-yb-Ou6" secondAttribute="top" id="01t-bp-O79"/>
-                            <constraint firstItem="ppk-3G-TEB" firstAttribute="top" secondItem="AIH-un-b7E" secondAttribute="bottom" constant="55" id="ATZ-20-SGa"/>
-                            <constraint firstItem="bvn-Jl-PRU" firstAttribute="centerX" secondItem="ZWh-8t-5th" secondAttribute="centerX" id="Aw5-Bs-g44"/>
                             <constraint firstItem="UAw-ns-Vhl" firstAttribute="top" secondItem="AIH-un-b7E" secondAttribute="bottom" constant="160" id="ErP-1e-e7I"/>
+                            <constraint firstItem="bvn-Jl-PRU" firstAttribute="leading" secondItem="N1Y-W3-rYC" secondAttribute="trailing" constant="8" symbolic="YES" id="GVw-Jr-Asl"/>
+                            <constraint firstItem="N1Y-W3-rYC" firstAttribute="leading" secondItem="13d-yb-Ou6" secondAttribute="leading" constant="422" id="IZ3-Af-JRY"/>
+                            <constraint firstItem="N1Y-W3-rYC" firstAttribute="centerY" secondItem="bvn-Jl-PRU" secondAttribute="centerY" id="IZH-Fb-Mkc"/>
                             <constraint firstItem="UAw-ns-Vhl" firstAttribute="centerX" secondItem="mIC-bw-9zQ" secondAttribute="centerX" id="IgS-Dn-fUV"/>
                             <constraint firstItem="bvn-Jl-PRU" firstAttribute="top" secondItem="lbr-iN-3xl" secondAttribute="bottom" constant="8" symbolic="YES" id="Isr-NW-oyD"/>
-                            <constraint firstItem="ppk-3G-TEB" firstAttribute="leading" secondItem="13d-yb-Ou6" secondAttribute="leadingMargin" constant="69" id="KPU-Mg-euO"/>
+                            <constraint firstItem="ppk-3G-TEB" firstAttribute="centerX" secondItem="ZWh-8t-5th" secondAttribute="centerX" id="LVf-G8-1Eb"/>
+                            <constraint firstItem="UAw-ns-Vhl" firstAttribute="top" secondItem="ppk-3G-TEB" secondAttribute="bottom" constant="19" id="NFd-tk-HmL"/>
                             <constraint firstItem="mIC-bw-9zQ" firstAttribute="leading" secondItem="13d-yb-Ou6" secondAttribute="leading" id="NG8-FF-HLA"/>
-                            <constraint firstItem="lbr-iN-3xl" firstAttribute="centerX" secondItem="bvn-Jl-PRU" secondAttribute="centerX" id="PrQ-Pc-ptk"/>
+                            <constraint firstItem="N1Y-W3-rYC" firstAttribute="top" secondItem="lbr-iN-3xl" secondAttribute="bottom" constant="14" id="Q9G-el-5ul"/>
+                            <constraint firstItem="vZH-HF-j3L" firstAttribute="top" secondItem="beM-zl-qnn" secondAttribute="bottom" constant="70" id="RoY-YH-YGn"/>
                             <constraint firstItem="lbr-iN-3xl" firstAttribute="top" secondItem="UAw-ns-Vhl" secondAttribute="bottom" constant="8" symbolic="YES" id="VEU-S4-TPG"/>
                             <constraint firstItem="vZH-HF-j3L" firstAttribute="top" secondItem="mIC-bw-9zQ" secondAttribute="bottom" id="YlZ-ps-j6a"/>
+                            <constraint firstItem="vZH-HF-j3L" firstAttribute="top" secondItem="ZWh-8t-5th" secondAttribute="bottom" constant="160" id="Z0b-uy-M79"/>
+                            <constraint firstItem="beM-zl-qnn" firstAttribute="centerX" secondItem="ZWh-8t-5th" secondAttribute="centerX" id="ZPo-qz-I3M"/>
                             <constraint firstAttribute="trailing" secondItem="mIC-bw-9zQ" secondAttribute="trailing" id="ttG-ho-Dlx"/>
                             <constraint firstItem="UAw-ns-Vhl" firstAttribute="centerX" secondItem="lbr-iN-3xl" secondAttribute="centerX" id="vVE-bR-fsy"/>
+                            <constraint firstItem="ppk-3G-TEB" firstAttribute="centerX" secondItem="UAw-ns-Vhl" secondAttribute="centerX" id="xp8-7u-CjH"/>
                             <constraint firstItem="ZWh-8t-5th" firstAttribute="top" secondItem="bvn-Jl-PRU" secondAttribute="bottom" constant="56" id="yps-J2-Ysj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="e7D-6G-d50"/>
                     <connections>
                         <outlet property="imgDrone" destination="lbr-iN-3xl" id="rZs-4i-LQe"/>
+                        <outlet property="imgStatusCircle" destination="N1Y-W3-rYC" id="NtK-Rk-vDR"/>
                         <outlet property="openComponents" destination="ZWh-8t-5th" id="kM3-iQ-Ycz"/>
                         <outlet property="productConnectionStatus" destination="UAw-ns-Vhl" id="gJi-kW-47A"/>
                         <outlet property="productModel" destination="bvn-Jl-PRU" id="0pe-Hw-8GY"/>
@@ -397,7 +420,6 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZF-Yc-Eov">
                                 <rect key="frame" x="199" y="484" width="308" height="74"/>
-                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="JAO-SW-5ic"/>
                                     <constraint firstAttribute="width" constant="308" id="usw-hw-9AD"/>
@@ -477,8 +499,11 @@
     </scenes>
     <resources>
         <image name="Background" width="1000" height="768"/>
-        <image name="DroneNotConnected" width="600" height="600"/>
-        <image name="agribotix" width="1837.5" height="561"/>
+        <image name="circle-off" width="10" height="10"/>
+        <image name="drone-camera" width="141" height="141"/>
+        <image name="field-map-header" width="475" height="91"/>
+        <image name="main-button-rect" width="309" height="71"/>
+        <image name="nofill-button" width="200" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="d0l-8C-xqA"/>

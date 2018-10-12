@@ -13,6 +13,7 @@ class StartupViewController: UIViewController {
     @IBOutlet weak var productModel: UILabel!
     @IBOutlet weak var openComponents: UIButton!
     @IBOutlet weak var imgDrone: UIImageView!
+    @IBOutlet weak var imgStatusCircle: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,8 @@ class StartupViewController: UIViewController {
     func resetUI() {
         self.title = "FarmLens"
 //        self.openComponents.isEnabled = false;
-        self.imgDrone.image = UIImage(named: "DroneNotConnected")
+        self.imgDrone.image = UIImage(named: "drone-camera")
+        self.imgStatusCircle.image = UIImage(named: "circle-off")
     }
     
     // MARK : Product connection UI changes
@@ -56,14 +58,15 @@ class StartupViewController: UIViewController {
     }
     
     func productDisconnected() {
-        self.productConnectionStatus.text = "Status: No Product Connected"
+        self.productConnectionStatus.text = "Trying to connect..."
         
-        self.productModel.text = "Model: Not Available"
+        self.productModel.text = "No Drone Connected"
 
 //        self.openComponents.isEnabled = false;
         self.openComponents.alpha = 0.8;
         
-        self.imgDrone.image = UIImage(named: "DroneNotConnected")
+        self.imgDrone.image = UIImage(named: "drone-camera")
+        self.imgStatusCircle.image = UIImage(named: "circle-off")
     }
     
     func setPreFlightImageCount(imageCount: Int) {
@@ -78,15 +81,16 @@ class StartupViewController: UIViewController {
         }
         
         //Updates the product's model
-        self.productModel.text = "Model: \((newProduct.model)!)"
+        self.productModel.text = "\((newProduct.model)!)"
         
         //Updates the product's connection status
-        self.productConnectionStatus.text = "Status: Product Connected"
+        self.productConnectionStatus.text = "Drone Connected"
         
         self.openComponents.isEnabled = true;
         self.openComponents.alpha = 1.0;
         
-        self.imgDrone.image = UIImage(named: "DroneConnected")
+        self.imgDrone.image = UIImage(named: "drone-camera-enabled")
+        self.imgStatusCircle.image = UIImage(named: "circle-on")
     }
     
     private func handleConnectionResponse(keyValue: DJIKeyedValue?) {

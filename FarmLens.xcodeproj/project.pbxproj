@@ -20,6 +20,7 @@
 		188737482073C6BA003EC5E0 /* HealthMapGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188737472073C6BA003EC5E0 /* HealthMapGenerator.swift */; };
 		1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188737492073C738003EC5E0 /* UIImage+pixelData.swift */; };
 		18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C91378205AF46C00DBF615 /* ImageTilerTests.swift */; };
+		844743732171125F006DE673 /* StyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844743722171125F006DE673 /* StyledButton.swift */; };
 		84C94B41216E6FB60089B19B /* NetworkInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B40216E6FB60089B19B /* NetworkInformation.swift */; };
 		84C94B43216E80C10089B19B /* StitchRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B42216E80C10089B19B /* StitchRequester.swift */; };
 		84C94B45216E83060089B19B /* CountdownLatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B44216E83060089B19B /* CountdownLatch.swift */; };
@@ -103,6 +104,7 @@
 		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
+		844743722171125F006DE673 /* StyledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledButton.swift; sourceTree = "<group>"; };
 		84C94B40216E6FB60089B19B /* NetworkInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInformation.swift; sourceTree = "<group>"; };
 		84C94B42216E80C10089B19B /* StitchRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchRequester.swift; sourceTree = "<group>"; };
 		84C94B44216E83060089B19B /* CountdownLatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLatch.swift; sourceTree = "<group>"; };
@@ -264,6 +266,14 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		8447437121711243006DE673 /* UIControls */ = {
+			isa = PBXGroup;
+			children = (
+				844743722171125F006DE673 /* StyledButton.swift */,
+			);
+			path = UIControls;
+			sourceTree = "<group>";
+		};
 		86985CC01E834EC200577EC7 = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +291,7 @@
 		A4DB958E1FEAAD4500F405CA /* FarmLens */ = {
 			isa = PBXGroup;
 			children = (
+				8447437121711243006DE673 /* UIControls */,
 				18BDBCF820360FA700CD1D59 /* App */,
 				18BDBCF920360FAE00CD1D59 /* View */,
 				18BDBCFA20360FBC00CD1D59 /* ViewControllers */,
@@ -651,6 +662,7 @@
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
 				84C94B45216E83060089B19B /* CountdownLatch.swift in Sources */,
 				FF97633F206024260009B830 /* DroneImage.swift in Sources */,
+				844743732171125F006DE673 /* StyledButton.swift in Sources */,
 				187203052050755C00008042 /* ImageTiler.swift in Sources */,
 				188737482073C6BA003EC5E0 /* HealthMapGenerator.swift in Sources */,
 				84C94B43216E80C10089B19B /* StitchRequester.swift in Sources */,
