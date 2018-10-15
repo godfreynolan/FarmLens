@@ -177,12 +177,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
                                 <rect key="frame" x="717" y="661" width="278" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <state key="normal" backgroundImage="start-flight-btn-enabled"/>
+                                <state key="normal" image="start-flight-btn-enabled"/>
                                 <connections>
-                                    <segue destination="chC-dN-Slo" kind="show" id="bLk-7v-bAt"/>
+                                    <action selector="startFlightClicked:" destination="KBb-BR-KR2" eventType="touchUpInside" id="VXi-V0-FEy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -198,7 +198,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="flightMapView" destination="huh-Ao-0K8" id="r0x-VT-F9l"/>
+                        <outlet property="startFlightButton" destination="eVX-Ua-1dc" id="hBQ-eZ-SJn"/>
                         <outlet property="topInfoView" destination="lLP-VW-XgO" id="rQ0-cu-Lwl"/>
+                        <segue destination="chC-dN-Slo" kind="show" identifier="segueFlightComplete" id="Hf7-Ep-qtd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXY-JE-tcU" userLabel="First Responder" sceneMemberID="firstResponder"/>

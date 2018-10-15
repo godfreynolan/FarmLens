@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var productCommunicationManager = ProductCommunicationManager()
     
     var preFlightImageCount = 0
-    var flightImageCount = 4
+    var flightImageCount = 8
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

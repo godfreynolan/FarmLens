@@ -21,6 +21,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     private var flightPlanning: FlightPlanning!
     private var isFlightComplete = false
     private var loadingAlert: UIAlertController!
+    @IBOutlet weak var startFlightButton: UIButton!
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     
@@ -63,6 +64,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.startFlightButton.setImage(UIImage(named: "start-flight-btn-enabled"), for: .normal)
+        self.startFlightButton.setImage(UIImage(named: "start-flight-btn-disabled"), for: .disabled)
+        
         if (CLLocationManager.locationServicesEnabled()) {
             locationManager = CLLocationManager()
             locationManager.delegate = self
@@ -89,6 +93,12 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     override func viewDidDisappear(_ animated: Bool) {
         DJISDKManager.missionControl()?.removeListener(self)
         DJISDKManager.keyManager()?.stopAllListening(ofListeners: self)
+    }
+    
+    @IBAction func startFlightClicked(_ sender: Any) {
+        self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
+        //self.startFlightButton.isEnabled = false
+        //startFlight(sender)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -187,9 +197,11 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                 self.present(alert, animated: true)
             } else {
                 self.isFlightComplete = true
-                let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
+                // TODO: Launch flight complete stuff here!
+                //let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
+                //alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                //self.present(alert, animated: true)
+                self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
             }
         })
         
