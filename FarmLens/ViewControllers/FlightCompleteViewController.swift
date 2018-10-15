@@ -71,6 +71,9 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func cancelButtonClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
