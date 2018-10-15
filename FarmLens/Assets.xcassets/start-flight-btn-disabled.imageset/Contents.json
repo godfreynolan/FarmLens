@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "start-flight-btn.png",
+      "filename" : "start-flight-btn-disabled.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "start-flight-btn@2x.png",
+      "filename" : "start-flight-btn-disabled@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "start-flight-btn@3x.png",
+      "filename" : "start-flight-btn-disabled@3x.png",
       "scale" : "3x"
     }
   ],

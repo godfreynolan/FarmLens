@@ -178,7 +178,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
-                                <rect key="frame" x="717" y="661" width="278" height="70"/>
+                                <rect key="frame" x="717" y="661" width="293" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <state key="normal" image="start-flight-btn-enabled"/>
                                 <connections>
@@ -565,6 +565,6 @@
         <image name="nofill-button-large" width="270" height="62"/>
         <image name="progress" width="221" height="30"/>
         <image name="progress-track" width="663" height="30"/>
-        <image name="start-flight-btn-enabled" width="278" height="70"/>
+        <image name="start-flight-btn-enabled" width="293" height="85"/>
     </resources>
 </document>
