@@ -22,9 +22,10 @@
 		18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C91378205AF46C00DBF615 /* ImageTilerTests.swift */; };
 		844743732171125F006DE673 /* StyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844743722171125F006DE673 /* StyledButton.swift */; };
 		845E3B9E2174D4B8009A4305 /* FlightCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E3B9D2174D4B8009A4305 /* FlightCompleteViewController.swift */; };
+		845E3BA02175177F009A4305 /* ImageWithMetadata.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845E3B9F2175177F009A4305 /* ImageWithMetadata.xib */; };
+		845E3BA421751940009A4305 /* ImageWithMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E3BA321751940009A4305 /* ImageWithMetadataView.swift */; };
 		84C94B41216E6FB60089B19B /* NetworkInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B40216E6FB60089B19B /* NetworkInformation.swift */; };
 		84C94B43216E80C10089B19B /* StitchRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B42216E80C10089B19B /* StitchRequester.swift */; };
-		84C94B45216E83060089B19B /* CountdownLatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B44216E83060089B19B /* CountdownLatch.swift */; };
 		A4DB95A11FEAAD4500F405CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */; };
 		A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95901FEAAD4500F405CA /* Assets.xcassets */; };
 		A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DB95931FEAAD4500F405CA /* Main.storyboard */; };
@@ -107,9 +108,10 @@
 		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
 		844743722171125F006DE673 /* StyledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledButton.swift; sourceTree = "<group>"; };
 		845E3B9D2174D4B8009A4305 /* FlightCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCompleteViewController.swift; sourceTree = "<group>"; };
+		845E3B9F2175177F009A4305 /* ImageWithMetadata.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageWithMetadata.xib; sourceTree = "<group>"; };
+		845E3BA321751940009A4305 /* ImageWithMetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithMetadataView.swift; sourceTree = "<group>"; };
 		84C94B40216E6FB60089B19B /* NetworkInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInformation.swift; sourceTree = "<group>"; };
 		84C94B42216E80C10089B19B /* StitchRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchRequester.swift; sourceTree = "<group>"; };
-		84C94B44216E83060089B19B /* CountdownLatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLatch.swift; sourceTree = "<group>"; };
 		A4DB958F1FEAAD4500F405CA /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4DB95901FEAAD4500F405CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4DB95941FEAAD4500F405CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -232,6 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				A4DB95931FEAAD4500F405CA /* Main.storyboard */,
+				845E3B9F2175177F009A4305 /* ImageWithMetadata.xib */,
+				845E3BA321751940009A4305 /* ImageWithMetadataView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -412,7 +416,6 @@
 			children = (
 				FF976346206040AD0009B830 /* Utils.swift */,
 				84C94B42216E80C10089B19B /* StitchRequester.swift */,
-				84C94B44216E83060089B19B /* CountdownLatch.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 			files = (
 				A4DB95A41FEAAD4500F405CA /* Main.storyboard in Resources */,
 				A4DB95A21FEAAD4500F405CA /* Assets.xcassets in Resources */,
+				845E3BA02175177F009A4305 /* ImageWithMetadata.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,11 +664,11 @@
 				FF976349206041960009B830 /* CameraCallback.swift in Sources */,
 				845E3B9E2174D4B8009A4305 /* FlightCompleteViewController.swift in Sources */,
 				1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */,
+				845E3BA421751940009A4305 /* ImageWithMetadataView.swift in Sources */,
 				FF976347206040AD0009B830 /* Utils.swift in Sources */,
 				FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */,
 				A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */,
 				A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */,
-				84C94B45216E83060089B19B /* CountdownLatch.swift in Sources */,
 				FF97633F206024260009B830 /* DroneImage.swift in Sources */,
 				844743732171125F006DE673 /* StyledButton.swift in Sources */,
 				187203052050755C00008042 /* ImageTiler.swift in Sources */,
