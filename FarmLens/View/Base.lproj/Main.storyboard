@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mIC-bw-9zQ">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="718"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWh-8t-5th">
@@ -38,7 +38,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="o6h-pm-zW8" kind="show" id="9AZ-lE-dom"/>
+                                    <segue destination="KBb-BR-KR2" kind="show" id="cEw-w5-Tpp"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Drone Connected" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvn-Jl-PRU">
@@ -81,7 +81,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beM-zl-qnn">
-                                <rect key="frame" x="412" y="638" width="200" height="60"/>
+                                <rect key="frame" x="412" y="588" width="200" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
@@ -126,131 +126,88 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LtE-6p-bM3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1610.15625" y="784.375"/>
+            <point key="canvasLocation" x="-1453" y="768"/>
         </scene>
-        <!--Flight View Detail Controller-->
-        <scene sceneID="XY2-IX-t16">
+        <!--Flight Plan View Controller-->
+        <scene sceneID="zdq-nZ-hDE">
             <objects>
-                <viewController storyboardIdentifier="FlightViewDetailController" id="L9n-SB-x1Z" customClass="FlightViewDetailController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KBb-BR-KR2" userLabel="Flight Plan View Controller" customClass="FlightViewDetailController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CsJ-cw-5xY"/>
-                        <viewControllerLayoutGuide type="bottom" id="hqH-zJ-ePi"/>
+                        <viewControllerLayoutGuide type="top" id="KHn-7f-DDc"/>
+                        <viewControllerLayoutGuide type="bottom" id="bL0-31-T3R"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pQZ-J5-j06">
-                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                    <view key="view" contentMode="scaleToFill" id="qan-1n-cPw">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="HAs-VH-jMg">
-                                <rect key="frame" x="-0.5" y="0.0" width="704" height="768"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTH-qb-2Mh">
-                                <rect key="frame" x="485" y="685" width="199" height="63"/>
-                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="199" id="7lv-ER-ZeG"/>
-                                    <constraint firstAttribute="height" constant="63" id="CnC-Qh-TRC"/>
-                                </constraints>
-                                <state key="normal" title="Start Flight">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="startFlight:" destination="L9n-SB-x1Z" eventType="touchUpInside" id="LEn-AH-sBV"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude: 0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zrh-VA-I5f">
-                                <rect key="frame" x="19" y="20" width="142" height="41"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="Er0-q0-qDk"/>
-                                    <constraint firstAttribute="width" constant="142" id="ZjK-bq-JnT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude: 0.0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="irg-rm-UeT">
-                                <rect key="frame" x="169" y="20" width="163" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Battery Percentage: 0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXh-lC-yRh">
-                                <rect key="frame" x="479" y="20" width="204" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude: 0.0ft" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8v-v3-bQX">
-                                <rect key="frame" x="340" y="20" width="131" height="41"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="131" id="dHx-F7-8iJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZJ-Yx-VHI" customClass="MGLMapView">
-                                <rect key="frame" x="20" y="69" width="663" height="608"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="huh-Ao-0K8" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="70" width="1024" height="638"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click on map to create boundaries of the field you want to map." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GV9-Fw-98N">
-                                <rect key="frame" x="20" y="685" width="451" height="63"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="Oo2-bU-pE9"/>
-                                    <constraint firstAttribute="width" constant="451" id="TbB-O9-ra2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqS-fZ-Z6H" userLabel="Go back">
+                                <rect key="frame" x="980" y="30" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="exit-btn"/>
+                                <connections>
+                                    <segue destination="elD-ci-Ggq" kind="show" id="AtC-hz-1Lu"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLP-VW-XgO" userLabel="Top Info View">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="70"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="field-map-header" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-uu-j37">
+                                        <rect key="frame" x="447" y="37" width="130" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="top" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H47-s3-Yp3" userLabel="Bottom Info View">
+                                <rect key="frame" x="0.0" y="708" width="1024" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap and hold to create boundaries of the field you want to map." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFD-lD-PTe">
+                                        <rect key="frame" x="30" y="21" width="483" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
+                                <rect key="frame" x="717" y="661" width="278" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <state key="normal" backgroundImage="start-flight-btn-enabled"/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="HAs-VH-jMg" secondAttribute="trailing" id="05J-rt-5mV"/>
-                            <constraint firstItem="hqH-zJ-ePi" firstAttribute="top" secondItem="GV9-Fw-98N" secondAttribute="bottom" constant="20" id="66v-5z-knN"/>
-                            <constraint firstItem="gZJ-Yx-VHI" firstAttribute="top" secondItem="Zrh-VA-I5f" secondAttribute="bottom" constant="8" id="97o-P8-QmR"/>
-                            <constraint firstItem="V8v-v3-bQX" firstAttribute="baseline" secondItem="XXh-lC-yRh" secondAttribute="baseline" id="Aje-Vs-KOq"/>
-                            <constraint firstItem="irg-rm-UeT" firstAttribute="leading" secondItem="Zrh-VA-I5f" secondAttribute="trailing" constant="8" symbolic="YES" id="BIg-SP-c8G"/>
-                            <constraint firstItem="Zrh-VA-I5f" firstAttribute="baseline" secondItem="irg-rm-UeT" secondAttribute="baseline" id="Fu6-jb-dwn"/>
-                            <constraint firstItem="hqH-zJ-ePi" firstAttribute="top" secondItem="HAs-VH-jMg" secondAttribute="bottom" id="IiS-rn-6PH"/>
-                            <constraint firstItem="HAs-VH-jMg" firstAttribute="top" secondItem="pQZ-J5-j06" secondAttribute="top" id="KDD-Qf-agp"/>
-                            <constraint firstItem="irg-rm-UeT" firstAttribute="firstBaseline" secondItem="V8v-v3-bQX" secondAttribute="firstBaseline" id="Odc-cx-yRu"/>
-                            <constraint firstItem="irg-rm-UeT" firstAttribute="baseline" secondItem="V8v-v3-bQX" secondAttribute="baseline" id="Q8l-86-Ifx"/>
-                            <constraint firstItem="XXh-lC-yRh" firstAttribute="trailing" secondItem="gZJ-Yx-VHI" secondAttribute="trailing" id="Q9b-kB-ysT"/>
-                            <constraint firstItem="Zrh-VA-I5f" firstAttribute="firstBaseline" secondItem="irg-rm-UeT" secondAttribute="firstBaseline" id="Ref-s9-DHA"/>
-                            <constraint firstItem="UTH-qb-2Mh" firstAttribute="top" secondItem="gZJ-Yx-VHI" secondAttribute="bottom" constant="8" id="TyK-GT-V1p"/>
-                            <constraint firstItem="XXh-lC-yRh" firstAttribute="leading" secondItem="V8v-v3-bQX" secondAttribute="trailing" constant="8" symbolic="YES" id="VIZ-LE-vt2"/>
-                            <constraint firstItem="Zrh-VA-I5f" firstAttribute="leading" secondItem="pQZ-J5-j06" secondAttribute="leadingMargin" constant="-1" id="W4R-gL-Uok"/>
-                            <constraint firstItem="V8v-v3-bQX" firstAttribute="trailing" secondItem="GV9-Fw-98N" secondAttribute="trailing" id="Xqq-gT-nAC"/>
-                            <constraint firstItem="gZJ-Yx-VHI" firstAttribute="leading" secondItem="pQZ-J5-j06" secondAttribute="leadingMargin" id="YEo-Wr-7r1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="gZJ-Yx-VHI" secondAttribute="trailing" constant="0.5" id="Yt7-AH-Qtw"/>
-                            <constraint firstItem="UTH-qb-2Mh" firstAttribute="leading" secondItem="GV9-Fw-98N" secondAttribute="trailing" constant="14" id="Zuq-Us-ild"/>
-                            <constraint firstItem="HAs-VH-jMg" firstAttribute="leading" secondItem="pQZ-J5-j06" secondAttribute="leading" constant="-0.5" id="cOU-64-8Jn"/>
-                            <constraint firstAttribute="trailing" secondItem="UTH-qb-2Mh" secondAttribute="trailing" constant="19.5" id="cey-IV-JLw"/>
-                            <constraint firstItem="V8v-v3-bQX" firstAttribute="firstBaseline" secondItem="XXh-lC-yRh" secondAttribute="firstBaseline" id="g7X-jI-q0h"/>
-                            <constraint firstItem="hqH-zJ-ePi" firstAttribute="top" secondItem="UTH-qb-2Mh" secondAttribute="bottom" constant="20" id="nfi-fo-Pgv"/>
-                            <constraint firstItem="Zrh-VA-I5f" firstAttribute="top" secondItem="CsJ-cw-5xY" secondAttribute="bottom" id="uAB-8H-Rla"/>
-                            <constraint firstItem="V8v-v3-bQX" firstAttribute="leading" secondItem="irg-rm-UeT" secondAttribute="trailing" constant="8" symbolic="YES" id="uZe-Nt-W3a"/>
+                            <constraint firstAttribute="trailing" secondItem="lLP-VW-XgO" secondAttribute="trailing" id="Mjy-e7-KOe"/>
+                            <constraint firstItem="lLP-VW-XgO" firstAttribute="top" secondItem="qan-1n-cPw" secondAttribute="top" id="QSM-5p-CS8"/>
+                            <constraint firstItem="lLP-VW-XgO" firstAttribute="leading" secondItem="qan-1n-cPw" secondAttribute="leading" id="hmn-yB-adb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="PGz-nH-Kvp"/>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="altitudeLabel" destination="V8v-v3-bQX" id="Z46-OI-nfH"/>
-                        <outlet property="batteryLifeLabel" destination="XXh-lC-yRh" id="dhX-3I-SiO"/>
-                        <outlet property="flightMapView" destination="gZJ-Yx-VHI" id="h5r-eB-CbJ"/>
-                        <outlet property="latitudeLabel" destination="Zrh-VA-I5f" id="F3X-wK-YvQ"/>
-                        <outlet property="longitudeLabel" destination="irg-rm-UeT" id="gl3-La-vhk"/>
+                        <outlet property="flightMapView" destination="huh-Ao-0K8" id="r0x-VT-F9l"/>
+                        <outlet property="topInfoView" destination="lLP-VW-XgO" id="rQ0-cu-Lwl"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GCa-ds-qdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fXY-JE-tcU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-120.11718749999999" y="1187.5"/>
+            <point key="canvasLocation" x="-757.03125" y="767.96875"/>
         </scene>
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">
             <objects>
                 <tableViewController storyboardIdentifier="MasterViewController" clearsSelectionOnViewWillAppear="NO" id="2xo-QJ-M16" customClass="MasterViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="58T-7B-k41">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -261,10 +218,10 @@
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" textLabel="tqy-f2-rUA" detailTextLabel="Tbb-Cn-yQg" style="IBUITableViewCellStyleSubtitle" id="yrB-p9-ePi">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yrB-p9-ePi" id="FPs-qV-XVm">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tqy-f2-rUA">
@@ -298,7 +255,6 @@
                     <navigationItem key="navigationItem" title="FarmLens" id="bed-O4-cqV"/>
                     <connections>
                         <segue destination="ikC-T6-mr4" kind="showDetail" identifier="ImageDownloadSegue" id="m17-c6-lOh"/>
-                        <segue destination="L9n-SB-x1Z" kind="showDetail" identifier="FlightPathSegue" id="w6G-vS-U2W"/>
                         <segue destination="XMn-Jh-mYk" kind="showDetail" identifier="ViewImagesSegue" id="6Sv-Dr-Gvs"/>
                     </connections>
                 </tableViewController>
@@ -311,7 +267,7 @@
             <objects>
                 <navigationController id="Ue0-eq-p3r" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="CDf-ev-bRT">
-                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -332,19 +288,6 @@
             </objects>
             <point key="canvasLocation" x="-120" y="241"/>
         </scene>
-        <!--Split View Controller-->
-        <scene sceneID="XO4-NK-k2y">
-            <objects>
-                <splitViewController id="o6h-pm-zW8" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="Ue0-eq-p3r" kind="relationship" relationship="masterViewController" id="KSd-xr-sao"/>
-                        <segue destination="L9n-SB-x1Z" kind="relationship" relationship="detailViewController" id="d0l-8C-xqA"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3HK-IA-Gvd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-881" y="784"/>
-        </scene>
         <!--View Images View Controller-->
         <scene sceneID="nqJ-00-i6j">
             <objects>
@@ -354,14 +297,14 @@
                         <viewControllerLayoutGuide type="bottom" id="uxj-ZG-DZ3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="t1P-LS-Jvr">
-                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="Od5-9j-afF">
-                                <rect key="frame" x="-0.5" y="0.0" width="704" height="768"/>
+                                <rect key="frame" x="-0.5" y="0.0" width="1024.5" height="768"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj8-xF-kje">
-                                <rect key="frame" x="523" y="698" width="161" height="50"/>
+                                <rect key="frame" x="843.5" y="698" width="161" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="161" id="WEb-hj-0wR"/>
@@ -376,7 +319,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dry-ce-dWb" customClass="MGLMapView">
-                                <rect key="frame" x="20" y="20" width="664" height="670"/>
+                                <rect key="frame" x="20" y="20" width="984.5" height="670"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -411,7 +354,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8Ih-BB-r2J"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="POc-eE-RaF">
-                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="xmY-7o-jBe">
@@ -501,11 +444,10 @@
         <image name="Background" width="1000" height="768"/>
         <image name="circle-off" width="10" height="10"/>
         <image name="drone-camera" width="141" height="141"/>
+        <image name="exit-btn" width="22" height="22"/>
         <image name="field-map-header" width="475" height="91"/>
         <image name="main-button-rect" width="309" height="71"/>
         <image name="nofill-button" width="200" height="60"/>
+        <image name="start-flight-btn-enabled" width="278" height="70"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="d0l-8C-xqA"/>
-    </inferredMetricsTieBreakers>
 </document>

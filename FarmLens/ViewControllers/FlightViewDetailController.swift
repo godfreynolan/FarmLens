@@ -24,17 +24,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     
     private var aircraftAnnotation = DJIImageAnnotation(identifier: "aircraftAnnotation")
     
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
-    @IBOutlet weak var altitudeLabel: UILabel!
-    @IBOutlet weak var batteryLifeLabel: UILabel!
-    
     @IBOutlet weak var flightMapView: MGLMapView!
+    @IBOutlet weak var topInfoView: UIView!
     
     override func viewWillAppear(_ animated: Bool) {
         self.flightPlanning = FlightPlanning()
         self.flightMapView.addAnnotation(self.aircraftAnnotation)
-        
+
         DJISDKManager.keyManager()?.startListeningForChanges(on: DJIFlightControllerKey(param: DJIFlightControllerParamAircraftLocation)!, withListener: self) { [unowned self] (oldValue: DJIKeyedValue?, newValue: DJIKeyedValue?) in
             if newValue != nil {
                 let newLocationValue = newValue!.value as! CLLocation
@@ -42,25 +38,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                 if CLLocationCoordinate2DIsValid(newLocationValue.coordinate) {
                     self.aircraftAnnotation.coordinate = newLocationValue.coordinate
                 }
-                
-                self.latitudeLabel.text = String(format:"Lat: %.4f", newLocationValue.coordinate.latitude)
-                self.longitudeLabel.text = String(format:"Long: %.4f", newLocationValue.coordinate.longitude)
-                self.altitudeLabel.text = String(format:"Alt: %.4f ft", Utils.metersToFeet(newLocationValue.altitude))
             }
         }
-        
-        DJISDKManager.keyManager()?.startListeningForChanges(on: DJIBatteryKey(param: DJIBatteryParamChargeRemainingInPercent)!, withListener: self, andUpdate: { (oldValue, newValue) in
-            if newValue != nil {
-                self.batteryLifeLabel.text = "Battery Percentage: \(newValue!.unsignedIntegerValue) %"
-            }
-        })
-        
+
         DJISDKManager.keyManager()?.getValueFor(DJIBatteryKey(param: DJIBatteryParamChargeRemainingInPercent)!, withCompletion: { [unowned self] (value: DJIKeyedValue?, error: Error?) in
             if value == nil {
                 return
             }
-            
-            self.batteryLifeLabel.text = "Battery Percentage: \(value!.unsignedIntegerValue)%"
         })
         
         DJISDKManager.keyManager()?.getValueFor(DJIProductKey(param: DJIParamConnection)!, withCompletion: { (value:DJIKeyedValue?, error:Error?) in
@@ -97,6 +81,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
         gestureRecognizer.delegate = self
         self.flightMapView.addGestureRecognizer(gestureRecognizer)
+        self.topInfoView.backgroundColor = UIColor.black
+        self.topInfoView.setNeedsDisplay()
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -250,7 +237,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             }
         } else {
             identifier = annotation.title!!
-            image = #imageLiteral(resourceName: "navigation_poi_pin")
+            image = #imageLiteral(resourceName: "map-marker")
         }
         
         let annotationView = mapView.dequeueReusableAnnotationImage(withIdentifier: identifier)
@@ -265,18 +252,21 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     // Handle the drawing of the lines and shapes
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         if annotation is MGLPolyline {
-            return .red
+            if self.boundaryCoordinateList.count < 3 {
+                return .red
+            } else {
+                return UIColor(red: 0, green: 1.0, blue: 0.63529, alpha: 1.0)
+            }
         }
-        
-        return .green
+        return UIColor(red: 0, green: 1.0, blue: 0.63529, alpha: 1.0)
     }
     
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        return 6
+        return 4
     }
     
     func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
-        return .green
+        return UIColor(red: 0, green: 0.3921, blue: 0.2509, alpha: 0.5)
     }
     
     func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
@@ -284,9 +274,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             return 1
         }
         
-        return 0.5
+        return 0.7
     }
-    
+
     // Handle the "click" of a coordinate
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         if !(annotation is MGLPointAnnotation) {
@@ -375,7 +365,10 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         } else {
             if self.boundaryLine != nil {
                 self.flightMapView.remove(self.boundaryLine!)
-                self.boundaryLine = nil
+                var lineCoords = boundaryCoordinateList
+                lineCoords.append(lineCoords[0])
+                self.boundaryLine = MGLPolyline(coordinates: lineCoords, count: UInt(lineCoords.count))
+                self.flightMapView.add(self.boundaryLine!)
             }
             
             if self.boundaryPolygon != nil {
