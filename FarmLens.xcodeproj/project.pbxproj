@@ -21,6 +21,7 @@
 		1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188737492073C738003EC5E0 /* UIImage+pixelData.swift */; };
 		18C91379205AF46C00DBF615 /* ImageTilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C91378205AF46C00DBF615 /* ImageTilerTests.swift */; };
 		844743732171125F006DE673 /* StyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844743722171125F006DE673 /* StyledButton.swift */; };
+		845E3B9E2174D4B8009A4305 /* FlightCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E3B9D2174D4B8009A4305 /* FlightCompleteViewController.swift */; };
 		84C94B41216E6FB60089B19B /* NetworkInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B40216E6FB60089B19B /* NetworkInformation.swift */; };
 		84C94B43216E80C10089B19B /* StitchRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B42216E80C10089B19B /* StitchRequester.swift */; };
 		84C94B45216E83060089B19B /* CountdownLatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C94B44216E83060089B19B /* CountdownLatch.swift */; };
@@ -105,6 +106,7 @@
 		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
 		844743722171125F006DE673 /* StyledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledButton.swift; sourceTree = "<group>"; };
+		845E3B9D2174D4B8009A4305 /* FlightCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCompleteViewController.swift; sourceTree = "<group>"; };
 		84C94B40216E6FB60089B19B /* NetworkInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInformation.swift; sourceTree = "<group>"; };
 		84C94B42216E80C10089B19B /* StitchRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StitchRequester.swift; sourceTree = "<group>"; };
 		84C94B44216E83060089B19B /* CountdownLatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLatch.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				FF16271720503CA0008BB642 /* MasterViewController.swift */,
 				A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */,
 				18807768203CB60C006AC0E5 /* ViewImagesViewController.swift */,
+				845E3B9D2174D4B8009A4305 /* FlightCompleteViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 				18807769203CB60C006AC0E5 /* ViewImagesViewController.swift in Sources */,
 				84C94B41216E6FB60089B19B /* NetworkInformation.swift in Sources */,
 				FF976349206041960009B830 /* CameraCallback.swift in Sources */,
+				845E3B9E2174D4B8009A4305 /* FlightCompleteViewController.swift in Sources */,
 				1887374A2073C738003EC5E0 /* UIImage+pixelData.swift in Sources */,
 				FF976347206040AD0009B830 /* Utils.swift in Sources */,
 				FF97634B2060432F0009B830 /* InitialCameraCallback.swift in Sources */,
