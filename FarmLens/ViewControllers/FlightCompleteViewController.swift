@@ -66,7 +66,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         } else {
             self.statusLabel.text = "Download couldn't start: No drone connected"
         }
-        //tartImageDownload()
     }
     
     @IBAction func downloadLaterClicked(_ sender: Any) {
@@ -175,7 +174,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         didDownload = true
         self.statusLabel.text = "All Images Downloaded. Generating heatmaps..."
         self.statusLabel.setNeedsDisplay()
-        //GenerateNdviImages()
         stitchImages()
     }
     
@@ -213,38 +211,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
                 self.initialCameraCallback.fetchInitialData()
             }
         })
-    }
-
-    // TODO: Put this work into a separate DispatchQueue so it does not block the UI thread.
-    private func GenerateNdviImages() {
-        if self.appDelegate.flightImageCount != 0 {
-            print("GenerateNdviImages", to: &self.logger)
-            let gen = HealthMapGenerator()
-            let loader = ImageLoader()
-
-            self.statusLabel.text = "Loading images..."
-            let drone_images = loader.loadImages(imageCount: appDelegate.flightImageCount)
-
-            var i = 1
-            for img in drone_images {
-
-                self.statusLabel.text = "Processing Image \(i) of \(appDelegate.flightImageCount)"
-
-                // Generate health map
-                img.setImage(image: gen.GenerateHealthMap(img: img.getImage()))
-
-                // Save to photo album
-                let loc = CLLocation(latitude: img.getLocation().latitude, longitude: img.getLocation().longitude)
-                addAssetWithMetadata(image: img.getImage(), location: loc)
-
-                i = i + 1
-            }
-            stitchImages()
-        } else {
-            let alert = UIAlertController(title: "Error", message: "There are no pictures to process", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
     }
 
     func stitchImages() {
