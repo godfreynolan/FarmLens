@@ -164,7 +164,10 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                     self.downloadProgressLabel.setNeedsDisplay()
                 }
                 let loader = ImageLoader()
-                let images = loader.loadAssetImages(imageCount: self.appDelegate.flightImageCount)
+                var images = loader.loadAssetImages(imageCount: self.appDelegate.flightImageCount)
+                for image in images {
+                    
+                }
                 DispatchQueue.main.async {
                     self.downloadProgressLabel.text = String(format: "Images fetched: %d", images.count)
                     self.downloadProgressLabel.setNeedsDisplay()

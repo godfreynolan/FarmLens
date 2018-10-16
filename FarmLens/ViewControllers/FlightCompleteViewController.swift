@@ -33,6 +33,8 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     private var droneConnected: Bool = false
     private var didDownload: Bool = false
     private var logger = Log()
+    
+    private var stitchedImage: UIImage? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,34 +102,23 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         var mutableData: Data? = nil
         var previousOffset = 0
         
-        file.fetchData(withOffset: UInt(previousOffset), update: DispatchQueue.main, update: { (data, isComplete, error) in
-            if (error != nil) {
-                return
-            }
+        file.fetchPreview { (error) in
+            if (error != nil) { return }
             
-            if (mutableData == nil) {
-                mutableData = data
+            let data = UIImagePNGRepresentation(file.preview!)!
+            self.saveImage(data: data, statusIndex: self.statusIndex)
+            let progress = Float(self.statusIndex) / Float(self.mediaDownloadList.count)
+            self.progressBar.setProgress(progress, animated: true)
+            
+            self.statusIndex += 1
+            self.currentDownloadIndex += 1
+            if (self.currentDownloadIndex < self.mediaDownloadList.count) {
+                self.statusLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
+                self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
             } else {
-                mutableData?.append(data!)
+                self.imageDownloader.setCameraToPhotoShoot()
             }
-            
-            previousOffset += (data?.count)!;
-            if (previousOffset == file.fileSizeInBytes && isComplete) {
-                self.saveImage(data: mutableData!, statusIndex: self.statusIndex)
-                let progress = Float(self.statusIndex) / Float(self.mediaDownloadList.count)
-                self.progressBar.setProgress(progress, animated: true)
-
-                self.statusIndex += 1
-                self.currentDownloadIndex += 1
-                
-                if (self.currentDownloadIndex < self.mediaDownloadList.count) {
-                    self.statusLabel.text = "Downloading Image \(self.statusIndex) of \(self.appDelegate.flightImageCount)"
-                    self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
-                } else {
-                    self.imageDownloader.setCameraToPhotoShoot()
-                }
-            }
-        })
+        }
     }
     
     private func saveImage(data: Data, statusIndex: Int) {
@@ -184,7 +175,8 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         didDownload = true
         self.statusLabel.text = "All Images Downloaded. Generating heatmaps..."
         self.statusLabel.setNeedsDisplay()
-        GenerateNdviImages()
+        //GenerateNdviImages()
+        stitchImages()
     }
     
     func onFileListRefresh() {}
@@ -226,6 +218,7 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     // TODO: Put this work into a separate DispatchQueue so it does not block the UI thread.
     private func GenerateNdviImages() {
         if self.appDelegate.flightImageCount != 0 {
+            print("GenerateNdviImages", to: &self.logger)
             let gen = HealthMapGenerator()
             let loader = ImageLoader()
 
@@ -335,9 +328,18 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.statusLabel.text = "Stitch download complete."
+                    self.statusLabel.text = "Generating heatmap from stitch. This may take a few moments..."
                     self.statusLabel.setNeedsDisplay()
                 }
+                let queue = DispatchQueue(label: "nvdi-queue")
+                queue.async {
+                    let generator = HealthMapGenerator()
+                    self.stitchedImage = generator.GenerateHealthMap(img: UIImage(data: data!)!)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "showStitchSegue", sender: nil)
+                    }
+                }
+                //self.stitchedImage = UIImage(data: data!)!
             }
         }
     }
@@ -353,5 +355,10 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         }, completionHandler: { success, error in
             if !success { NSLog("error creating asset: \(String(describing: error))") }
         })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationController = segue.destination as! StitchViewerViewController
+        destinationController.toShow = self.stitchedImage
     }
 }

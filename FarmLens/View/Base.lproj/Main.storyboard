@@ -145,7 +145,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqS-fZ-Z6H" userLabel="Go back">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqS-fZ-Z6H" userLabel="Go back">
                                 <rect key="frame" x="980" y="30" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="exit-btn"/>
@@ -153,7 +153,7 @@
                                     <segue destination="elD-ci-Ggq" kind="show" id="AtC-hz-1Lu"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLP-VW-XgO" userLabel="Top Info View">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLP-VW-XgO" userLabel="Top Info View">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="70"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="field-map-header" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-uu-j37">
@@ -177,7 +177,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
+                            <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
                                 <rect key="frame" x="717" y="661" width="293" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <state key="normal" image="start-flight-btn-enabled"/>
@@ -309,11 +309,51 @@
                         <outlet property="progressBar" destination="BwJ-CI-p7D" id="xJ6-Ty-tBH"/>
                         <outlet property="statusLabel" destination="Kdf-V9-Ofx" id="Hp6-gW-7Kd"/>
                         <outlet property="titleLabel" destination="nJ3-YM-pld" id="lUE-o8-owY"/>
+                        <segue destination="gQE-M9-FzC" kind="show" identifier="showStitchSegue" id="ozI-Av-7Pa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gx6-HF-z3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-779.296875" y="1577.34375"/>
+            <point key="canvasLocation" x="-757" y="1577"/>
+        </scene>
+        <!--Stitch Viewer-->
+        <scene sceneID="UWA-Zb-DY2">
+            <objects>
+                <viewController title="Stitch Viewer" id="gQE-M9-FzC" customClass="StitchViewerViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0pZ-t6-DwD"/>
+                        <viewControllerLayoutGuide type="bottom" id="RmG-fH-dha"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bxq-7M-0xe">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDg-eK-FBe">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image-file-download" translatesAutoresizingMaskIntoConstraints="NO" id="7MC-EE-mU5">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KDg-eK-FBe" secondAttribute="trailing" id="9UF-iN-TKt"/>
+                            <constraint firstItem="KDg-eK-FBe" firstAttribute="leading" secondItem="bxq-7M-0xe" secondAttribute="leading" id="Cfa-2E-dvK"/>
+                            <constraint firstItem="KDg-eK-FBe" firstAttribute="bottom" secondItem="RmG-fH-dha" secondAttribute="top" id="fAs-e3-ElU"/>
+                            <constraint firstItem="KDg-eK-FBe" firstAttribute="top" secondItem="bxq-7M-0xe" secondAttribute="top" id="hbM-zx-KhY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="7MC-EE-mU5" id="WlL-u2-Rwq"/>
+                        <outlet property="scrollView" destination="KDg-eK-FBe" id="d2h-Vj-oKf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vav-aP-jCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-94" y="1577"/>
         </scene>
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">
@@ -560,6 +600,7 @@
         <image name="drone-camera" width="141" height="141"/>
         <image name="exit-btn" width="22" height="22"/>
         <image name="field-map-header" width="475" height="91"/>
+        <image name="image-file-download" width="61" height="61"/>
         <image name="main-button-rect" width="309" height="71"/>
         <image name="nofill-button" width="200" height="60"/>
         <image name="nofill-button-large" width="270" height="62"/>
