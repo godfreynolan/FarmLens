@@ -59,7 +59,7 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         self.progressBar.isHidden = false
         self.cancelDownload.isHidden = false
         self.statusLabel.isHidden = false
-
+        
         if self.droneConnected {
             self.statusLabel.text = "Starting Download..."
             self.imageDownloader.setCameraToDownload()
@@ -89,7 +89,9 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         self.statusIndex = 1
         self.currentDownloadIndex = 0
 
-        downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
+        CustomPhotoAlbum.sharedInstance.clearAssetCollection {
+            self.downloadImage(file: self.mediaDownloadList[self.currentDownloadIndex])
+        }
     }
     
     private func downloadImage(file: DJIMediaFile) {
@@ -130,23 +132,24 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
             
         }
         
-        PHPhotoLibrary.shared().performChanges({
-            let request = PHAssetCreationRequest.forAsset()
-            request.addResource(with: .photo, fileURL: fileURL, options: nil)
-        }, completionHandler: { success, error in
-            do {
-                try FileManager.default.removeItem(at: fileURL)
-            } catch {
-                
-            }
-            
-            if !success {
-                let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
-                let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-        })
+        CustomPhotoAlbum.sharedInstance.save(fileURL: fileURL)
+//        PHPhotoLibrary.shared().performChanges({
+//            let request = PHAssetCreationRequest.forAsset()
+//            request.addResource(with: .photo, fileURL: fileURL, options: nil)
+//        }, completionHandler: { success, error in
+//            do {
+//                try FileManager.default.removeItem(at: fileURL)
+//            } catch {
+//
+//            }
+//
+//            if !success {
+//                let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
+//                let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//                self.present(alert, animated: true, completion: nil)
+//            }
+//        })
     }
     
     func fetchCamera() -> DJICamera? {
@@ -166,8 +169,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         self.statusLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
         self.progressBar.setProgress(0.0, animated: true)
         self.startImageDownload()
-        
-        //self.imageDownloader.setCameraToDownload()
     }
     
     func onPhotoReady() {
@@ -299,9 +300,10 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
                 }
                 let queue = DispatchQueue(label: "nvdi-queue")
                 queue.async {
-                    let generator = HealthMapGenerator()
-                    self.stitchedImage = generator.GenerateHealthMap(img: UIImage(data: data!)!)
+                    //let generator = HealthMapGenerator()
+                    //self.stitchedImage = generator.GenerateHealthMap(img: UIImage(data: data!)!)
                     DispatchQueue.main.async {
+                        self.stitchedImage = UIImage(data: data!)!
                         self.performSegue(withIdentifier: "showStitchSegue", sender: nil)
                     }
                 }

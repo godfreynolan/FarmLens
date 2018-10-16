@@ -259,7 +259,7 @@
                                     <action selector="downloadLaterClicked:" destination="chC-dN-Slo" eventType="touchUpInside" id="uWZ-C3-DHh"/>
                                 </connections>
                             </button>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.80000000000000004" progressImage="progress" trackImage="progress-track" translatesAutoresizingMaskIntoConstraints="NO" id="BwJ-CI-p7D">
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progressImage="progress" trackImage="progress-track" translatesAutoresizingMaskIntoConstraints="NO" id="BwJ-CI-p7D">
                                 <rect key="frame" x="180.5" y="382" width="663" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7k6-Js-2wn"/>
@@ -309,7 +309,7 @@
                         <outlet property="progressBar" destination="BwJ-CI-p7D" id="xJ6-Ty-tBH"/>
                         <outlet property="statusLabel" destination="Kdf-V9-Ofx" id="Hp6-gW-7Kd"/>
                         <outlet property="titleLabel" destination="nJ3-YM-pld" id="lUE-o8-owY"/>
-                        <segue destination="gQE-M9-FzC" kind="show" identifier="showStitchSegue" id="ozI-Av-7Pa"/>
+                        <segue destination="gQE-M9-FzC" kind="showDetail" identifier="showStitchSegue" id="ozI-Av-7Pa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gx6-HF-z3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -328,32 +328,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDg-eK-FBe">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B5l-hm-MwP">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="61"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image-file-download" translatesAutoresizingMaskIntoConstraints="NO" id="7MC-EE-mU5">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xT-MR-Dtq" userLabel="Go back">
+                                        <rect key="frame" x="991" y="28" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="TGH-Nv-LAo"/>
+                                            <constraint firstAttribute="width" constant="25" id="iIr-2z-HBb"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="exit-btn"/>
+                                        <connections>
+                                            <action selector="exitBtnClicked:" destination="gQE-M9-FzC" eventType="touchUpInside" id="xSr-h0-hy7"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zoom by pinching and drag to pan." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vig-M1-4FA">
+                                        <rect key="frame" x="20" y="28" width="267" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                            </scrollView>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="8xT-MR-Dtq" firstAttribute="trailing" secondItem="B5l-hm-MwP" secondAttribute="trailingMargin" id="58d-LH-UHK"/>
+                                    <constraint firstItem="Vig-M1-4FA" firstAttribute="leading" secondItem="B5l-hm-MwP" secondAttribute="leadingMargin" constant="12" id="LiH-Ak-DJ4"/>
+                                    <constraint firstItem="8xT-MR-Dtq" firstAttribute="top" secondItem="B5l-hm-MwP" secondAttribute="topMargin" id="qal-gx-Fb0"/>
+                                    <constraint firstItem="Vig-M1-4FA" firstAttribute="top" secondItem="8xT-MR-Dtq" secondAttribute="top" id="ueM-DX-JK6"/>
+                                    <constraint firstItem="8xT-MR-Dtq" firstAttribute="bottom" secondItem="B5l-hm-MwP" secondAttribute="bottomMargin" id="vFC-K3-bFk"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toa-tH-eS7">
+                                <rect key="frame" x="0.0" y="60" width="1024" height="708"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Zk-iY-WTw">
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="708"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="KDg-eK-FBe" secondAttribute="trailing" id="9UF-iN-TKt"/>
-                            <constraint firstItem="KDg-eK-FBe" firstAttribute="leading" secondItem="bxq-7M-0xe" secondAttribute="leading" id="Cfa-2E-dvK"/>
-                            <constraint firstItem="KDg-eK-FBe" firstAttribute="bottom" secondItem="RmG-fH-dha" secondAttribute="top" id="fAs-e3-ElU"/>
-                            <constraint firstItem="KDg-eK-FBe" firstAttribute="top" secondItem="bxq-7M-0xe" secondAttribute="top" id="hbM-zx-KhY"/>
+                            <constraint firstAttribute="trailing" secondItem="toa-tH-eS7" secondAttribute="trailing" id="9WF-HN-Ild"/>
+                            <constraint firstItem="toa-tH-eS7" firstAttribute="top" secondItem="B5l-hm-MwP" secondAttribute="bottom" id="AGZ-I5-0ei"/>
+                            <constraint firstItem="toa-tH-eS7" firstAttribute="top" secondItem="bxq-7M-0xe" secondAttribute="top" constant="60" id="Dg2-fP-YqQ"/>
+                            <constraint firstItem="toa-tH-eS7" firstAttribute="leading" secondItem="B5l-hm-MwP" secondAttribute="leading" id="PhD-PO-uAi"/>
+                            <constraint firstItem="toa-tH-eS7" firstAttribute="trailing" secondItem="B5l-hm-MwP" secondAttribute="trailing" id="ZOd-sV-JeV"/>
+                            <constraint firstItem="toa-tH-eS7" firstAttribute="leading" secondItem="bxq-7M-0xe" secondAttribute="leading" id="yzo-gK-xLY"/>
+                            <constraint firstAttribute="bottom" secondItem="toa-tH-eS7" secondAttribute="bottom" id="zEv-kc-xNG"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="7MC-EE-mU5" id="WlL-u2-Rwq"/>
-                        <outlet property="scrollView" destination="KDg-eK-FBe" id="d2h-Vj-oKf"/>
+                        <outlet property="scrollView" destination="3Zk-iY-WTw" id="bO4-0j-tsn"/>
+                        <segue destination="KBb-BR-KR2" kind="showDetail" identifier="doneLookingAtPhoto" id="5Za-W8-uhZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vav-aP-jCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-94" y="1577"/>
+            <point key="canvasLocation" x="-94.3359375" y="1576.5625"/>
         </scene>
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">
@@ -600,7 +635,6 @@
         <image name="drone-camera" width="141" height="141"/>
         <image name="exit-btn" width="22" height="22"/>
         <image name="field-map-header" width="475" height="91"/>
-        <image name="image-file-download" width="61" height="61"/>
         <image name="main-button-rect" width="309" height="71"/>
         <image name="nofill-button" width="200" height="60"/>
         <image name="nofill-button-large" width="270" height="62"/>
@@ -608,4 +642,7 @@
         <image name="progress-track" width="663" height="30"/>
         <image name="start-flight-btn-enabled" width="293" height="85"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5Za-W8-uhZ"/>
+    </inferredMetricsTieBreakers>
 </document>

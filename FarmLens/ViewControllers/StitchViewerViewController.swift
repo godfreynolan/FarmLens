@@ -11,32 +11,36 @@ import UIKit
 class StitchViewerViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var imageView: UIImageView!
     
     public var toShow: UIImage? = nil
+    private var savedTranslationX = CGFloat(0)
+    private var savedTranslationY = CGFloat(0)
+    private var imageView: UIImageView? = nil
+    private var containerView: UIView? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        imageView.image = toShow
-        scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 10.0
-        scrollView.alwaysBounceVertical = false
-        scrollView.alwaysBounceHorizontal = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.delegate = self // fallback to viewForZoomingInScrollView
         
-        let gen = HealthMapGenerator()
-        imageView.image = gen.GenerateHealthMap(img: toShow!)
-        // Do any additional setup after loading the view.
+        imageView = UIImageView(image: toShow)
+        containerView = UIView(frame: imageView!.bounds)
+        containerView!.addSubview(imageView!)
+        scrollView.addSubview(containerView!)
+        scrollView.contentSize = containerView!.frame.size
+        
+        scrollView.maximumZoomScale = 31.0
+        scrollView.minimumZoomScale = 1.0
+        scrollView.delegate = self
+        scrollView.bounces = true
+        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
     }
     
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return self.imageView
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.containerView!
     }
 
+    @IBAction func exitBtnClicked(_ sender: Any) {
+        self.performSegue(withIdentifier: "doneLookingAtPhoto", sender: nil)
+    }
     /*
     // MARK: - Navigation
 

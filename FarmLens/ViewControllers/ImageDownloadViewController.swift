@@ -178,7 +178,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
                         self.downloadProgressLabel.text = String(format: "Added image %d of %d", num, self.appDelegate.flightImageCount)
                         self.downloadProgressLabel.setNeedsDisplay()
                     }
-                    if num == 8 {
+                    if num == self.mediaDownloadList.count {
                         self.lockStitch(requester)
                     }
                 }, onImageFailure: { (err) in
