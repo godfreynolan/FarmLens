@@ -27,7 +27,9 @@ class ImageLoader {
         options.includeAllBurstAssets = false
         options.includeHiddenAssets = false
         
-        let results = PHAsset.fetchAssets(with: .image, options: options)
+        //let results = CustomPhotoAlbum.sharedInstance.assetCollection!
+        //let results = PHAsset.fetchAssets(with: .image, options: options)
+        let results = PHAsset.fetchAssets(in: CustomPhotoAlbum.sharedInstance.assetCollection!, options: options)
         
         let imageOptions = PHImageRequestOptions()
         imageOptions.isSynchronous = true
@@ -62,7 +64,7 @@ class ImageLoader {
         options.includeAllBurstAssets = false
         options.includeHiddenAssets = false
         
-        let results = PHAsset.fetchAssets(with: .image, options: options)
+        let results = PHAsset.fetchAssets(in: CustomPhotoAlbum.sharedInstance.assetCollection!, options: options)
         
         for index in 0...results.count - 1 {
             //loadedImages.append(results[index])
