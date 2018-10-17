@@ -80,15 +80,18 @@
                                     <constraint firstAttribute="height" constant="10" id="pZ9-cx-L5B"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beM-zl-qnn">
-                                <rect key="frame" x="412" y="588" width="200" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beM-zl-qnn">
+                                <rect key="frame" x="358" y="584" width="309" height="70"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="15" maxX="10" maxY="15"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
-                                <state key="normal" title="View Images" backgroundImage="nofill-button">
+                                <state key="normal" title="Download Last Flight" backgroundImage="nofill-button-large">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="chC-dN-Slo" kind="show" identifier="downloadLastSegue" id="rNY-zU-7mp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -117,6 +120,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="e7D-6G-d50"/>
                     <connections>
+                        <outlet property="downloadLaterBtn" destination="beM-zl-qnn" id="3rJ-dy-oUZ"/>
                         <outlet property="imgDrone" destination="lbr-iN-3xl" id="rZs-4i-LQe"/>
                         <outlet property="imgStatusCircle" destination="N1Y-W3-rYC" id="NtK-Rk-vDR"/>
                         <outlet property="openComponents" destination="ZWh-8t-5th" id="kM3-iQ-Ycz"/>
@@ -636,13 +640,13 @@
         <image name="exit-btn" width="22" height="22"/>
         <image name="field-map-header" width="475" height="91"/>
         <image name="main-button-rect" width="309" height="71"/>
-        <image name="nofill-button" width="200" height="60"/>
         <image name="nofill-button-large" width="270" height="62"/>
         <image name="progress" width="221" height="30"/>
         <image name="progress-track" width="663" height="30"/>
         <image name="start-flight-btn-enabled" width="293" height="85"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5Za-W8-uhZ"/>
+        <segue reference="rNY-zU-7mp"/>
+        <segue reference="cEw-w5-Tpp"/>
     </inferredMetricsTieBreakers>
 </document>

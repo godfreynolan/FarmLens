@@ -14,6 +14,7 @@ class StartupViewController: UIViewController {
     @IBOutlet weak var openComponents: UIButton!
     @IBOutlet weak var imgDrone: UIImageView!
     @IBOutlet weak var imgStatusCircle: UIImageView!
+    @IBOutlet weak var downloadLaterBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,8 @@ class StartupViewController: UIViewController {
     
     func resetUI() {
         self.title = "FarmLens"
-//        self.openComponents.isEnabled = false;
+        self.downloadLaterBtn.isEnabled = false
+        self.downloadLaterBtn.alpha = 0.5
         self.imgDrone.image = UIImage(named: "drone-camera")
         self.imgStatusCircle.image = UIImage(named: "circle-off")
     }
@@ -62,8 +64,9 @@ class StartupViewController: UIViewController {
         
         self.productModel.text = "No Drone Connected"
 
-//        self.openComponents.isEnabled = false;
         self.openComponents.alpha = 0.8;
+        self.downloadLaterBtn.alpha = 0.5
+        self.downloadLaterBtn.isEnabled = false
         
         self.imgDrone.image = UIImage(named: "drone-camera")
         self.imgStatusCircle.image = UIImage(named: "circle-off")
@@ -86,6 +89,8 @@ class StartupViewController: UIViewController {
         //Updates the product's connection status
         self.productConnectionStatus.text = "Drone Connected"
         
+        self.downloadLaterBtn.isEnabled = true;
+        self.downloadLaterBtn.alpha = 1.0
         self.openComponents.isEnabled = true;
         self.openComponents.alpha = 1.0;
         
@@ -116,4 +121,22 @@ class StartupViewController: UIViewController {
         
         return nil
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "downloadLastSegue" {
+            let controller = segue.destination as! FlightCompleteViewController
+            controller.shouldStartImmediately = true
+        }
+    }
+    
+//    @IBAction func downloadPreviousClicked(_ sender: Any) {
+//        let alert = UIAlertController(title: "Image Download", message: "This will download ALL images on the drone. Would you like to continue? Note: Ensure you have an internet connection.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+//            self.appDelegate.preFlightImageCount = 0
+//            self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
+//        }))
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action) in return}))
+//        self.present(alert, animated: true)
+//
+//    }
 }

@@ -23,6 +23,8 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var statusLabel: UILabel!
 
+    public var shouldStartImmediately: Bool = false
+    private var droneConnected: Bool = false
     private var camera: DJICamera?
     private var currentDownloadIndex = 0
     private var mediaDownloadList: [DJIMediaFile] = []
@@ -30,7 +32,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     private var statusIndex = 0
     private var imageDownloader: MediaHandler!
     private var initialCameraCallback: InitialCameraCallback!
-    private var droneConnected: Bool = false
     private var didDownload: Bool = false
     private var logger = Log()
     
@@ -52,6 +53,10 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     }
     
     @IBAction func downloadNowClicked(_ sender: Any) {
+        self.startDownload()
+    }
+    
+    private func startDownload() {
         self.downloadNow.isHidden = true
         self.downloadLater.isHidden = true
         self.checkIcon.isHidden = true
@@ -62,7 +67,13 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         
         if self.droneConnected {
             self.statusLabel.text = "Starting Download..."
-            self.imageDownloader.setCameraToDownload()
+            if(self.shouldStartImmediately) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5, execute: {() in
+                    self.imageDownloader.setCameraToDownload()
+                })
+            } else {
+                self.imageDownloader.setCameraToDownload()
+            }
         } else {
             self.statusLabel.text = "Download couldn't start: No drone connected"
         }
@@ -75,14 +86,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     @IBAction func cancelButtonClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     
     /// MARK: Helper methods
     private func startImageDownload() {
@@ -166,6 +169,9 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     /// MARK: CameraCallback
     func onDownloadReady() {
         self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
+        if(self.shouldStartImmediately) {
+            self.appDelegate.flightImageCount = self.mediaDownloadList.count
+        }
         self.statusLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
         self.progressBar.setProgress(0.0, animated: true)
         self.startImageDownload()
@@ -210,6 +216,12 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
 
                 self.initialCameraCallback = InitialCameraCallback(camera: self.fetchCamera()!, viewController: self)
                 self.initialCameraCallback.fetchInitialData()
+                if (self.shouldStartImmediately) {
+                    // Wait a short time so everything can be initialized.
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.500, execute: {() in
+                        self.startDownload()
+                    })
+                }
             }
         })
     }
