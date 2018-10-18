@@ -13,15 +13,19 @@ class ProductCommunicationManager: NSObject {
             NSLog("Please enter your app key in the info.plist")
             return
         }
-        
         DJISDKManager.registerApp(with: self)
     }
 }
 
 extension ProductCommunicationManager : DJISDKManagerDelegate {
     func appRegisteredWithError(_ error: Error?) {
-        print("SDK Registered with error \(error?.localizedDescription ?? "")")
-        
+        if error == nil {
+            print("SDK Registered successfully")
+        } else {
+            print("SDK Registered with error \(error?.localizedDescription ?? "")")
+        }
+
         DJISDKManager.startConnectionToProduct()
     }
+    
 }

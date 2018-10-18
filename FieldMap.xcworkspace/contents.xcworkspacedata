@@ -5,6 +5,9 @@
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:FarmLens.xcodeproj">
+      location = "group:/Users/admin/projects/farmlens/FieldMap.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FieldMap.xcodeproj">
    </FileRef>
 </Workspace>

@@ -96,10 +96,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     }
     
     @IBAction func startFlightClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
-        // TODO: Re-enable these:
-        //startFlight(sender)
-        //self.startFlightButton.isEnabled = false
+        //self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
+        startFlight(sender)
+        self.startFlightButton.isEnabled = false
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

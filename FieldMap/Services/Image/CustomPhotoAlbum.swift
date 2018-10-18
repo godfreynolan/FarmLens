@@ -63,14 +63,14 @@ class CustomPhotoAlbum: NSObject {
     }
     
     func clearAssetCollection(onComplete callback: @escaping () -> Void) {
-        PHPhotoLibrary.shared().performChanges({ () -> Void in
-            
-            PHAssetCollectionChangeRequest.deleteAssetCollections([self.assetCollection] as NSFastEnumeration)
-            
-        }, completionHandler: {(b, e) in
-            callback()
-            CustomPhotoAlbum.sharedInstance = CustomPhotoAlbum()
-        })
+        if(self.assetCollection != nil) {
+            PHPhotoLibrary.shared().performChanges({ () -> Void in
+                PHAssetCollectionChangeRequest.deleteAssetCollections([self.assetCollection] as NSFastEnumeration)
+            }, completionHandler: {(b, e) in
+                callback()
+                CustomPhotoAlbum.sharedInstance = CustomPhotoAlbum()
+            })
+        }
     }
     
     func save(fileURL: URL) {
