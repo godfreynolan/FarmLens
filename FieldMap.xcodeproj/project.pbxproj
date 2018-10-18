@@ -35,8 +35,6 @@
 		A4DB95AA1FEAAD4500F405CA /* ProductCommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959D1FEAAD4500F405CA /* ProductCommunicationManager.swift */; };
 		A4DB95AB1FEAAD4500F405CA /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB959E1FEAAD4500F405CA /* StartupViewController.swift */; };
 		A4DB95AC1FEAAD4500F405CA /* DJIImageAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DB95A01FEAAD4500F405CA /* DJIImageAnnotation.swift */; };
-		CD30D554A752758047BFFF73 /* Pods_FarmLens.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */; };
-		F47D0E76FA038D14FB25719A /* Pods_FarmLensTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */; };
 		FF015AAB204087A80093EA05 /* FlightPlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF015AAA204087A80093EA05 /* FlightPlanningTests.swift */; };
 		FF162716205026FA008BB642 /* ImageDownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF162715205026FA008BB642 /* ImageDownloadViewController.swift */; };
 		FF16271820503CA0008BB642 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF16271720503CA0008BB642 /* MasterViewController.swift */; };
@@ -106,10 +104,7 @@
 		188737472073C6BA003EC5E0 /* HealthMapGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMapGenerator.swift; sourceTree = "<group>"; };
 		188737492073C738003EC5E0 /* UIImage+pixelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+pixelData.swift"; sourceTree = "<group>"; };
 		18C91378205AF46C00DBF615 /* ImageTilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTilerTests.swift; sourceTree = "<group>"; };
-		1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FarmLens-FarmLensTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AE998ACF435AE560AE2C5D4 /* Pods_FieldMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FieldMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLens.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FarmLensTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4258DD167889BCDAF324F9D9 /* Pods-FarmLens.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FarmLens.release.xcconfig"; path = "Pods/Target Support Files/Pods-FarmLens/Pods-FarmLens.release.xcconfig"; sourceTree = "<group>"; };
 		4FB006688C1189D3A894C27F /* Pods_FieldMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FieldMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		845E3B9D2174D4B8009A4305 /* FlightCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCompleteViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +163,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFDB436C203DCAFD00E8D0F4 /* MapKit.framework in Frameworks */,
-				CD30D554A752758047BFFF73 /* Pods_FarmLens.framework in Frameworks */,
 				15218CE2DDAFA5503F4B1688 /* Pods_FieldMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,7 +171,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F47D0E76FA038D14FB25719A /* Pods_FarmLensTests.framework in Frameworks */,
 				1E20AD577552318508200727 /* Pods_FieldMapTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,9 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				FFDB436B203DCAFD00E8D0F4 /* MapKit.framework */,
-				1EF807FDA6DE8E555E38A6CF /* libPods-FarmLens-FarmLensTests.a */,
-				38DB54C0B9C2E25D14C4B50F /* Pods_FarmLens.framework */,
-				3FA14CDB3704B051104CCC8F /* Pods_FarmLensTests.framework */,
 				4FB006688C1189D3A894C27F /* Pods_FieldMap.framework */,
 				2AE998ACF435AE560AE2C5D4 /* Pods_FieldMapTests.framework */,
 			);
