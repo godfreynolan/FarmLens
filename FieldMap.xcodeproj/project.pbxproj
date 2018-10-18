@@ -494,7 +494,7 @@
 				TargetAttributes = {
 					182D46A5205306B800A4CBD8 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = UHDP7LK8C7;
+						DevelopmentTeam = 3YP4TRQZ6K;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 86985CC81E834EC200577EC7;
@@ -742,7 +742,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = 3YP4TRQZ6K;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FarmLensUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
@@ -765,7 +765,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UHDP7LK8C7;
+				DEVELOPMENT_TEAM = 3YP4TRQZ6K;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FarmLensUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;

@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (4.7.3)
-  - Crashlytics (3.9.3):
-    - Fabric (~> 1.7.2)
-  - DJI-SDK-iOS (4.4)
-  - Fabric (1.7.2)
-  - Mapbox-iOS-SDK (3.7.3)
+  - Crashlytics (3.10.7):
+    - Fabric (~> 1.7.11)
+  - DJI-SDK-iOS (4.7.1)
+  - Fabric (1.7.11)
+  - Mapbox-iOS-SDK (3.7.8)
   - Surge (2.0.0)
 
 DEPENDENCIES:
@@ -26,10 +26,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
-  DJI-SDK-iOS: d44ef9eea43531daa082a3de2630b019f277c066
-  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
-  Mapbox-iOS-SDK: 5304bd9605babe6da9050ea4cb23c1671420b737
+  Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
+  DJI-SDK-iOS: 61190de33ed627dee3171f40146386c31b1d6c09
+  Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
+  Mapbox-iOS-SDK: a8b55533ef5c5e91b5a26533bd4fb0ec88a3b994
   Surge: 1f0286bc5f0fe4283f3455479895bf85c7ef7760
 
 PODFILE CHECKSUM: 30525a821ced134349f0613a29bfe11512234a56

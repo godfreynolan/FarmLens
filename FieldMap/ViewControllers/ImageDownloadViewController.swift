@@ -95,7 +95,7 @@ class ImageDownloadViewController: UIViewController, CameraCallback {
     
     //### CameraCallback ###
     func onDownloadReady() {
-        self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
+        self.mediaDownloadList = (self.mediaManager?.sdCardFileListSnapshot())!
         
         self.downloadProgressLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
         //self.startImageDownload()

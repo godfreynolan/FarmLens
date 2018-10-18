@@ -47,10 +47,10 @@ class MediaHandler {
     
     // ### MediaManager state ###
     func retrieveMediaFiles() {
-        if (self.fetchMediaManager().fileListState == .syncing || self.fetchMediaManager().fileListState == .deleting) {
+        if (self.fetchMediaManager().sdCardFileListState == .syncing || self.fetchMediaManager().sdCardFileListState == .deleting) {
             self.callback.onError(error: nil)
         } else {
-            self.camera.mediaManager?.refreshFileList(completion: { (error) in
+            self.camera.mediaManager?.refreshFileList(of: .sdCard, withCompletion: { (error) in
                 if (error != nil) {
                     self.callback.onError(error: error)
                 } else {

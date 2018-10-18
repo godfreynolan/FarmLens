@@ -45,13 +45,13 @@ class InitialCameraCallback: CameraCallback {
         
         if viewController is StartupViewController {
             let startupViewController = self.viewController as! StartupViewController
-            startupViewController.setPreFlightImageCount(imageCount: (mediaManager.fileListSnapshot()?.count)!)
+            startupViewController.setPreFlightImageCount(imageCount: (mediaManager.sdCardFileListSnapshot()?.count)!)
         } else if self.viewController is FlightViewDetailController {
             let flightViewDetailController = self.viewController as! FlightViewDetailController
-            flightViewDetailController.setPreFlightImageCount(imageCount: (mediaManager.fileListSnapshot()?.count)!)
+            flightViewDetailController.setPreFlightImageCount(imageCount: (mediaManager.sdCardFileListSnapshot()?.count)!)
         } else if self.viewController is ImageDownloadViewController {
             let imageDownloadViewController = self.viewController as! ImageDownloadViewController
-            imageDownloadViewController.setTotalImageCount(totalFileCount: (mediaManager.fileListSnapshot()?.count)!)
+            imageDownloadViewController.setTotalImageCount(totalFileCount: (mediaManager.sdCardFileListSnapshot()?.count)!)
         }
         
         self.mediaHandler.setCameraToPhotoShoot()

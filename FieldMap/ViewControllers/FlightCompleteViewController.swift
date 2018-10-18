@@ -168,7 +168,7 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
     
     /// MARK: CameraCallback
     func onDownloadReady() {
-        self.mediaDownloadList = (self.mediaManager?.fileListSnapshot())!
+        self.mediaDownloadList = (self.mediaManager?.sdCardFileListSnapshot())!
         if(self.shouldStartImmediately) {
             self.appDelegate.flightImageCount = self.mediaDownloadList.count
         }
