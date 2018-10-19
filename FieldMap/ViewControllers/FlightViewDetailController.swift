@@ -96,9 +96,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     }
     
     @IBAction func startFlightClicked(_ sender: Any) {
-        self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
-        //startFlight(sender)
-        //self.startFlightButton.isEnabled = false
+        //self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
+        startFlight(sender)
+        self.startFlightButton.isEnabled = false
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -197,7 +197,6 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                 self.present(alert, animated: true)
             } else {
                 self.isFlightComplete = true
-                // TODO: Launch flight complete stuff here!
                 //let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
                 //alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 //self.present(alert, animated: true)
@@ -212,7 +211,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                 self.loadingAlert.dismiss(animated: true, completion: {
                     let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
+                    //self.present(alert, animated: true)
                 })
             }
         })

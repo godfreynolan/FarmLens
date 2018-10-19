@@ -49,7 +49,6 @@ class FlightPlanning {
         // 4. Store the start and end point of the above line. Increment the long. Repeat 2-4 until the max long is exceeded
         // 5. Reorder points to create a more efficient flight plan
         
-        // Step 1.
         let mapPoints = Array(UnsafeBufferPointer(start: boundingArea.coordinates, count: Int(boundingArea.pointCount)))
         
         var minX = mapPoints[0].longitude
