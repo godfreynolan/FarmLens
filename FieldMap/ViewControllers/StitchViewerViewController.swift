@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class StitchViewerViewController: UIViewController, UIScrollViewDelegate {
 
@@ -40,6 +41,24 @@ class StitchViewerViewController: UIViewController, UIScrollViewDelegate {
 
     @IBAction func exitBtnClicked(_ sender: Any) {
         self.performSegue(withIdentifier: "doneLookingAtPhoto", sender: nil)
+    }
+    
+    @IBAction func saveBtnClicked(_ sender: Any) {
+        PHPhotoLibrary.shared().performChanges({
+            let request = PHAssetCreationRequest.forAsset()
+            request.addResource(with: .photo, data: UIImagePNGRepresentation(self.toShow!)!, options: nil)
+        }, completionHandler: { success, error in
+            var message = ""
+            if !success {
+                message = String("Image couldn't be saved: " + (error?.localizedDescription)!);
+            } else {
+                message = "Image saved to Photos."
+            }
+            
+            let alert = UIAlertController(title: "Save Image", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        })
     }
     /*
     // MARK: - Navigation

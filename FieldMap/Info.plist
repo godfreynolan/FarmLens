@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>14</string>
+	<string>17</string>
 	<key>DJISDKAppKey</key>
 	<string>18257cde5da4626744934fa0</string>
 	<key>Fabric</key>
@@ -62,6 +62,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Uses bluetooth to communicate with some drones.</string>
+	<key>NSBluetoothPeripheralUsageDescription </key>
+	<string>Uses bluetooth to communicate with some drones.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Uses location information to show current location when evaluating flight paths.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -78,6 +82,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UIStatusBarHidden~ipad</key>
+	<true/>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIStatusBarTintParameters</key>

@@ -12,7 +12,7 @@
         <!--Startup View Controller-->
         <scene sceneID="SIb-O8-flv">
             <objects>
-                <viewController storyboardIdentifier="StartupViewController" id="elD-ci-Ggq" customClass="StartupViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartupViewController" id="elD-ci-Ggq" customClass="StartupViewController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AIH-un-b7E"/>
                         <viewControllerLayoutGuide type="bottom" id="vZH-HF-j3L"/>
@@ -135,22 +135,22 @@
         <!--Flight Plan View Controller-->
         <scene sceneID="zdq-nZ-hDE">
             <objects>
-                <viewController id="KBb-BR-KR2" userLabel="Flight Plan View Controller" customClass="FlightViewDetailController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KBb-BR-KR2" userLabel="Flight Plan View Controller" customClass="FlightViewDetailController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KHn-7f-DDc"/>
                         <viewControllerLayoutGuide type="bottom" id="bL0-31-T3R"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qan-1n-cPw">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="huh-Ao-0K8" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="70" width="1024" height="638"/>
+                                <rect key="frame" x="0.0" y="70" width="1112" height="704"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqS-fZ-Z6H" userLabel="Go back">
-                                <rect key="frame" x="980" y="30" width="25" height="25"/>
+                                <rect key="frame" x="1068" y="30" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="exit-btn"/>
                                 <connections>
@@ -158,10 +158,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLP-VW-XgO" userLabel="Top Info View">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="70"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1112" height="70"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="field-map-header" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-uu-j37">
-                                        <rect key="frame" x="447" y="37" width="130" height="25"/>
+                                        <rect key="frame" x="491" y="37" width="130" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -182,7 +182,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-Ua-1dc" userLabel="Start flight button">
-                                <rect key="frame" x="717" y="661" width="293" height="85"/>
+                                <rect key="frame" x="805" y="727" width="293" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <state key="normal" image="start-flight-btn-enabled"/>
                                 <connections>
@@ -214,7 +214,7 @@
         <!--Flight Complete View Controller-->
         <scene sceneID="SH7-5o-Zh1">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="chC-dN-Slo" customClass="FlightCompleteViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="chC-dN-Slo" customClass="FlightCompleteViewController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="W43-dl-iye"/>
                         <viewControllerLayoutGuide type="bottom" id="ayY-na-85a"/>
@@ -323,7 +323,7 @@
         <!--Stitch Viewer-->
         <scene sceneID="UWA-Zb-DY2">
             <objects>
-                <viewController title="Stitch Viewer" id="gQE-M9-FzC" customClass="StitchViewerViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Stitch Viewer" id="gQE-M9-FzC" customClass="StitchViewerViewController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0pZ-t6-DwD"/>
                         <viewControllerLayoutGuide type="bottom" id="RmG-fH-dha"/>
@@ -365,21 +365,40 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toa-tH-eS7">
                                 <rect key="frame" x="0.0" y="60" width="1112" height="774"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Zk-iY-WTw">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Zk-iY-WTw">
                                         <rect key="frame" x="0.0" y="0.0" width="1112" height="774"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3Zk-iY-WTw" firstAttribute="leading" secondItem="toa-tH-eS7" secondAttribute="leading" id="HTL-9R-hBo"/>
+                                    <constraint firstItem="3Zk-iY-WTw" firstAttribute="top" secondItem="toa-tH-eS7" secondAttribute="top" id="Ifl-gm-XOR"/>
+                                    <constraint firstAttribute="bottom" secondItem="3Zk-iY-WTw" secondAttribute="bottom" id="LkU-91-dSo"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Zk-iY-WTw" secondAttribute="trailing" id="dsA-i6-W7R"/>
+                                </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agH-8e-Xwj">
+                                <rect key="frame" x="775" y="755" width="309" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="pcf-Gr-b0x"/>
+                                    <constraint firstAttribute="width" constant="309" id="srj-oZ-cQt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <state key="normal" title="Save Image" backgroundImage="main-button-rect"/>
+                                <connections>
+                                    <action selector="saveBtnClicked:" destination="gQE-M9-FzC" eventType="touchUpInside" id="FAy-Cq-2ww"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="toa-tH-eS7" secondAttribute="trailing" id="9WF-HN-Ild"/>
                             <constraint firstItem="toa-tH-eS7" firstAttribute="top" secondItem="B5l-hm-MwP" secondAttribute="bottom" id="AGZ-I5-0ei"/>
                             <constraint firstItem="toa-tH-eS7" firstAttribute="top" secondItem="bxq-7M-0xe" secondAttribute="top" constant="60" id="Dg2-fP-YqQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="agH-8e-Xwj" secondAttribute="trailing" constant="8" id="P7w-ng-nMd"/>
                             <constraint firstItem="toa-tH-eS7" firstAttribute="leading" secondItem="B5l-hm-MwP" secondAttribute="leading" id="PhD-PO-uAi"/>
+                            <constraint firstItem="RmG-fH-dha" firstAttribute="top" secondItem="agH-8e-Xwj" secondAttribute="bottom" constant="8" id="XU9-EQ-977"/>
                             <constraint firstItem="toa-tH-eS7" firstAttribute="trailing" secondItem="B5l-hm-MwP" secondAttribute="trailing" id="ZOd-sV-JeV"/>
                             <constraint firstItem="toa-tH-eS7" firstAttribute="leading" secondItem="bxq-7M-0xe" secondAttribute="leading" id="yzo-gK-xLY"/>
                             <constraint firstAttribute="bottom" secondItem="toa-tH-eS7" secondAttribute="bottom" id="zEv-kc-xNG"/>
@@ -397,7 +416,7 @@
         <!--FarmLens-->
         <scene sceneID="Y4a-u6-FGc">
             <objects>
-                <tableViewController storyboardIdentifier="MasterViewController" clearsSelectionOnViewWillAppear="NO" id="2xo-QJ-M16" customClass="MasterViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MasterViewController" clearsSelectionOnViewWillAppear="NO" id="2xo-QJ-M16" customClass="MasterViewController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="58T-7B-k41">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -483,20 +502,20 @@
         <!--View Images View Controller-->
         <scene sceneID="nqJ-00-i6j">
             <objects>
-                <viewController storyboardIdentifier="ViewImagesViewController" id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewImagesViewController" id="XMn-Jh-mYk" customClass="ViewImagesViewController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="452-P2-k4p"/>
                         <viewControllerLayoutGuide type="bottom" id="uxj-ZG-DZ3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="t1P-LS-Jvr">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="Od5-9j-afF">
-                                <rect key="frame" x="-0.5" y="0.0" width="1024.5" height="768"/>
+                                <rect key="frame" x="-0.5" y="0.0" width="1112.5" height="834"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj8-xF-kje">
-                                <rect key="frame" x="843.5" y="698" width="161" height="50"/>
+                                <rect key="frame" x="931.5" y="764" width="161" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="161" id="WEb-hj-0wR"/>
@@ -511,7 +530,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dry-ce-dWb" customClass="MGLMapView">
-                                <rect key="frame" x="20" y="20" width="984.5" height="670"/>
+                                <rect key="frame" x="20" y="20" width="1072.5" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -540,7 +559,7 @@
         <!--Image Download View Controller-->
         <scene sceneID="cdD-ue-vF8">
             <objects>
-                <viewController id="ikC-T6-mr4" customClass="ImageDownloadViewController" customModule="FarmLens" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ikC-T6-mr4" customClass="ImageDownloadViewController" customModule="FieldMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2t9-Bj-7zg"/>
                         <viewControllerLayoutGuide type="bottom" id="8Ih-BB-r2J"/>
@@ -647,6 +666,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rNY-zU-7mp"/>
-        <segue reference="cEw-w5-Tpp"/>
+        <segue reference="5Za-W8-uhZ"/>
     </inferredMetricsTieBreakers>
 </document>
