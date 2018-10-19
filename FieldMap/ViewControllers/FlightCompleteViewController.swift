@@ -171,6 +171,8 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         self.mediaDownloadList = (self.mediaManager?.sdCardFileListSnapshot())!
         if(self.shouldStartImmediately) {
             self.appDelegate.flightImageCount = self.mediaDownloadList.count
+        } else {
+            self.appDelegate.flightImageCount = self.appDelegate.preFlightImageCount - self.mediaDownloadList.count
         }
         self.statusLabel.text = "Downloading Image 1 of \(self.appDelegate.flightImageCount)"
         self.progressBar.setProgress(0.0, animated: true)
