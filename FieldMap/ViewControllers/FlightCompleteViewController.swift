@@ -136,23 +136,6 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
         }
         
         CustomPhotoAlbum.sharedInstance.save(fileURL: fileURL)
-//        PHPhotoLibrary.shared().performChanges({
-//            let request = PHAssetCreationRequest.forAsset()
-//            request.addResource(with: .photo, fileURL: fileURL, options: nil)
-//        }, completionHandler: { success, error in
-//            do {
-//                try FileManager.default.removeItem(at: fileURL)
-//            } catch {
-//
-//            }
-//
-//            if !success {
-//                let message = String("Save Image Failed! Error: " + (error?.localizedDescription)!);
-//                let alert = UIAlertController(title: "Download Error", message: message, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
-//            }
-//        })
     }
     
     func fetchCamera() -> DJICamera? {
@@ -258,12 +241,12 @@ class FlightCompleteViewController: UIViewController, CameraCallback {
                     }
                 }, onImageFailure: { (err) in
                     num = num + 1
-                    let alert = UIAlertController(title: "Mission Error", message: err, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
+//                    let alert = UIAlertController(title: "Upload Failure", message: "An image failed to upload. The final stitch may be slightly distorted", preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+//                    self.present(alert, animated: true)
                     DispatchQueue.main.async {
-                        self.statusLabel.text = String(format: "Image upload failure", num)
-                        self.statusLabel.setNeedsDisplay()
+                        //self.statusLabel.text = String(format: "Image upload failure", num)
+                        //self.statusLabel.setNeedsDisplay()
                     }
                 })
             }

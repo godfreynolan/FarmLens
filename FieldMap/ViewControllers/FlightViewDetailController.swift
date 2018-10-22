@@ -190,10 +190,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         }
         
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
-        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
+            let logger = Log()
             if event.currentState == .readyToExecute {
+                logger.write("Aircraft state == readyToExecute // starting!")
                 self.startMission(loadingAlert: self.loadingAlert)
+            } else {
+                logger.write("Aircraft state != readyToExecute")
             }
         })
         
@@ -215,7 +218,9 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
         
         DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
+            let logger = Log()
             if error != nil {
+                logger.write("Mission upload error: " + error.debugDescription)
                 self.loadingAlert.dismiss(animated: true, completion: {
                     let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -329,13 +334,16 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     
     private func startMission(loadingAlert: UIAlertController) {
         DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
+            let logger = Log()
             if error != nil {
+                logger.write("No startMissionError")
                 loadingAlert.dismiss(animated: true, completion: {
                     let alert = UIAlertController(title: "Start Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     self.present(alert, animated: true)
                 } )
             } else {
+                logger.write("startMissionError = " + error.debugDescription)
                 loadingAlert.dismiss(animated: true, completion: nil)
             }
         })

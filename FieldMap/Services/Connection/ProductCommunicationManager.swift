@@ -21,6 +21,7 @@ extension ProductCommunicationManager : DJISDKManagerDelegate {
     func appRegisteredWithError(_ error: Error?) {
         if error == nil {
             print("SDK Registered successfully")
+            DJISDKManager.enableRemoteLogging(withDeviceID: "0123", logServerURLString: "10.5.2.16:4567")
         } else {
             print("SDK Registered with error \(error?.localizedDescription ?? "")")
         }
