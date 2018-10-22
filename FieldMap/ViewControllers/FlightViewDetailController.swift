@@ -8,11 +8,13 @@
 
 import UIKit
 import DJISDK
+import DJIWidget
 import Mapbox
 
-class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
+class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, DJIVideoFeedListener, DJICameraDelegate, DJISDKManagerDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    @IBOutlet weak var fpView: UIView!
     private var boundaryCoordinateList: [CLLocationCoordinate2D] = []
     private var droneConnected = false
     private var locationManager: CLLocationManager!
@@ -27,6 +29,10 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     
     @IBOutlet weak var flightMapView: MGLMapView!
     @IBOutlet weak var topInfoView: UIView!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.resetVideoPreview()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.flightPlanning = FlightPlanning()
@@ -63,7 +69,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.startFlightButton.setImage(UIImage(named: "start-flight-btn-enabled"), for: .normal)
         self.startFlightButton.setImage(UIImage(named: "start-flight-btn-disabled"), for: .disabled)
         
@@ -96,9 +102,10 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     }
     
     @IBAction func startFlightClicked(_ sender: Any) {
-        //self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
         startFlight(sender)
         self.startFlightButton.isEnabled = false
+        self.fpView.isHidden = false
+        self.setupVideoPreviewer()
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -389,6 +396,52 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             
             self.boundaryPolygon = MGLPolygon(coordinates: self.boundaryCoordinateList, count: UInt(self.boundaryCoordinateList.count))
             self.flightMapView.add(self.boundaryPolygon!)
+        }
+    }
+    
+    func setupVideoPreviewer() {
+        DJIVideoPreviewer.instance().setView(self.fpView)
+        DJISDKManager.videoFeeder()?.primaryVideoFeed.add(self, with: nil)
+        DJIVideoPreviewer.instance().start()
+    }
+    
+    func resetVideoPreview() {
+        DJIVideoPreviewer.instance()?.unSetView()
+        DJISDKManager.videoFeeder()?.primaryVideoFeed.remove(self)
+    }
+    
+    func videoFeed(_ videoFeed: DJIVideoFeed, didUpdateVideoData videoData: Data) {
+        let videoData = videoData as NSData
+        let videoBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: videoData.length)
+        videoData.getBytes(videoBuffer, length: videoData.length)
+        DJIVideoPreviewer.instance().push(videoBuffer, length: Int32(videoData.length))
+    }
+    
+    // Handles disconnects and reconnects.
+    func productConnected(_ product: DJIBaseProduct?) {
+        print("Product Connected")
+        
+        if (product != nil) {
+            let camera = self.fetchCamera()
+            if (camera != nil) {
+                camera!.delegate = self
+            }
+            self.setupVideoPreviewer()
+        }
+    }
+    
+    func productDisconnected() {
+        print("Product Disconnected")
+        let camera = self.fetchCamera()
+        if((camera != nil) && (camera?.delegate?.isEqual(self))!){
+            camera?.delegate = nil
+        }
+        self.resetVideoPreview()
+    }
+    
+    func appRegisteredWithError(_ error: Error?) {
+        if error == nil {
+            DJISDKManager.startConnectionToProduct()
         }
     }
 }

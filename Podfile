@@ -3,6 +3,7 @@ use_frameworks!
 
 target 'FieldMap' do
    pod 'DJI-SDK-iOS', '~> 4.4'
+   pod 'DJIWidget', '~> 1.1'
    pod 'Mapbox-iOS-SDK', '~> 3.7'
    pod 'Fabric'
    pod 'Crashlytics'

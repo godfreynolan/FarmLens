@@ -3,7 +3,7 @@ import Photos
 
 
 class CustomPhotoAlbum: NSObject {
-    static let albumName = "farmlens"
+    static let albumName = "fieldmap"
     static var sharedInstance = CustomPhotoAlbum()
     
     var assetCollection: PHAssetCollection!
