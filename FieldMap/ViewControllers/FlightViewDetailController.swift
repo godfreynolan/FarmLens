@@ -190,44 +190,58 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         }
         
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
-        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
-            let logger = Log()
-            if event.currentState == .readyToExecute {
-                logger.write("Aircraft state == readyToExecute // starting!")
-                self.startMission(loadingAlert: self.loadingAlert)
-            } else {
-                logger.write("Aircraft state != readyToExecute")
-            }
-        })
+     
         
-        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
-            if error != nil {
-                let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                self.present(alert, animated: true)
-            } else {
-                self.isFlightComplete = true
-                // TODO: Launch flight complete stuff here!
-                //let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
-                //alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                //self.present(alert, animated: true)
-                self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
-            }
-        })
-        
-        DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
-        
-        DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
-            let logger = Log()
-            if error != nil {
-                logger.write("Mission upload error: " + error.debugDescription)
-                self.loadingAlert.dismiss(animated: true, completion: {
-                    let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
+ 
+            DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
+                let logger = Log()
+                if event.currentState == .readyToExecute {
+                    logger.write("Aircraft state == readyToExecute // starting!")
+                    // kill the timer
+                timer.invalidate()
+                    self.startMission(loadingAlert: self.loadingAlert)
+                } else {
+                    logger.write("Aircraft state != readyToExecute\n")
+                    logger.write(String(reflecting: event.currentState))
+                    logger.write("\n")
+                    logger.write(String(event.currentState.rawValue))
+                    logger.write("\n")
+                }
+            })
+            
+            DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                } else {
+                    self.isFlightComplete = true
+                    // TODO: Launch flight complete stuff here!
+                    //let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
+                    //alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     //self.present(alert, animated: true)
-                })
-            }
-        })
+                    self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
+                }
+            })
+            
+            DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
+            
+            DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
+                let logger = Log()
+                if error != nil {
+                    logger.write("Mission upload error: " + error.debugDescription)
+                    self.loadingAlert.dismiss(animated: true, completion: {
+                        let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                        //self.present(alert, animated: true)
+                    })
+                }
+            })
+            
+        }
+        
+
     }
     
     // MARK: GestureDelegate
@@ -333,20 +347,21 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     // MARK: - Convenience
     
     private func startMission(loadingAlert: UIAlertController) {
-        DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
-            let logger = Log()
-            if error != nil {
-                logger.write("No startMissionError")
-                loadingAlert.dismiss(animated: true, completion: {
-                    let alert = UIAlertController(title: "Start Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-                } )
-            } else {
-                logger.write("startMissionError = " + error.debugDescription)
-                loadingAlert.dismiss(animated: true, completion: nil)
-            }
-        })
+            DJISDKManager.missionControl()?.waypointMissionOperator().startMission(completion: { (error) in
+                let logger = Log()
+                if error != nil {
+                    logger.write("No startMissionError")
+                    loadingAlert.dismiss(animated: true, completion: {
+                        let alert = UIAlertController(title: "Start Error", message: "Failed to start mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                        self.present(alert, animated: true)
+                    } )
+                } else {
+                    logger.write("startMissionError = " + error.debugDescription)
+                    loadingAlert.dismiss(animated: true, completion: nil)
+                }
+            })
+
     }
     
     private func missionError(message: String) {
