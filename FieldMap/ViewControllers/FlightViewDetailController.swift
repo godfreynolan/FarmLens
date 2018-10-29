@@ -264,12 +264,13 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
 
             self.loadingAlert.dismiss(animated: true, completion: {
                 // change text
-                self.loadingAlert.title = "Trial \(timerCount+1)"
+                self.loadingAlert.title = "Retrying..."
                 self.loadingAlert.message = "Please wait, will try \(5-timerCount) more times."
                 self.present(self.loadingAlert, animated: true)
             })
             
             if(timerCount == 5){
+                self.loadingAlert.dismiss(animated: true, completion: nil)
                 logger.write("Ending timer after \(timerCount) times\n")
                 timer.invalidate()
                 
