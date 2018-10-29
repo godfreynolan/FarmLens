@@ -191,9 +191,10 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
      
-        
+        var timerCount = 0
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
  
+            timerCount += 1
             DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
                 let logger = Log()
                 if event.currentState == .readyToExecute {
@@ -203,10 +204,28 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                     self.startMission(loadingAlert: self.loadingAlert)
                 } else {
                     logger.write("Aircraft state != readyToExecute\n")
-                    logger.write(String(reflecting: event.currentState))
-                    logger.write("\n")
-                    logger.write(String(event.currentState.rawValue))
-                    logger.write("\n")
+                    logger.write(String(reflecting: event.currentState)+"\n")
+                    switch event.currentState{
+                    case .unknown:
+                        logger.write("unknown: ")
+                    case .disconnected:
+                        logger.write("disconnected: ")
+                    case .recovering:
+                        logger.write("recovering: ")
+                    case .notSupported:
+                        logger.write("notSupported: ")
+                    case .readyToUpload:
+                        logger.write("readyToUpload: ")
+                    case .uploading:
+                        logger.write("uploading: ")
+                    case .readyToExecute:
+                        logger.write("readyToExecute: ")
+                    case .executing:
+                        logger.write("executing: ")
+                    case .executionPaused:
+                        logger.write("executionPaused: ")
+                    }
+                    logger.write(String(event.currentState.rawValue)+"\n")
                 }
             })
             
@@ -238,6 +257,31 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                     })
                 }
             })
+            
+            //debugging to see if it flys within 5 attempts
+            let logger = Log()
+                logger.write("\(timerCount) trial\n")
+
+            self.loadingAlert.dismiss(animated: true, completion: {
+                // change text
+                self.loadingAlert.title = "Trial \(timerCount+1)"
+                self.loadingAlert.message = "Please wait, will try \(5-timerCount) more times."
+                self.present(self.loadingAlert, animated: true)
+            })
+            
+            if(timerCount == 5){
+                logger.write("Ending timer after \(timerCount) times\n")
+                timer.invalidate()
+                
+                self.loadingAlert.dismiss(animated: true, completion: {
+                    // change text
+                    self.loadingAlert.title = "Timeout \(timerCount)"
+                    self.loadingAlert.message = "Couldn't fly after \(timerCount) attempts."
+                    self.loadingAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(self.loadingAlert, animated: true)
+                })
+                
+            }
             
         }
         
