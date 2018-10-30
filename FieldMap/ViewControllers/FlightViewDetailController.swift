@@ -191,7 +191,42 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         }
         
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
-     
+        
+        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
+            
+                switch event.currentState{
+                case .unknown:
+                    logger.write("unknown: ")
+                    
+                case .disconnected:
+                    logger.write("disconnected: ")
+                    
+                case .recovering:
+                    logger.write("recovering: ")
+ 
+                case .notSupported:
+                    logger.write("notSupported: ")
+
+                case .readyToUpload:
+                    logger.write("readyToUpload: ")
+
+                case .uploading:
+                    logger.write("uploading: ")
+
+                case .readyToExecute:
+                    logger.write("Aircraft state == readyToExecute // starting!\n")
+                    logger.write("readyToExecute rawValue: "+String(event.currentState.rawValue)+"\n")
+                    self.startMission(loadingAlert: self.loadingAlert)
+      
+                case .executing:
+                    logger.write("executing: ")
+ 
+                case .executionPaused:
+                    logger.write("executionPaused: ")
+                }//end switch
+
+        })
+        
         DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
             if error != nil {
                 let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
@@ -207,76 +242,49 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
             }
         })
         
-
-            DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
-                if event.currentState == .readyToExecute {
-                    logger.write("Aircraft state == readyToExecute // starting!\n")
-                    logger.write("readyToExecute rawValue: "+String(event.currentState.rawValue)+"\n")
-                    self.startMission(loadingAlert: self.loadingAlert)
-                } else {
-                    logger.write("Aircraft state != readyToExecute\n")
-                    logger.write(String(reflecting: event.currentState)+"\n")
-                    switch event.currentState{
-                    case .unknown:
-                        logger.write("unknown: ")
-                    case .disconnected:
-                        logger.write("disconnected: ")
-                    case .recovering:
-                        logger.write("recovering: ")
-                    case .notSupported:
-                        logger.write("notSupported: ")
-                    case .readyToUpload:
-                        logger.write("readyToUpload: ")
-                    case .uploading:
-                        logger.write("uploading: ")
-                    case .readyToExecute:
-                        logger.write("readyToExecute: ")
-                    case .executing:
-                        logger.write("executing: ")
-                    case .executionPaused:
-                        logger.write("executionPaused: ")
-                    }
-                    logger.write(String(event.currentState.rawValue)+"\n")
-                }
-            })
-
-        var timerCount = 0
-        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { timer in
-            
-            //check if mission is ready before trying to load again
-            let currentState = DJISDKManager.missionControl()?.waypointMissionOperator().currentState
-            if(currentState == .readyToExecute){
-                logger.write("currentState = .readyToExecute: \(String(describing: DJISDKManager.missionControl()?.waypointMissionOperator().currentState)) : \n")
-            
-                logger.write("ending timer: "+String(currentState!.rawValue)+"\n")
-                timer.invalidate()
-            }
-            
-            //retry the load
-            DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
-            timerCount += 1
-                logger.write("\(timerCount) trial\n")
-
-            self.loadingAlert.dismiss(animated: true, completion: {
-                // change text
-                self.loadingAlert.title = "Retrying..."
-                self.loadingAlert.message = "Please wait, will try \(5-timerCount) more times."
-                self.present(self.loadingAlert, animated: true)
-            })
-            
-            if(timerCount == 5){
-                self.loadingAlert.dismiss(animated: true, completion: nil)
-                logger.write("Ending timer after \(timerCount) times\n")
-                timer.invalidate()
-                
+        DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
+        
+        DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
+            let logger = Log()
+            if error != nil {
+                logger.write("Mission upload error: " + error.debugDescription)
                 self.loadingAlert.dismiss(animated: true, completion: {
-                    self.loadingAlert.title = "Timeout \(timerCount)"
-                    self.loadingAlert.message = "Couldn't fly after \(timerCount) attempts."
-                    self.loadingAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(self.loadingAlert, animated: true)
+                    let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    //self.present(alert, animated: true)
                 })
-            }//end if
-        }//end timer block
+            }
+        })
+        
+//        var timerCount = 0
+//        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { timer in
+        
+            //retry the upload
+            
+//            timerCount += 1
+//            logger.write("\(timerCount) trial\n")
+//
+//            if(timerCount<=4){
+//                self.loadingAlert.dismiss(animated: true, completion: {
+//                    // change text
+//                    self.loadingAlert.title = "Retrying..."
+//                    self.loadingAlert.message = "Please wait, will try \(5-timerCount) more times."
+//                    self.present(self.loadingAlert, animated: true)
+//                })
+//            }else{
+//                logger.write("Ending timer after \(timerCount) times\n")
+//
+//                self.loadingAlert.dismiss(animated: true, completion: {
+//                    self.loadingAlert.title = "Timeout"
+//                    self.loadingAlert.message = "Couldn't fly after \(timerCount) attempts."
+//                    self.loadingAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+//                    self.present(self.loadingAlert, animated: true)
+//                })
+//
+//                timer.invalidate()
+//            }//end else
+//
+//        }//end timer block
         
     }//end startMission()
     
