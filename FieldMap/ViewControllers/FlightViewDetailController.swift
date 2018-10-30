@@ -177,6 +177,7 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
     }
     
     func startMission() {
+        let logger = Log()
         let flightPathCoordinates = self.flightPlanning.calculateFlightPlan(boundingArea: self.boundaryPolygon!, spacingFeet: 95)
         
         if flightPathCoordinates.count <= 2 {
@@ -191,16 +192,26 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
         
         let mission = self.flightPlanning.createMission(missionCoordinates: flightPathCoordinates)
      
-        var timerCount = 0
-        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
- 
-            timerCount += 1
+        DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
+            if error != nil {
+                let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                self.isFlightComplete = true
+                // TODO: Launch flight complete stuff here!
+                //let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
+                //alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                //self.present(alert, animated: true)
+                self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
+            }
+        })
+        
+
             DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toUploadEvent: self, with: .main, andBlock: { (event) in
-                let logger = Log()
                 if event.currentState == .readyToExecute {
-                    logger.write("Aircraft state == readyToExecute // starting!")
-                    // kill the timer
-                timer.invalidate()
+                    logger.write("Aircraft state == readyToExecute // starting!\n")
+                    logger.write("readyToExecute rawValue: "+String(event.currentState.rawValue)+"\n")
                     self.startMission(loadingAlert: self.loadingAlert)
                 } else {
                     logger.write("Aircraft state != readyToExecute\n")
@@ -228,38 +239,22 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                     logger.write(String(event.currentState.rawValue)+"\n")
                 }
             })
+
+        var timerCount = 0
+        Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { timer in
             
-            DJISDKManager.missionControl()?.waypointMissionOperator().addListener(toFinished: self, with: DispatchQueue.main, andBlock: { (error) in
-                if error != nil {
-                    let alert = UIAlertController(title: "Mission Error", message: "Failed to finish mission", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-                } else {
-                    self.isFlightComplete = true
-                    // TODO: Launch flight complete stuff here!
-                    //let alert = UIAlertController(title: "Mission Success", message: "The mission has finished successfully. Please wait until the drone lands to download the pictures.", preferredStyle: .alert)
-                    //alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    //self.present(alert, animated: true)
-                    self.performSegue(withIdentifier: "segueFlightComplete", sender: nil)
-                }
-            })
+            //check if mission is ready before trying to load again
+            let currentState = DJISDKManager.missionControl()?.waypointMissionOperator().currentState
+            if(currentState == .readyToExecute){
+                logger.write("currentState = .readyToExecute: \(String(describing: DJISDKManager.missionControl()?.waypointMissionOperator().currentState)) : \n")
             
+                logger.write("ending timer: "+String(currentState!.rawValue)+"\n")
+                timer.invalidate()
+            }
+            
+            //retry the load
             DJISDKManager.missionControl()?.waypointMissionOperator().load(mission)
-            
-            DJISDKManager.missionControl()?.waypointMissionOperator().uploadMission(completion: { (error) in
-                let logger = Log()
-                if error != nil {
-                    logger.write("Mission upload error: " + error.debugDescription)
-                    self.loadingAlert.dismiss(animated: true, completion: {
-                        let alert = UIAlertController(title: "Upload Error", message: "Failed to upload mission: \(error?.localizedDescription)", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                        //self.present(alert, animated: true)
-                    })
-                }
-            })
-            
-            //debugging to see if it flys within 5 attempts
-            let logger = Log()
+            timerCount += 1
                 logger.write("\(timerCount) trial\n")
 
             self.loadingAlert.dismiss(animated: true, completion: {
@@ -275,19 +270,15 @@ class FlightViewDetailController: UIViewController, MGLMapViewDelegate, CLLocati
                 timer.invalidate()
                 
                 self.loadingAlert.dismiss(animated: true, completion: {
-                    // change text
                     self.loadingAlert.title = "Timeout \(timerCount)"
                     self.loadingAlert.message = "Couldn't fly after \(timerCount) attempts."
                     self.loadingAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     self.present(self.loadingAlert, animated: true)
                 })
-                
-            }
-            
-        }
+            }//end if
+        }//end timer block
         
-
-    }
+    }//end startMission()
     
     // MARK: GestureDelegate
     func handleTap(gestureRecognizer: UILongPressGestureRecognizer) {
